@@ -5,7 +5,7 @@
     <Position X="6.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>Grammar.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAgAAAAAAAAA=</HashCode>
+      <HashCode>AABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="LL1AnalyzerTool.DirectSyms" Collapsed="true">
@@ -19,14 +19,14 @@
     <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>Production.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAIAEAAAAAAAAAAAAAAAAAAgCABAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="LL1AnalyzerTool.Symbol">
     <Position X="4.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>Symbol.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="LL1AnalyzerTool.GrammarAnalyzer" Collapsed="true">

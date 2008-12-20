@@ -8,21 +8,27 @@ namespace LL1AnalyzerTool
     {
         public Grammar(string[] productions, string[] terminalWords)
         {
-            throw new System.NotImplementedException();
+            foreach (string production in productions)
+            {
+                Production prod = new Production(production);
+                grammar.Add(prod);
+            }
         }
 
+        List<Production> m_grammar = new List<Production>();
         public List<Production> grammar
         {
             get
             {
-                throw new System.NotImplementedException();
+                return m_grammar;
             }
             set
             {
+                m_grammar = value;
             }
         }
 
-        public Set GetDirectionSymbols(List<Symbol> sequence)
+        public Set GetDirectionSymbols(string[] productions, string[] terminalWords, List<Symbol> sequence)
         {
             Set directionSymbols = new Set();
             directionSymbols.Add(new Symbol("test") );
@@ -30,9 +36,17 @@ namespace LL1AnalyzerTool
             return directionSymbols;
         }
 
-        public Set GetDirectionSymbols(string[] productions, string[] terminalWords)
+        public Set GetDirectionSymbols(List<LL1AnalyzerTool.Symbol> sequence, string[] productions, string[] terminalWords)
         {
             throw new System.NotImplementedException();
+        }
+
+        public Set GetDirectionSymbols(List<Symbol> sequence)
+        {
+            Set directionSymbols = new Set();
+            directionSymbols.Add(new Symbol("test"));
+
+            return directionSymbols;
         }
 
         // show direction syms summary for each production
@@ -42,9 +56,9 @@ namespace LL1AnalyzerTool
             foreach (Production production in grammar)
             {
                 Set dirSyms = GetDirectionSymbols(production.ToList());
-                log += "DS(" + production.Head + ">" + 
-                    production.Tail + 
-                    ") = " + dirSyms.ToString() + "\n";
+                log += "DS[" + production.Head + ">" + 
+                    production.Tail.ToString() + 
+                    "] = " + dirSyms.ToString() + "\r\n";
             }
             return log;
         }
