@@ -21,5 +21,15 @@ namespace LL1characteristicAnalyzer
             {
             }
         }
+
+        public SetCollection.Set GetDirectionSymbols()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public SetCollection.Set GetDirectionSymbols(string[] productions, string[] terminalWords)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
