@@ -13,7 +13,7 @@ namespace LL1AnalyzerTool
             throw new System.NotImplementedException();
         }
 
-        public string ToString()
+        public override string ToString()
         {
             return representation;
         }
