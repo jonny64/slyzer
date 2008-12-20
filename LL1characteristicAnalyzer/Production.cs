@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LL1characteristicAnalyzer
+namespace LL1AnalyzerTool
 {
     class Production
     {
+        private List<Symbol> prod;
+    
         public Production(string[] prodString)
         {
             throw new System.NotImplementedException();
@@ -31,6 +33,11 @@ namespace LL1characteristicAnalyzer
             set
             {
             }
+        }
+
+        public List<Symbol> ToList()
+        {
+            return prod;
         }
     }
 }

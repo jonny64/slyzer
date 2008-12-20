@@ -1,32 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Font Name="Tahoma" Size="8.25" />
-  <Class Name="LL1characteristicAnalyzer.Grammar" Collapsed="true">
-    <Position X="4.75" Y="0.5" Width="1.5" />
+  <Class Name="LL1AnalyzerTool.Grammar">
+    <Position X="6.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>Grammar.cs</FileName>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAgAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="LL1characteristicAnalyzer.DirectSyms" Collapsed="true">
+  <Class Name="LL1AnalyzerTool.DirectSyms" Collapsed="true">
     <Position X="3" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>DirectSyms.cs</FileName>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="LL1characteristicAnalyzer.Production" Collapsed="true">
-    <Position X="3" Y="1.5" Width="1.5" />
+  <Class Name="LL1AnalyzerTool.Production">
+    <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>Production.cs</FileName>
       <HashCode>AAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAACAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="LL1characteristicAnalyzer.Symbol" Collapsed="true">
-    <Position X="5" Y="1.5" Width="1.5" />
+  <Class Name="LL1AnalyzerTool.Symbol">
+    <Position X="4.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>Symbol.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="LL1AnalyzerTool.GrammarAnalyzer" Collapsed="true">
@@ -44,20 +44,20 @@
     </TypeIdentifier>
   </Class>
   <Class Name="LL1AnalyzerTool.main" Collapsed="true">
-    <Position X="9.75" Y="0.75" Width="1.5" />
+    <Position X="2.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>main.cs</FileName>
-      <HashCode>ACgAJAoBYCIAoAEAQACWgAgCAAAAACAAQDAAAAAAIAA=</HashCode>
+      <HashCode>ACgAJAoBYCAAoAEAQACWgAgCIAQAACAAQDAAAAAAIAA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="SetCollection.Set">
-    <Position X="3" Y="2.5" Width="1.5" />
+  <Class Name="LL1AnalyzerTool.Set">
+    <Position X="10" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>Set.cs</FileName>
       <HashCode>ABIAAAAAIACAABAE6AegFkYAAAAAAIAAAAAAAEBQJyA=</HashCode>
     </TypeIdentifier>
     <NestedTypes>
-      <Delegate Name="SetCollection.Set.Map" Collapsed="true">
+      <Delegate Name="LL1AnalyzerTool.Set.Map" Collapsed="true">
         <TypeIdentifier>
           <NewMemberFileName>Set.cs</NewMemberFileName>
         </TypeIdentifier>

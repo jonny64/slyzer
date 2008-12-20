@@ -4,7 +4,7 @@ using System.Collections;
 ///<author>Seth Peck</author>
 ///<date>11/01/2001</date>
 ///<email>seth@poetic.com</email>
-namespace SetCollection
+namespace LL1AnalyzerTool
 {
 	/// <summary>
 	/// A basic Set object for set arithmetic.  The Set class was designed without keeping
@@ -358,9 +358,9 @@ namespace SetCollection
 			string s = "(";
 			foreach (object o in myset)
 				if (o != myset[myset.Count-1])
-					s += o + ", ";
+					s += o.ToString() + ", ";
 				else
-					s += o;
+					s += o.ToString();
 			s += ")";
 			return s;
 		}

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace LL1characteristicAnalyzer
+namespace LL1AnalyzerTool
 {
     class Grammar
     {
@@ -22,14 +22,31 @@ namespace LL1characteristicAnalyzer
             }
         }
 
-        public SetCollection.Set GetDirectionSymbols()
+        public Set GetDirectionSymbols(List<Symbol> sequence)
+        {
+            Set directionSymbols = new Set();
+            directionSymbols.Add(new Symbol("test") );
+            
+            return directionSymbols;
+        }
+
+        public Set GetDirectionSymbols(string[] productions, string[] terminalWords)
         {
             throw new System.NotImplementedException();
         }
 
-        public SetCollection.Set GetDirectionSymbols(string[] productions, string[] terminalWords)
+        // show direction syms summary for each production
+        internal string GetDirectionSymbolsLog()
         {
-            throw new System.NotImplementedException();
+            string log = "";
+            foreach (Production production in grammar)
+            {
+                Set dirSyms = GetDirectionSymbols(production.ToList());
+                log += "DS(" + production.Head + ">" + 
+                    production.Tail + 
+                    ") = " + dirSyms.ToString() + "\n";
+            }
+            return log;
         }
     }
 }
