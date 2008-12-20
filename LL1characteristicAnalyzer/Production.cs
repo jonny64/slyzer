@@ -39,5 +39,10 @@ namespace LL1AnalyzerTool
         {
             return prod;
         }
+
+        public override string ToString()
+        {
+            return Head.ToString() + "->" + Tail.ToString();
+        }
     }
 }
