@@ -6,32 +6,33 @@ namespace LL1AnalyzerTool
 {
     class Production
     {
-        private List<Symbol> prod;
+        private List<Symbol> prod = new List<Symbol>();
     
-        public Production(string[] prodString)
+        public Production(string prodString)
         {
-            throw new System.NotImplementedException();
+            char[] seps ={ ' ' };
+            string[] syms = prodString.Split(seps,
+                StringSplitOptions.RemoveEmptyEntries);
+            foreach (string symString in syms)
+            {
+                prod.Add(new Symbol(symString));
+            }
         }
     
         public Symbol Head
         {
             get
             {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
+                return prod.ToArray()[0];
             }
         }
 
-        public List<Symbol> Tail
+        public Set Tail
         {
             get
             {
-                throw new System.NotImplementedException();
-            }
-            set
-            {
+                object[] values = prod.GetRange(1, prod.Count - 1).ToArray();
+                return new Set(values);
             }
         }
 

@@ -10,7 +10,7 @@ namespace LL1AnalyzerTool
     
         public Symbol(string representation)
         {
-            throw new System.NotImplementedException();
+            this.representation = representation;
         }
 
         public override string ToString()

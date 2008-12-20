@@ -69,14 +69,16 @@ namespace LL1AnalyzerTool
             tbOutput.Clear();
  
             // выводим множество направляющих символов для каждой продукции
-            tbOutput.AppendText("\n");
+            tbOutput.AppendText("\r\n");
             tbOutput.AppendText(myGrammar.GetDirectionSymbolsLog());
         }
 
         private string[] GetTerminals()
         {
-            string [] terminals = {"t", "g"};
-            return terminals;
+            char [] seps = {' '};
+            string[] terms = tbTerminal.Text.Split(seps, 
+                StringSplitOptions.RemoveEmptyEntries);
+            return terms;
         }
 
         private string[] GetProductions()
@@ -89,7 +91,7 @@ namespace LL1AnalyzerTool
         private string[] PreParse(string grammar)
         {
             //удаляем вхождения >
-            grammar = grammar.Replace(">", "");
+            grammar = grammar.Replace(">", " ");
             //разобьем выражение на строки
             char[] seps ={ '\r', '\n' };
             string[] productions = grammar.Split(seps,

@@ -45,6 +45,7 @@
             this.tbGrammar = new System.Windows.Forms.TextBox();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.tbOutput = new System.Windows.Forms.TextBox();
+            this.tbTerminal = new System.Windows.Forms.TextBox();
             this.menuStripMain.SuspendLayout();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -76,21 +77,21 @@
             // Open
             // 
             this.Open.Name = "Open";
-            this.Open.Size = new System.Drawing.Size(150, 22);
+            this.Open.Size = new System.Drawing.Size(161, 22);
             this.Open.Text = "Открыть";
             this.Open.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.saveToolStripMenuItem.Text = "Сохранить как";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(150, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.выходToolStripMenuItem_Click);
             // 
@@ -106,14 +107,14 @@
             // пускToolStripMenuItem
             // 
             this.пускToolStripMenuItem.Name = "пускToolStripMenuItem";
-            this.пускToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.пускToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.пускToolStripMenuItem.Text = "Множество направляющих символов";
             this.пускToolStripMenuItem.Click += new System.EventHandler(this.ViewDirectionSymbols);
             // 
             // lL1ТаблицаРазбораToolStripMenuItem
             // 
             this.lL1ТаблицаРазбораToolStripMenuItem.Name = "lL1ТаблицаРазбораToolStripMenuItem";
-            this.lL1ТаблицаРазбораToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
+            this.lL1ТаблицаРазбораToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.lL1ТаблицаРазбораToolStripMenuItem.Text = "LL(1) таблицу разбора";
             this.lL1ТаблицаРазбораToolStripMenuItem.Click += new System.EventHandler(this.BuildAnalysisTable);
             // 
@@ -128,7 +129,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(149, 22);
             this.aboutToolStripMenuItem.Text = "О программе";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -157,7 +158,7 @@
             this.tbGrammar.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbGrammar.Size = new System.Drawing.Size(139, 403);
             this.tbGrammar.TabIndex = 10;
-            this.tbGrammar.Text = "S>AbB\r\nS>d\r\nA>aAb\r\nA>edAb\r\nA>B\r\nB>cSd\r\nB>#";
+            this.tbGrammar.Text = "S>A b B\r\nS>d\r\nA>a A b\r\nA>e d A b\r\nA>B\r\nB>c S d\r\nB>#";
             this.toolTipMain.SetToolTip(this.tbGrammar, "Продукции должны быть в формате A>BCd, по одной на строку. Как eps символ испоьзу" +
                     "йте #.");
             this.tbGrammar.WordWrap = false;
@@ -174,6 +175,7 @@
             // 
             // splitContainerMain.Panel2
             // 
+            this.splitContainerMain.Panel2.Controls.Add(this.tbTerminal);
             this.splitContainerMain.Panel2.Controls.Add(this.tbOutput);
             this.splitContainerMain.Size = new System.Drawing.Size(709, 403);
             this.splitContainerMain.SplitterDistance = 139;
@@ -181,16 +183,29 @@
             // 
             // tbOutput
             // 
-            this.tbOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbOutput.Font = new System.Drawing.Font("Cordia New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbOutput.Location = new System.Drawing.Point(0, 0);
+            this.tbOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbOutput.Location = new System.Drawing.Point(15, 108);
             this.tbOutput.Multiline = true;
             this.tbOutput.Name = "tbOutput";
             this.tbOutput.ReadOnly = true;
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbOutput.Size = new System.Drawing.Size(566, 403);
+            this.tbOutput.Size = new System.Drawing.Size(539, 295);
             this.tbOutput.TabIndex = 11;
             this.tbOutput.WordWrap = false;
+            // 
+            // tbTerminal
+            // 
+            this.tbTerminal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbTerminal.Location = new System.Drawing.Point(15, 15);
+            this.tbTerminal.Multiline = true;
+            this.tbTerminal.Name = "tbTerminal";
+            this.tbTerminal.Size = new System.Drawing.Size(539, 87);
+            this.tbTerminal.TabIndex = 11;
+            this.tbTerminal.Text = "b d a b e d c";
             // 
             // main
             // 
@@ -232,6 +247,7 @@
         private System.Windows.Forms.TextBox tbGrammar;
         private System.Windows.Forms.TextBox tbOutput;
         private System.Windows.Forms.ToolStripMenuItem lL1ТаблицаРазбораToolStripMenuItem;
+        private System.Windows.Forms.TextBox tbTerminal;
     }
 }
 
