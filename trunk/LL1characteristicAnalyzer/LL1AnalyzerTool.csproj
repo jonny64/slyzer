@@ -7,7 +7,7 @@
     <ProjectGuid>{D9B0AC6A-05F7-4BCA-BB29-264FB4E7D95C}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LL1characteristicAnalyzer</RootNamespace>
+    <RootNamespace>LL1AnalyzerTool</RootNamespace>
     <AssemblyName>LL1characteristicAnalyzer</AssemblyName>
     <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
     <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
@@ -77,6 +77,7 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <None Include="Grammar.cd" />
     <None Include="Properties\Settings.settings">

@@ -22,6 +22,7 @@ namespace LL1AnalyzerTool
             GrammarTableBuilder builder = new GrammarTableBuilder(productions);
             tbOutput.AppendText("rowIndex\tterminals\t\t\t\tjump\taccept\tstack\terror\n");
             tbOutput.AppendText("{\n");
+
             // TODO переписать здесь код сделать понятным
             TableRow[] parsTable = builder.GetParsingTable();
             for (int rowIndex = 0; rowIndex < parsTable.Length; rowIndex++)
@@ -58,50 +59,24 @@ namespace LL1AnalyzerTool
             return new string(result.ToArray());
         }
 
-        private void Analyze(object sender, EventArgs e)
+        private void ViewDirectionSymbols(object sender, EventArgs e)
         {
             string[] productions = GetProductions();
+            string[] terminals = GetTerminals();
 
-            GrammarAnalyzer myGrammar = new GrammarAnalyzer(productions);
+            Grammar myGrammar = new Grammar(productions, terminals);
 
-            //выводим first для всех нетерминалов
             tbOutput.Clear();
-            for (int symIndex = 0; symIndex < myGrammar.m_grammarSyms.Length; symIndex++)
-			{
-                char sym=myGrammar.m_grammarSyms[symIndex];
-                if (!myGrammar.Terminal(sym)&& (sym!=myGrammar.EPSILON_CHAR))
-                    tbOutput.AppendText("Empty("+sym+") = "+myGrammar.Empty(sym).ToString()+"\n");
-			}
-            //выводим множество first для правых частей всех продукций
+ 
+            // выводим множество направляющих символов для каждой продукции
             tbOutput.AppendText("\n");
-            for (int prodIndex = 0; prodIndex < productions.Length; prodIndex++)
-            {
-                string rightPart = productions[prodIndex].Substring(1);
-                string rightPartFirst = new string(myGrammar.First(rightPart));
-                tbOutput.AppendText("First(" + rightPart + ") = " + rightPartFirst + "\n");
-            }
-            //выводим множество follow для eps порождающих нетерминалов
-            tbOutput.AppendText("\n");
-            for (int symIndex = 0; symIndex < myGrammar.m_grammarSyms.Length; symIndex++)
-            {
-                char sym = myGrammar.m_grammarSyms[symIndex];
-                if (!myGrammar.Terminal(sym) && (sym != myGrammar.EPSILON_CHAR) && myGrammar.Empty(sym))
-                {
-                    string symFollow = new string(myGrammar.Follow(sym));
-                    tbOutput.AppendText("Follow(" + sym + ") = " + symFollow + "\n");
-                }
-            }
-            //выводим множество направляющих сивволов для каждой продукции
-            tbOutput.AppendText("\n");
-            for (int prodIndex = 0; prodIndex < productions.Length; prodIndex++)
-            {
-                string production = productions[prodIndex];
-                char head = production[0];
-                string rightPart = production.Substring(1);
+            tbOutput.AppendText(myGrammar.GetDirectionSymbolsLog());
+        }
 
-                string ds = new string(myGrammar.GetDirectSymbols(production));
-                tbOutput.AppendText("DS(" + head + ">" + rightPart + ") = " + ds + "\n");
-            }
+        private string[] GetTerminals()
+        {
+            string [] terminals = {"t", "g"};
+            return terminals;
         }
 
         private string[] GetProductions()

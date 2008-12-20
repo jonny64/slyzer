@@ -108,7 +108,7 @@
             this.пускToolStripMenuItem.Name = "пускToolStripMenuItem";
             this.пускToolStripMenuItem.Size = new System.Drawing.Size(262, 22);
             this.пускToolStripMenuItem.Text = "Множество направляющих символов";
-            this.пускToolStripMenuItem.Click += new System.EventHandler(this.Analyze);
+            this.пускToolStripMenuItem.Click += new System.EventHandler(this.ViewDirectionSymbols);
             // 
             // lL1ТаблицаРазбораToolStripMenuItem
             // 
