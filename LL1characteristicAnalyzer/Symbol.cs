@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections;
 
 namespace LL1AnalyzerTool
 {
-    class Symbol : IComparable
+    class Symbol : IComparable, IEquatable<Symbol>
     {
         private string representation;
         public const string EPSILON_STRING = "#";
@@ -24,6 +25,16 @@ namespace LL1AnalyzerTool
             return representation;
         }
 
+        public override int GetHashCode()
+        {
+            int sum = 0;
+            for (int i = 0; i < representation.Length; i++)
+            {
+                sum += representation[i];
+            }
+            return sum;
+        }
+
         #region IComparable Members
 
         public int CompareTo(object obj)
@@ -40,6 +51,15 @@ namespace LL1AnalyzerTool
                 return 1;
             
             return -1;
+        }
+
+        #endregion
+
+        #region IEquatable<Symbol> Members
+
+        public bool Equals(Symbol other)
+        {
+            return this.representation == other.representation;
         }
 
         #endregion

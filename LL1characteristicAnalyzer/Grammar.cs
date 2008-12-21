@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Collections;
 
 namespace LL1AnalyzerTool
 {
@@ -90,27 +91,91 @@ namespace LL1AnalyzerTool
 
         private void CreateEmptySymTable()
         {
-            m_empty = new Dictionary<Symbol, bool>();
-
             LinkedList<Production> grammar = new LinkedList<Production>(this.grammar);
-            LinkedList<Production> grammarWihoutEpsProd = new LinkedList<Production>(this.grammar);
-            
+
+            LinkedList<Production> updatedGrammar = new LinkedList<Production>(grammar);
+            // delete productions with terminals
+            foreach (Production prod in grammar)
+            {
+                if (prod.ContainsTerminals())
+                {
+                    updatedGrammar.Remove(prod);
+                    if (!ProductionForSym(prod.Head, updatedGrammar))
+                        m_empty[prod.Head] = EmptyState.EMPTY;
+                }
+            }
+            grammar = updatedGrammar;
+
+            LinkedList<Production> grammarWihoutEpsProd = new LinkedList<Production>(grammar);
             // delete epsilon productions
             foreach (Production prod in grammar)
             {
                 if (prod.Epsilon)
                 {
                     grammarWihoutEpsProd.Remove(prod);
+                    m_empty[prod.Head] = EmptyState.EMPTY;
                 }
             }
+            grammar = grammarWihoutEpsProd;
 
-            //do
-            //{
+            do
+            {
+                PerformBasicResearch(ref grammar);
+                if (!FoundEachNonTerminalState()) 
+                    PerformAdditionalResearch(ref grammar);
+            }
+            while (!FoundEachNonTerminalState());
+        }
 
-            //    excluded = PerformBasicResearch(excluded);
-            //    if (!FoundEachNonTerminalState()) PerformAdditionalResearch(excluded, m_grammar);
-            //}
-            //while (!FoundEachNonTerminalState());
+        // exclude every non-eps gen right part producton from grammar
+        private void PerformBasicResearch(ref LinkedList<Production> grammar)
+        {
+            LinkedList<Production> updatedGrammar = new LinkedList<Production>(grammar);
+
+            foreach (Production prod in grammar)
+            {
+                foreach (Symbol sym in prod.Tail)
+                {
+                    bool epsGen;
+                    if ((!sym.Terminal) && m_empty.ContainsKey(sym))
+                    {
+                        // if sym is non eps gen and no alternatives for him
+                        // mark prod head sym as non eps genarating
+                        if (EmptyState.NON_EMPTY == m_empty[sym])
+                        {
+                            updatedGrammar.Remove(prod);
+                            if (!ProductionForSym(prod.Head, updatedGrammar))
+                                m_empty[prod.Head] = EmptyState.NON_EMPTY;
+                        }
+                    }
+                }
+            }
+            grammar = updatedGrammar;
+        }
+
+        private bool ProductionForSym(Symbol symbol, LinkedList<Production> updatedGrammar)
+        {
+            foreach (Production prod in updatedGrammar)
+            {
+                if (prod.Head == symbol)
+                    return true;
+            };
+            return false;
+        }
+
+        private void PerformAdditionalResearch(ref LinkedList<Production> grammar)
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        private bool FoundEachNonTerminalState()
+        {
+            foreach (Symbol sym in GetGrammarSymbols())
+            {
+                if (!sym.Terminal && !m_empty.ContainsKey(sym))
+                    return false;
+            };
+            return true;
         }
 
         private void CreateFirstRelationTable()
@@ -159,7 +224,9 @@ namespace LL1AnalyzerTool
         {
             ;
         }
-
-        private Dictionary<Symbol, bool> m_empty;
+        private enum EmptyState
+        { EMPTY, NON_EMPTY, UNKNOWN };
+        private Dictionary<Symbol, EmptyState> m_empty = new Dictionary<Symbol,EmptyState>();
+        
     }
 }

@@ -64,5 +64,15 @@ namespace LL1AnalyzerTool
             }
             return syms;
         }
+
+        internal bool ContainsTerminals()
+        {
+            foreach (Symbol sym in Tail)
+            {
+                if (sym.Terminal)
+                    return true;
+            };
+            return false;
+        }
     }
 }
