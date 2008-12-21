@@ -60,7 +60,8 @@ namespace LL1AnalyzerTool
             Set syms = new Set();
             foreach (Symbol sym in prod)
             {
-                syms = syms + new Set(sym);
+                if (!sym.Epsilon)
+                    syms = syms + new Set(sym);
             }
             return syms;
         }

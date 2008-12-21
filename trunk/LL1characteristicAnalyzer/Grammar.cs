@@ -19,6 +19,7 @@ namespace LL1AnalyzerTool
                 grammar.Add(prod);
             }
             CreateEmptySymTable();
+            throw new System.NotImplementedException();
             CreateFirstRelationTable();
             CreateFollowRealationTable();
         }
@@ -101,7 +102,7 @@ namespace LL1AnalyzerTool
                 {
                     updatedGrammar.Remove(prod);
                     if (!ProductionForSym(prod.Head, updatedGrammar))
-                        m_empty[prod.Head] = EmptyState.EMPTY;
+                        m_empty[prod.Head] = EmptyState.NON_EMPTY;
                 }
             }
             grammar = updatedGrammar;
@@ -244,7 +245,7 @@ namespace LL1AnalyzerTool
             {
                 syms = syms + prod.ToSet();
             }
-            return syms;
+            return syms ;
         }
 
         private void CreateFollowRealationTable()
