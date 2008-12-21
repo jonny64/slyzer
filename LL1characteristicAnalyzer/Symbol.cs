@@ -5,7 +5,7 @@ using System.Collections;
 
 namespace LL1AnalyzerTool
 {
-    class Symbol : IComparable, IEquatable<Symbol>
+    public class Symbol : IComparable, IEquatable<Symbol>
     {
         private string representation;
         public const string EPSILON_STRING = "#";

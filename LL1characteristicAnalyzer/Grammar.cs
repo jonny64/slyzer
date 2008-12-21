@@ -1,15 +1,28 @@
- using System;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Collections;
 
 namespace LL1AnalyzerTool
 {
-    class Grammar
+    internal class Grammar
     {
         // FIRST and FOLLOW relations matrices
-        bool[,] m_first;
-        bool[,] m_follow;
+
+        #region EmptyState enum
+
+        public enum EmptyState
+        {
+            EMPTY,
+            NON_EMPTY,
+            UNKNOWN
+        } ;
+
+        #endregion
+
+        private readonly Dictionary<Symbol, EmptyState> m_empty = new Dictionary<Symbol, EmptyState>();
+        private bool[,] m_first;
+        private bool[,] m_follow;
+
+        private List<Production> m_grammar = new List<Production>();
 
         public Grammar(string[] productions)
         {
@@ -19,33 +32,24 @@ namespace LL1AnalyzerTool
                 grammar.Add(prod);
             }
             CreateEmptySymTable();
-            return;
-            throw new System.NotImplementedException();
             CreateFirstRelationTable();
+            return;
             CreateFollowRealationTable();
         }
 
-        List<Production> m_grammar = new List<Production>();
         public List<Production> grammar
         {
-            get
-            {
-                return m_grammar;
-            }
-            set
-            {
-                m_grammar = value;
-            }
+            get { return m_grammar; }
         }
 
         public Set GetDirectionSymbols(string[] productions, string[] terminalWords, List<Symbol> sequence)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
-        public Set GetDirectionSymbols(List<LL1AnalyzerTool.Symbol> sequence, string[] productions, string[] terminalWords)
+        public Set GetDirectionSymbols(List<Symbol> sequence, string[] productions, string[] terminalWords)
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
 
         public Set GetDirectionSymbols(LinkedList<Symbol> sequence)
@@ -69,12 +73,32 @@ namespace LL1AnalyzerTool
 
         private Set First(LinkedList<Symbol> sequence)
         {
-            throw new Exception("The method or operation is not implemented.");
+            return new Set();
+        }
+
+        private bool Empty(Symbol[] sequence)
+        {
+            bool empty = true;
+            foreach (Symbol sym in sequence)
+            {
+                empty &= Empty(sym);
+            }
+            return empty;
+        }
+
+        private bool Empty(Symbol sym)
+        {
+            if (m_empty.ContainsKey(sym))
+                if (m_empty[sym] == EmptyState.EMPTY)
+                    return true;
+            return false;
         }
 
         private bool Empty(LinkedList<Symbol> sequence)
         {
-            return false;
+            Symbol[] seq = new Symbol[sequence.Count];
+            sequence.CopyTo(seq, 0);
+            return Empty(seq);
         }
 
         // show direction syms summary for each production
@@ -84,9 +108,9 @@ namespace LL1AnalyzerTool
             foreach (Production production in grammar)
             {
                 Set dirSyms = GetDirectionSymbols(production.ToLinkedList());
-                log += "DS[" + production.Head + ">" + 
-                    production.Tail.ToString() + 
-                    "] = " + dirSyms.ToString() + "\r\n";
+                log += "DS[" + production.Head + ">" +
+                       production.Tail +
+                       "] = " + dirSyms + "\r\n";
             }
             return log;
         }
@@ -123,10 +147,9 @@ namespace LL1AnalyzerTool
             do
             {
                 PerformBasicResearch(ref grammar);
-                if (!FoundEachNonTerminalState()) 
-                    PerformAdditionalResearch(ref grammar);
-            }
-            while (!FoundEachNonTerminalState());
+                if (!FoundEachNonTerminalState())
+                    grammar = PerformAdditionalResearch(grammar);
+            } while (!FoundEachNonTerminalState());
         }
 
         // exclude every non-eps gen right part producton from grammar
@@ -159,18 +182,20 @@ namespace LL1AnalyzerTool
         {
             foreach (Production prod in updatedGrammar)
             {
-                if (prod.Head.Equals(symbol) )
+                if (prod.Head.Equals(symbol))
                     return true;
-            };
+            }
+            ;
             return false;
         }
 
-        private void PerformAdditionalResearch(ref LinkedList<Production> grammar)
+        private LinkedList<Production> PerformAdditionalResearch(LinkedList<Production> aGrammar)
         {
-            LinkedList<Production> updatedGrammar = new LinkedList<Production>(grammar);
+            LinkedList<Production> updatedGrammar = new LinkedList<Production>(aGrammar);
 
-            foreach (Production prod in grammar)
+            foreach (Production original in aGrammar)
             {
+                Production prod = original.Clone();
                 foreach (Symbol sym in prod.Tail)
                 {
                     bool epsGen;
@@ -182,9 +207,9 @@ namespace LL1AnalyzerTool
                         {
                             prod.RemoveFromTail(sym);
                             if (prod.Tail.Empty)
-                            {    
+                            {
                                 m_empty[prod.Head] = EmptyState.EMPTY;
-                                foreach (Production p in grammar)
+                                foreach (Production p in aGrammar)
                                 {
                                     if (p.Head.Equals(sym))
                                         updatedGrammar.Remove(p);
@@ -194,7 +219,7 @@ namespace LL1AnalyzerTool
                     }
                 }
             }
-            grammar = updatedGrammar;
+            return updatedGrammar;
         }
 
         private bool FoundEachNonTerminalState()
@@ -203,30 +228,28 @@ namespace LL1AnalyzerTool
             {
                 if (!sym.Terminal && !m_empty.ContainsKey(sym))
                     return false;
-            };
+            }
+            
             return true;
         }
 
         private void CreateFirstRelationTable()
         {
             int grammarSymsCount = GetGrammarSymbols().Count;
-            m_first = new bool[grammarSymsCount, grammarSymsCount];
+            m_first = new bool[grammarSymsCount,grammarSymsCount];
 
-            ////вычисление отношения начинается_прямо_с
-            //for (int prodIndex = 0; prodIndex < m_grammar.Length; prodIndex++)
-            //{
-            //    string production = m_grammar[prodIndex];
-            //    char head = production[0];
-            //    for (int symIndex = 1; symIndex < production.Length; symIndex++)
-            //    {
-            //        char sym = production[symIndex];
-            //        string alpha = production.Substring(1, symIndex - 1);
-            //        if (Empty(alpha) && (sym != EPSILON_CHAR))
-            //        {
-            //            m_first[GetSymIndex(head), GetSymIndex(sym)] = true;
-            //        }
-            //    }
-            //}
+            //вычисление отношения начинается_прямо_с
+            foreach (Production prod in grammar)
+            {
+                for (int i = 0; i < prod.Tail.Count; i++)
+                {
+                    LinkedList<Symbol> alpha = prod.SubTail(i);
+                    if (Empty(alpha) && !prod.Epsilon)
+                    {
+                        SetFirst(prod.Head, prod.TailAt(i), true);
+                    }
+                }
+            }
             ////вычисление рефлексивноого замыкания отношения начинается_прямо_с
             //char[] grammarSyms = GetGrammarSymbols();
             //for (int symIndex = 0; symIndex < grammarSyms.Length; symIndex++)
@@ -238,6 +261,26 @@ namespace LL1AnalyzerTool
             //m_first = Transitive(m_first);
         }
 
+        private void SetFirst(Symbol prodHead, Symbol symbol, bool p)
+        {
+            Set grammarSyms = GetGrammarSymbols();
+            List<Symbol> syms = new List<Symbol>();
+            foreach (object obj in grammarSyms)
+            {
+                Symbol sym = (Symbol) obj;
+                syms.Add(sym);
+            }
+            int prodHeadIndex = Array.BinarySearch(syms.ToArray(), prodHead);
+            int symIndex = Array.BinarySearch(syms.ToArray(), symbol);
+
+            m_first[prodHeadIndex, symIndex] = p;
+        }
+
+        private int GetSymIndex(Symbol sym)
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
         // retrieve all grammar symbols set
         private Set GetGrammarSymbols()
         {
@@ -246,21 +289,17 @@ namespace LL1AnalyzerTool
             {
                 syms = syms + prod.ToSet();
             }
-            return syms ;
+            return syms;
         }
 
         private void CreateFollowRealationTable()
         {
             ;
         }
-        public enum EmptyState
-        { EMPTY, NON_EMPTY, UNKNOWN };
-        private Dictionary<Symbol, EmptyState> m_empty = new Dictionary<Symbol,EmptyState>();
 
         public Dictionary<Symbol, EmptyState> GetEmptyHashtable()
         {
             return m_empty;
         }
-        
     }
 }
