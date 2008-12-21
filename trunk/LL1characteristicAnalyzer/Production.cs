@@ -36,6 +36,15 @@ namespace LL1AnalyzerTool
             }
         }
 
+        // right part of production consists only of one epsilon sym
+        public bool Epsilon
+        {
+            get
+            {
+                return (Tail / (new Set(new Symbol(Symbol.EPSILON_STRING))) ).Empty;
+            }
+        }
+
         public LinkedList<Symbol> ToLinkedList()
         {
             return new LinkedList<Symbol>(prod);

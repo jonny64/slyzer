@@ -7,7 +7,7 @@ namespace LL1AnalyzerTool
     class Symbol : IComparable
     {
         private string representation;
-
+        public const string EPSILON_STRING = "#";
         // terminal identification rule
         public bool Terminal
         {
