@@ -71,9 +71,48 @@ namespace LL1AnalyzerTool
             throw new Exception("The method or operation is not implemented.");
         }
 
+        public Set First(Symbol sym)
+        {
+            if (sym.Terminal)
+                throw new Exception("First can be calculated only for non terminal");
+
+            Set first = new Set();
+            Set terminals = GetTerminals();
+            foreach (Symbol terminal in terminals)
+            {
+                if (GetFirst(sym, terminal))
+                    first.Add(terminal);
+            }
+            return first;
+        }
+
+        private Set GetTerminals()
+        {
+            Set terminals = new Set();
+            foreach (object o in GetGrammarSymbols())
+            {
+                Symbol sym = (Symbol)o;
+                if (sym.Terminal)
+                    terminals.Add(sym);
+            };
+            return terminals;
+        }
+
         private Set First(LinkedList<Symbol> sequence)
         {
-            return new Set();
+            Set first =  new Set();
+
+            LinkedListNode<Symbol> currNode = sequence.First;
+            while (currNode != null)
+            {
+                first = first + First(currNode.Value);
+                if (Empty(currNode.Value))
+                    currNode = currNode.Next;
+                else
+                    break;
+            }
+
+            return first;
         }
 
         private bool Empty(Symbol[] sequence)
@@ -250,15 +289,26 @@ namespace LL1AnalyzerTool
                     }
                 }
             }
-            ////вычисление рефлексивноого замыкания отношения начинается_прямо_с
-            //char[] grammarSyms = GetGrammarSymbols();
-            //for (int symIndex = 0; symIndex < grammarSyms.Length; symIndex++)
-            //{
-            //    char sym = grammarSyms[symIndex];
-            //    m_first[GetSymIndex(sym), GetSymIndex(sym)] = true;
-            //}
-            ////вычисление транзитивного замыкания отношения начинается_прямо_с
-            //m_first = Transitive(m_first);
+            //вычисление рефлексивноого замыкания отношения начинается_прямо_с
+            Set grammarSyms = GetGrammarSymbols();
+            foreach (Symbol sym in grammarSyms)
+            {
+                SetFirst(sym, sym, true);
+            }
+            //вычисление транзитивного замыкания отношения начинается_прямо_с
+            m_first = Transitive(m_first);
+        }
+
+        //вычисляет транзитивное замыкание матрицы с помощью алгоритма Уоршелла
+        private bool[,] Transitive(bool[,] m)
+        {
+            bool[,] w = m;
+            int size = m.GetLength(0);
+            for (int k = 0; k < size; k++)
+                for (int i = 0; i < size; i++)
+                    for (int j = 0; j < size; j++)
+                        w[i, j] = w[i, j] || (w[i, k] && w[k, j]);
+            return w;
         }
 
         private void SetFirst(Symbol prodHead, Symbol symbol, bool p)
@@ -276,9 +326,19 @@ namespace LL1AnalyzerTool
             m_first[prodHeadIndex, symIndex] = p;
         }
 
-        private int GetSymIndex(Symbol sym)
+        private bool GetFirst(Symbol nonTerminal, Symbol terminal)
         {
-            throw new Exception("The method or operation is not implemented.");
+            Set grammarSyms = GetGrammarSymbols();
+            List<Symbol> syms = new List<Symbol>();
+            foreach (object obj in grammarSyms)
+            {
+                Symbol sym = (Symbol)obj;
+                syms.Add(sym);
+            }
+            int nonTerminalIndex = Array.BinarySearch(syms.ToArray(), nonTerminal);
+            int terminalIndex = Array.BinarySearch(syms.ToArray(), terminal);
+
+            return m_first[nonTerminalIndex, terminalIndex];
         }
 
         // retrieve all grammar symbols set
