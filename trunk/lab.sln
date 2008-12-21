@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "lab", "lab\lab.csproj", "{8ABC320C-F486-4665-9C06-5B465F268DAB}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LL1AnalyzerTool", "LL1characteristicAnalyzer\LL1AnalyzerTool.csproj", "{D9B0AC6A-05F7-4BCA-BB29-264FB4E7D95C}"
 EndProject
 Global
@@ -15,10 +13,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8ABC320C-F486-4665-9C06-5B465F268DAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8ABC320C-F486-4665-9C06-5B465F268DAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8ABC320C-F486-4665-9C06-5B465F268DAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8ABC320C-F486-4665-9C06-5B465F268DAB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D9B0AC6A-05F7-4BCA-BB29-264FB4E7D95C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D9B0AC6A-05F7-4BCA-BB29-264FB4E7D95C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D9B0AC6A-05F7-4BCA-BB29-264FB4E7D95C}.Release|Any CPU.ActiveCfg = Release|Any CPU
