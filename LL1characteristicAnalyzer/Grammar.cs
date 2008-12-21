@@ -137,7 +137,7 @@ namespace LL1AnalyzerTool
                 foreach (Symbol sym in prod.Tail)
                 {
                     bool epsGen;
-                    if ((!sym.Terminal) && m_empty.ContainsKey(sym))
+                    if (m_empty.ContainsKey(sym))
                     {
                         // if sym is non eps gen and no alternatives for him
                         // mark prod head sym as non eps genarating
@@ -157,7 +157,7 @@ namespace LL1AnalyzerTool
         {
             foreach (Production prod in updatedGrammar)
             {
-                if (prod.Head == symbol)
+                if (prod.Head.Equals(symbol) )
                     return true;
             };
             return false;
@@ -165,7 +165,34 @@ namespace LL1AnalyzerTool
 
         private void PerformAdditionalResearch(ref LinkedList<Production> grammar)
         {
-            throw new Exception("The method or operation is not implemented.");
+            LinkedList<Production> updatedGrammar = new LinkedList<Production>(grammar);
+
+            foreach (Production prod in grammar)
+            {
+                foreach (Symbol sym in prod.Tail)
+                {
+                    bool epsGen;
+                    if ((!sym.Terminal) && m_empty.ContainsKey(sym))
+                    {
+                        // if sym is eps gen and no alternatives for him
+                        // mark prod head sym as non eps genarating
+                        if (EmptyState.EMPTY == m_empty[sym])
+                        {
+                            prod.RemoveFromTail(sym);
+                            if (prod.Tail.Empty)
+                            {    
+                                m_empty[prod.Head] = EmptyState.EMPTY;
+                                foreach (Production p in grammar)
+                                {
+                                    if (p.Head.Equals(sym))
+                                        updatedGrammar.Remove(p);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            grammar = updatedGrammar;
         }
 
         private bool FoundEachNonTerminalState()

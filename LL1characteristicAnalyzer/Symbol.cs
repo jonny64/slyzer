@@ -47,10 +47,7 @@ namespace LL1AnalyzerTool
                 return 0;
 
             // nonterminal is 'greater' than non terminal
-            if (!this.Terminal && rhs.Terminal)
-                return 1;
-            
-            return -1;
+            return this.representation.CompareTo(rhs.representation);
         }
 
         #endregion

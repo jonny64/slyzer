@@ -74,5 +74,10 @@ namespace LL1AnalyzerTool
             };
             return false;
         }
+
+        internal void RemoveFromTail(Symbol sym)
+        {
+            this.prod.Remove(sym);
+        }
     }
 }
