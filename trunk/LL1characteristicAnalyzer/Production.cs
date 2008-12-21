@@ -18,6 +18,12 @@ namespace LL1AnalyzerTool
                 prod.Add(new Symbol(symString));
             }
         }
+
+        public Production(List<Symbol> prodList)
+        {
+            foreach (Symbol sym in prodList)
+                this.prod.Add(sym);
+        }
     
         public Symbol Head
         {
@@ -66,19 +72,58 @@ namespace LL1AnalyzerTool
             return syms;
         }
 
+        public LinkedList<Symbol> SubTail(int index)
+        {
+            Symbol[] rightPart = TailToSymbolArray();
+
+            LinkedList<Symbol> alpha = new LinkedList<Symbol>();
+            for (int i = 0; i < index; i++)
+			{
+			    alpha.AddLast(rightPart[i]);
+			}
+            
+            return alpha;
+        }
+
+        private Symbol[] TailToSymbolArray()
+        {
+            List<Symbol> syms = new List<Symbol>();
+            object[] content = Tail.ToArray();
+            foreach (object obj in content)
+            {
+                Symbol sym = (Symbol)obj;
+                syms.Add(sym);
+            }
+            return syms.ToArray();
+        }
+
         internal bool ContainsTerminals()
         {
             foreach (Symbol sym in Tail)
             {
                 if (sym.Terminal)
                     return true;
-            };
+            }
             return false;
         }
 
         internal void RemoveFromTail(Symbol sym)
         {
-            this.prod.Remove(sym);
+            prod.Remove(sym);
         }
+
+        internal Symbol TailAt(int i)
+        {
+            return TailToSymbolArray()[i];
+        }
+
+        #region ICloneable Members
+
+        public Production Clone()
+        {
+            return new Production(this.prod);
+        }
+
+        #endregion
     }
 }

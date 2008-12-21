@@ -1,6 +1,5 @@
 using System;
 using System.Collections;
-
 ///<author>Seth Peck</author>
 ///<date>11/01/2001</date>
 ///<email>seth@poetic.com</email>
@@ -179,7 +178,7 @@ namespace LL1AnalyzerTool
 			return myset.ToArray();
 		}
 
-		/// <summary>
+	    /// <summary>
 		/// CopyTo copies the elements of the Set into an array.
 		/// </summary>
 		/// <param name="array">The one dimensional array that is the destination
