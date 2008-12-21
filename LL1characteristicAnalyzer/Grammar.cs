@@ -17,6 +17,7 @@ namespace LL1AnalyzerTool
                 Production prod = new Production(prodString);
                 grammar.Add(prod);
             }
+            CreateEmptySymTable();
             CreateFirstRelationTable();
             CreateFollowRealationTable();
         }
@@ -87,6 +88,31 @@ namespace LL1AnalyzerTool
             return log;
         }
 
+        private void CreateEmptySymTable()
+        {
+            m_empty = new Dictionary<Symbol, bool>();
+
+            LinkedList<Production> grammar = new LinkedList<Production>(this.grammar);
+            LinkedList<Production> grammarWihoutEpsProd = new LinkedList<Production>(this.grammar);
+            
+            // delete epsilon productions
+            foreach (Production prod in grammar)
+            {
+                if (prod.Epsilon)
+                {
+                    grammarWihoutEpsProd.Remove(prod);
+                }
+            }
+
+            //do
+            //{
+
+            //    excluded = PerformBasicResearch(excluded);
+            //    if (!FoundEachNonTerminalState()) PerformAdditionalResearch(excluded, m_grammar);
+            //}
+            //while (!FoundEachNonTerminalState());
+        }
+
         private void CreateFirstRelationTable()
         {
             int grammarSymsCount = GetGrammarSymbols().Count;
@@ -133,5 +159,7 @@ namespace LL1AnalyzerTool
         {
             ;
         }
+
+        private Dictionary<Symbol, bool> m_empty;
     }
 }

@@ -555,5 +555,10 @@ namespace LL1AnalyzerTool
 		}
 		private bool sametype;
 		private ArrayList myset;
+
+        public bool Empty
+        {
+            get {return Count == 0;}
+        }
 	}
 }
