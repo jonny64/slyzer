@@ -19,6 +19,7 @@ namespace LL1AnalyzerTool
                 grammar.Add(prod);
             }
             CreateEmptySymTable();
+            return;
             throw new System.NotImplementedException();
             CreateFirstRelationTable();
             CreateFollowRealationTable();
@@ -252,9 +253,14 @@ namespace LL1AnalyzerTool
         {
             ;
         }
-        private enum EmptyState
+        public enum EmptyState
         { EMPTY, NON_EMPTY, UNKNOWN };
         private Dictionary<Symbol, EmptyState> m_empty = new Dictionary<Symbol,EmptyState>();
+
+        public Dictionary<Symbol, EmptyState> GetEmptyHashtable()
+        {
+            return m_empty;
+        }
         
     }
 }

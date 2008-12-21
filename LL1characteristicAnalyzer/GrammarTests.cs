@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using csUnit;
 
 namespace LL1AnalyzerTool
 {
+    using NUnit.Framework;
     [TestFixture]
     public class GrammarTests
     {
@@ -25,8 +25,34 @@ namespace LL1AnalyzerTool
                 "K d d"
             };
             Grammar grammar = new Grammar(productions);
-
-            Assert.Equals("", grammar.ToString());
+            Symbol[] syms = {new Symbol("S"),
+                new Symbol("A"),
+                new Symbol("B"),
+                new Symbol("C"),
+                new Symbol("D"),
+                new Symbol("E"),
+                new Symbol("F"),
+                new Symbol("G"),
+                new Symbol("H"),
+                new Symbol("K")
+            };
+            Grammar.EmptyState[] empty = {
+                                             Grammar.EmptyState.NON_EMPTY,
+                                             Grammar.EmptyState.EMPTY,
+                                             Grammar.EmptyState.NON_EMPTY,
+                                             Grammar.EmptyState.EMPTY,
+                                             Grammar.EmptyState.EMPTY,
+                                             Grammar.EmptyState.EMPTY,
+                                             Grammar.EmptyState.NON_EMPTY,
+                                             Grammar.EmptyState.NON_EMPTY,
+                                             Grammar.EmptyState.NON_EMPTY,
+                                             Grammar.EmptyState.NON_EMPTY,
+                                         };
+            for (int i = 0; i < syms.Length; i++)
+			{
+			    Grammar.EmptyState actual = grammar.GetEmptyHashtable()[syms[i]];
+                Assert.AreEqual(actual, empty[i]);
+			}
         }
     }
 }
