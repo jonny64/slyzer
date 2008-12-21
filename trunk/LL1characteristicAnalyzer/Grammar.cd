@@ -5,8 +5,15 @@
     <Position X="6.5" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>Grammar.cs</FileName>
-      <HashCode>AABAIAAAAAAEEQAAgAIAAAAAAACAAAAAAgAIAAAAAAE=</HashCode>
+      <HashCode>AABAIAACAAAEEQAAgAIAAAAARACAAACAAgAIBAAAACE=</HashCode>
     </TypeIdentifier>
+    <NestedTypes>
+      <Enum Name="LL1AnalyzerTool.Grammar.EmptyState" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Grammar.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
   </Class>
   <Class Name="LL1AnalyzerTool.DirectSyms" Collapsed="true">
     <Position X="3" Y="0.5" Width="1.5" />
@@ -19,14 +26,14 @@
     <Position X="8.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <FileName>Production.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAIAEAAAAAAAAAAAAAAgAAABCABAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAIAEAAAAAAAAAAAQAAgAAABCABAAAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="LL1AnalyzerTool.Symbol">
     <Position X="4.75" Y="0.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>Symbol.cs</FileName>
-      <HashCode>AAAAAAAAAAAAAAQEAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAQBAQEAAAAAAAAAAAAAIAACAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
