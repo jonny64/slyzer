@@ -44,8 +44,8 @@
             this.toolTipMain = new System.Windows.Forms.ToolTip(this.components);
             this.tbGrammar = new System.Windows.Forms.TextBox();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
-            this.tbOutput = new System.Windows.Forms.TextBox();
             this.tbTerminal = new System.Windows.Forms.TextBox();
+            this.tbOutput = new System.Windows.Forms.TextBox();
             this.menuStripMain.SuspendLayout();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -158,7 +158,7 @@
             this.tbGrammar.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbGrammar.Size = new System.Drawing.Size(139, 403);
             this.tbGrammar.TabIndex = 10;
-            this.tbGrammar.Text = "S>A b B\r\nS>d\r\nA>a A b\r\nA>e d A b\r\nA>B\r\nB>c S d\r\nB>#";
+            this.tbGrammar.Text = "S>A B C\r\nA>D E\r\nB>F G\r\nC>#\r\nD>a\r\nD>#\r\nE>a a\r\nE>#\r\nF>H K\r\nG>b b\r\nH>c c\r\nK>d d";
             this.toolTipMain.SetToolTip(this.tbGrammar, "Продукции должны быть в формате A>BCd, по одной на строку. Как eps символ испоьзу" +
                     "йте #.");
             this.tbGrammar.WordWrap = false;
@@ -181,6 +181,17 @@
             this.splitContainerMain.SplitterDistance = 139;
             this.splitContainerMain.TabIndex = 3;
             // 
+            // tbTerminal
+            // 
+            this.tbTerminal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbTerminal.Location = new System.Drawing.Point(15, 15);
+            this.tbTerminal.Multiline = true;
+            this.tbTerminal.Name = "tbTerminal";
+            this.tbTerminal.Size = new System.Drawing.Size(539, 87);
+            this.tbTerminal.TabIndex = 11;
+            this.tbTerminal.Text = "b d a b e d c";
+            // 
             // tbOutput
             // 
             this.tbOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -195,17 +206,6 @@
             this.tbOutput.Size = new System.Drawing.Size(539, 295);
             this.tbOutput.TabIndex = 11;
             this.tbOutput.WordWrap = false;
-            // 
-            // tbTerminal
-            // 
-            this.tbTerminal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbTerminal.Location = new System.Drawing.Point(15, 15);
-            this.tbTerminal.Multiline = true;
-            this.tbTerminal.Name = "tbTerminal";
-            this.tbTerminal.Size = new System.Drawing.Size(539, 87);
-            this.tbTerminal.TabIndex = 11;
-            this.tbTerminal.Text = "b d a b e d c";
             // 
             // main
             // 

@@ -14,6 +14,14 @@ namespace LL1AnalyzerTool
         {
             get { return Char.IsLower(representation[0]); }
         }
+
+        public bool Epsilon
+        {
+            get
+            {
+                return representation == EPSILON_STRING;
+            }
+        }
     
         public Symbol(string representation)
         {
