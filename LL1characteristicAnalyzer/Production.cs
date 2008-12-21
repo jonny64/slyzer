@@ -36,14 +36,24 @@ namespace LL1AnalyzerTool
             }
         }
 
-        public List<Symbol> ToList()
+        public LinkedList<Symbol> ToLinkedList()
         {
-            return prod;
+            return new LinkedList<Symbol>(prod);
         }
 
         public override string ToString()
         {
             return Head.ToString() + "->" + Tail.ToString();
+        }
+
+        public Set ToSet()
+        {
+            Set syms = new Set();
+            foreach (Symbol sym in prod)
+            {
+                syms = syms + new Set(sym);
+            }
+            return syms;
         }
     }
 }

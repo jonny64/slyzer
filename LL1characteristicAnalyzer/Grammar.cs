@@ -6,13 +6,19 @@ namespace LL1AnalyzerTool
 {
     class Grammar
     {
+        // FIRST and FOLLOW relations matrices
+        bool[,] m_first;
+        bool[,] m_follow;
+
         public Grammar(string[] productions, string[] terminalWords)
         {
-            foreach (string production in productions)
+            foreach (string prodString in productions)
             {
-                Production prod = new Production(production);
+                Production prod = new Production(prodString);
                 grammar.Add(prod);
             }
+            CreateFirstRelationTable();
+            CreateFollowRealationTable();
         }
 
         List<Production> m_grammar = new List<Production>();
@@ -30,10 +36,7 @@ namespace LL1AnalyzerTool
 
         public Set GetDirectionSymbols(string[] productions, string[] terminalWords, List<Symbol> sequence)
         {
-            Set directionSymbols = new Set();
-            directionSymbols.Add(new Symbol("test") );
-            
-            return directionSymbols;
+            throw new System.NotImplementedException();
         }
 
         public Set GetDirectionSymbols(List<LL1AnalyzerTool.Symbol> sequence, string[] productions, string[] terminalWords)
@@ -41,12 +44,33 @@ namespace LL1AnalyzerTool
             throw new System.NotImplementedException();
         }
 
-        public Set GetDirectionSymbols(List<Symbol> sequence)
+        public Set GetDirectionSymbols(LinkedList<Symbol> sequence)
         {
-            Set directionSymbols = new Set();
-            directionSymbols.Add(new Symbol("test"));
+            Symbol head = sequence.First.Value;
+            sequence.RemoveFirst();
+            LinkedList<Symbol> rightPart = sequence;
+            Set ds = new Set();
 
-            return directionSymbols;
+            if (Empty(rightPart))
+                ds = First(rightPart) + Follow(head);
+            else
+                ds = First(rightPart);
+            return ds;
+        }
+
+        private Set Follow(Symbol head)
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        private Set First(LinkedList<Symbol> sequence)
+        {
+            throw new Exception("The method or operation is not implemented.");
+        }
+
+        private bool Empty(LinkedList<Symbol> sequence)
+        {
+            return false;
         }
 
         // show direction syms summary for each production
@@ -55,12 +79,59 @@ namespace LL1AnalyzerTool
             string log = "";
             foreach (Production production in grammar)
             {
-                Set dirSyms = GetDirectionSymbols(production.ToList());
+                Set dirSyms = GetDirectionSymbols(production.ToLinkedList());
                 log += "DS[" + production.Head + ">" + 
                     production.Tail.ToString() + 
                     "] = " + dirSyms.ToString() + "\r\n";
             }
             return log;
+        }
+
+        private void CreateFirstRelationTable()
+        {
+            int grammarSymsCount = GetGrammarSymbols().Count;
+            m_first = new bool[grammarSymsCount, grammarSymsCount];
+
+            ////вычисление отношения начинается_прямо_с
+            //for (int prodIndex = 0; prodIndex < m_grammar.Length; prodIndex++)
+            //{
+            //    string production = m_grammar[prodIndex];
+            //    char head = production[0];
+            //    for (int symIndex = 1; symIndex < production.Length; symIndex++)
+            //    {
+            //        char sym = production[symIndex];
+            //        string alpha = production.Substring(1, symIndex - 1);
+            //        if (Empty(alpha) && (sym != EPSILON_CHAR))
+            //        {
+            //            m_first[GetSymIndex(head), GetSymIndex(sym)] = true;
+            //        }
+            //    }
+            //}
+            ////вычисление рефлексивноого замыкания отношения начинается_прямо_с
+            //char[] grammarSyms = GetGrammarSymbols();
+            //for (int symIndex = 0; symIndex < grammarSyms.Length; symIndex++)
+            //{
+            //    char sym = grammarSyms[symIndex];
+            //    m_first[GetSymIndex(sym), GetSymIndex(sym)] = true;
+            //}
+            ////вычисление транзитивного замыкания отношения начинается_прямо_с
+            //m_first = Transitive(m_first);
+        }
+
+        // retrieve all grammar symbols set
+        private Set GetGrammarSymbols()
+        {
+            Set syms = new Set();
+            foreach (Production prod in grammar)
+            {
+                syms = syms + prod.ToSet();
+            }
+            return syms;
+        }
+
+        private void CreateFollowRealationTable()
+        {
+            ;
         }
     }
 }
