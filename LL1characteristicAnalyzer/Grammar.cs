@@ -1,4 +1,4 @@
-using System;
+ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Collections;
@@ -11,7 +11,7 @@ namespace LL1AnalyzerTool
         bool[,] m_first;
         bool[,] m_follow;
 
-        public Grammar(string[] productions, string[] terminalWords)
+        public Grammar(string[] productions)
         {
             foreach (string prodString in productions)
             {

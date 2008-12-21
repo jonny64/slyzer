@@ -44,6 +44,7 @@
     <FileAlignment>4096</FileAlignment>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="csUnit, Version=2.5.3081.40666, Culture=neutral, PublicKeyToken=6871f04765cca910, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
@@ -56,6 +57,7 @@
     <Compile Include="Grammar.cs" />
     <Compile Include="GrammarAnalyzer.cs" />
     <Compile Include="GrammarTableBuilder.cs" />
+    <Compile Include="GrammarTests.cs" />
     <Compile Include="main.cs">
       <SubType>Form</SubType>
     </Compile>

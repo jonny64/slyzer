@@ -64,7 +64,7 @@ namespace LL1AnalyzerTool
             string[] productions = GetProductions();
             string[] terminals = GetTerminals();
 
-            Grammar myGrammar = new Grammar(productions, terminals);
+            Grammar myGrammar = new Grammar(productions);
 
             tbOutput.Clear();
  
