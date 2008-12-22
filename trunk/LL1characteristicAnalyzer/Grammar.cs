@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace LL1AnalyzerTool
 {
@@ -482,6 +483,28 @@ namespace LL1AnalyzerTool
         public Production GetProduction(int i)
         {
             return grammar.ToArray()[i];
+        }
+
+        public static Grammar LoadFromFile(string filename)
+        {
+            StreamReader sr = new StreamReader(filename);
+
+            List<string> productions = new List<string>();
+            while (sr.Peek() != -1)
+            {
+                string line = sr.ReadLine();
+                if (line[0] == ';')
+                {
+                    continue;
+                }
+                if (line == "\n")
+                {
+                    break;
+                }
+                productions.Add(line);
+            }
+            Grammar result = new Grammar(productions.ToArray());
+            return result;;
         }
     }
 }
