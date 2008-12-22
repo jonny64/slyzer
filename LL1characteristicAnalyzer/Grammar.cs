@@ -504,7 +504,8 @@ namespace LL1AnalyzerTool
                 productions.Add(line);
             }
             Grammar result = new Grammar(productions.ToArray());
-            return result;;
+            return result;
+            ;
         }
     }
 }

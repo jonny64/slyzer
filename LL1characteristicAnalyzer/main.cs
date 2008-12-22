@@ -1,9 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
 
@@ -28,21 +25,22 @@ namespace LL1AnalyzerTool
             for (int rowIndex = 0; rowIndex < parsTable.Length; rowIndex++)
             {
                 string terminals = ConvertToCharList(parsTable[rowIndex].terminals);
-                
-                tbOutput.AppendText(""+
+
+                tbOutput.AppendText("" +
                                     //rowIndex    +"\t"+
-                                    "new TableRow( new char[] { " + terminals.PadLeft(20,' ') + "},\t" +
-                                    parsTable[rowIndex].jump.ToString().ToLower()+",\t"+
+                                    "new TableRow( new char[] { " + terminals.PadLeft(20, ' ') + "},\t" +
+                                    parsTable[rowIndex].jump.ToString().ToLower() + ",\t" +
                                     parsTable[rowIndex].accept.ToString().ToLower() + ",\t" +
                                     parsTable[rowIndex].stack.ToString().ToLower() + ",\t" +
                                     parsTable[rowIndex].error.ToString().ToLower() + ", \"\" ),\n");
             }
             tbOutput.AppendText("};\n");
         }
+
         //переводит массив символов {a,b,c} в красивую строку  'a', 'b', 'c'
         private string ConvertToCharList(char[] p)
         {
-            if (p==null) return "";
+            if (p == null) return "";
             List<char> result = new List<char>();
             for (int charIndex = 0; charIndex < p.Length; charIndex++)
             {
@@ -54,7 +52,6 @@ namespace LL1AnalyzerTool
                     result.Add(',');
                     result.Add(' ');
                 }
-                
             }
             return new string(result.ToArray());
         }
@@ -66,7 +63,7 @@ namespace LL1AnalyzerTool
             Grammar myGrammar = new Grammar(productions);
 
             tbOutput.Clear();
- 
+
             // выводим множество направляющих символов для каждой продукции
             tbOutput.AppendText("\r\n");
             tbOutput.AppendText(myGrammar.GetDirectionSymbolsLog());
@@ -84,9 +81,9 @@ namespace LL1AnalyzerTool
             //удаляем вхождения >
             grammar = grammar.Replace(">", " ");
             //разобьем выражение на строки
-            char[] seps ={ '\r', '\n' };
+            char[] seps = {'\r', '\n'};
             string[] productions = grammar.Split(seps,
-                            StringSplitOptions.RemoveEmptyEntries);
+                                                 StringSplitOptions.RemoveEmptyEntries);
             return productions;
         }
 
@@ -104,7 +101,7 @@ namespace LL1AnalyzerTool
                     Stream s;
                     if ((s = openFileDialogGrammar.OpenFile()) != null)
                     {
-                        using (StreamReader sr=new StreamReader(s,Encoding.UTF8))
+                        using (StreamReader sr = new StreamReader(s, Encoding.UTF8))
                         {
                             // Insert code to read the stream here.
                             tbGrammar.Text = sr.ReadToEnd();
@@ -115,7 +112,6 @@ namespace LL1AnalyzerTool
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
-
             }
         }
 
@@ -149,14 +145,14 @@ namespace LL1AnalyzerTool
 
         private void выходToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Анализатор LL(1)-свойств контекстно-свободных грамматик\n"+
-            "Copyleft (l) 2008 Груздев М.", "О программе", 
-                MessageBoxButtons.OK, MessageBoxIcon.Information);
+            MessageBox.Show("Анализатор LL(1)-свойств контекстно-свободных грамматик\n" +
+                            "Copyleft (l) 2008 Груздев М.", "О программе",
+                            MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

@@ -1,37 +1,58 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Collections;
 
 namespace LL1AnalyzerTool
 {
     public class Symbol : IComparable, IEquatable<Symbol>
     {
-        private string representation;
         public const string EPSILON_STRING = "#";
         public const string TERMINATOR_STRING = "terminator";
+        private readonly string representation;
+
+        public Symbol(string representation)
+        {
+            this.representation = representation;
+        }
+
         // terminal identification rule
         public bool Terminal
         {
             get
             {
                 return (Char.IsLower(representation[0])) &&
-                    (!Epsilon);
+                       (!Epsilon);
             }
         }
 
         public bool Epsilon
         {
-            get
-            {
-                return representation == EPSILON_STRING;
-            }
+            get { return representation == EPSILON_STRING; }
         }
-    
-        public Symbol(string representation)
+
+        #region IComparable Members
+
+        public int CompareTo(object obj)
         {
-            this.representation = representation;
+            if (obj.GetType() != GetType())
+                throw new NotImplementedException();
+
+            Symbol rhs = (Symbol) obj;
+            if (rhs.representation == representation)
+                return 0;
+
+            // nonterminal is 'greater' than non terminal
+            return representation.CompareTo(rhs.representation);
         }
+
+        #endregion
+
+        #region IEquatable<Symbol> Members
+
+        public bool Equals(Symbol other)
+        {
+            return representation == other.representation;
+        }
+
+        #endregion
 
         public override string ToString()
         {
@@ -47,32 +68,6 @@ namespace LL1AnalyzerTool
             }
             return sum;
         }
-
-        #region IComparable Members
-
-        public int CompareTo(object obj)
-        {
-            if (obj.GetType() != this.GetType())
-                throw new System.NotImplementedException();
-            
-            Symbol rhs = (Symbol)obj;
-            if (rhs.representation == this.representation)
-                return 0;
-
-            // nonterminal is 'greater' than non terminal
-            return this.representation.CompareTo(rhs.representation);
-        }
-
-        #endregion
-
-        #region IEquatable<Symbol> Members
-
-        public bool Equals(Symbol other)
-        {
-            return this.representation == other.representation;
-        }
-
-        #endregion
 
         public static Symbol NewTerminator()
         {

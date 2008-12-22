@@ -1,24 +1,25 @@
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace LL1AnalyzerTool
 {
     //строка таблицы разбора
     public struct TableRow
     {
-        public char[] terminals;
-        public int jump;
-        public bool accept,stack,error;
+        public bool accept;
+        public bool error;
         public string errorMsg;
+        public int jump;
+        public bool stack;
+        public char[] terminals;
     }
+
     //строит таблицу разбора дл€ заданной грамматики
-    class GrammarTableBuilder : LL1AnalyzerTool.GrammarAnalyzer
+    internal class GrammarTableBuilder : GrammarAnalyzer
     {
         //нумера всех символов грамматики
-        int[][] prodIDs;
+        private readonly int[][] prodIDs;
 
-        public GrammarTableBuilder(string[] productions): base(productions)
+        public GrammarTableBuilder(string[] productions) : base(productions)
         {
             prodIDs = new int[m_grammar.Length][];
             for (int prodIndex = 0; prodIndex < m_grammar.Length; prodIndex++)
@@ -27,6 +28,7 @@ namespace LL1AnalyzerTool
                 prodIDs[prodIndex] = new int[production.Length];
             }
         }
+
         //получить таблицу разбора
         public TableRow[] GetParsingTable()
         {
@@ -39,18 +41,18 @@ namespace LL1AnalyzerTool
                 currProdID = prodIDs[prodIndex][0];
                 string production = m_grammar[prodIndex];
                 char head = production[0];
-                
+
                 //не последн€€ альтернатива -> error:=false;
-                bool LastAlternative = (prodIndex == m_grammar.Length - 1) || 
-                                        (m_grammar[prodIndex + 1][0] != head);
+                bool LastAlternative = (prodIndex == m_grammar.Length - 1) ||
+                                       (m_grammar[prodIndex + 1][0] != head);
                 parsTable[currProdID].error = LastAlternative;
-                
+
                 //заполн€ем строку дл€ головы продукции
                 parsTable[currProdID].terminals = GetDirectSymbols(production);
                 parsTable[currProdID].jump = prodIDs[prodIndex][1];
-                
+
                 string rightPart = production.Substring(1);
-                
+
                 //если это eps - права€ часть eps продукции
                 if (rightPart == EPSILON_CHAR.ToString())
                 {
@@ -60,8 +62,8 @@ namespace LL1AnalyzerTool
                     parsTable[currProdID].error = true;
                 }
                 else
-                //заполн€ем строку дл€ правой части продукции
-                FillTableForRightPart(ref parsTable, prodIndex, production);
+                    //заполн€ем строку дл€ правой части продукции
+                    FillTableForRightPart(ref parsTable, prodIndex, production);
             }
             return parsTable;
         }
@@ -76,7 +78,7 @@ namespace LL1AnalyzerTool
                 //терминал в правой части
                 if (Terminal(sym))
                 {
-                    char[] term = { sym };
+                    char[] term = {sym};
                     parsTable[currProdID].terminals = term;
                     parsTable[currProdID].accept = true;
                     // крайний правый терминал: return=true
@@ -95,13 +97,14 @@ namespace LL1AnalyzerTool
                 }
             }
         }
+
         //сколько всего не уникальных символов в грамматике
         private uint GetGrammarSize()
         {
             uint sz = 0;
             for (int prodIndex = 0; prodIndex < m_grammar.Length; prodIndex++)
             {
-                sz += (uint)m_grammar[prodIndex].Length;
+                sz += (uint) m_grammar[prodIndex].Length;
             }
             return sz;
         }
@@ -115,13 +118,15 @@ namespace LL1AnalyzerTool
             }
             throw new Exception("Ќет продукции, описывающей символ '" + sym + "'");
         }
+
         //объединение направл€ющих символов всех продукций с этим нетерминалов в левой части
         private char[] GetDSUnionForHeadNonTerm(char sym)
         {
-            char[] result = { };
+            char[] result = {};
             for (int prodIndex = 0; prodIndex < m_grammar.Length; prodIndex++)
-                if (m_grammar[prodIndex][0] == sym) result = 
-                    Union( result, GetDirectSymbols(m_grammar[prodIndex]) );
+                if (m_grammar[prodIndex][0] == sym)
+                    result =
+                        Union(result, GetDirectSymbols(m_grammar[prodIndex]));
             return result;
         }
 

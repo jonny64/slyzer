@@ -1,34 +1,28 @@
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace LL1AnalyzerTool
 {
-    class Production
+    internal class Production
     {
+        public Symbol FIRST_GRAMMAR_SYMBOL = new Symbol("S");
         private LinkedList<Symbol> prod = new LinkedList<Symbol>();
         private string representation = "";
-        public Symbol FIRST_GRAMMAR_SYMBOL = new Symbol("S");
 
         public Production(string prodString)
         {
             representation = prodString;
 
-            char[] seps ={ ' ' };
+            char[] seps = {' '};
             string[] syms = prodString.Split(seps,
-                StringSplitOptions.RemoveEmptyEntries);
+                                             StringSplitOptions.RemoveEmptyEntries);
             foreach (string symString in syms)
             {
-                prod.AddLast( new Symbol(symString) );
+                prod.AddLast(new Symbol(symString));
             }
             if (Head.Equals(FIRST_GRAMMAR_SYMBOL) &&
                 !HasEpsilonTail())
                 prod.AddLast(Symbol.NewTerminator());
-        }
-
-        private bool HasEpsilonTail()
-        {
-            return TailAt(Tail.Count  - 1).Epsilon;
         }
 
         public Production(LinkedList<Symbol> prodList)
@@ -36,28 +30,10 @@ namespace LL1AnalyzerTool
             foreach (Symbol sym in prodList)
                 prod.AddLast(sym);
         }
-    
-        public override string ToString()
-        {
-            return Head.ToString() + "->"+ TailToString();
-        }
-
-        private string TailToString()
-        {
-            string result = "";
-            foreach (Symbol sym in Tail)
-            {
-                result += sym + " ";
-            }
-            return result;
-        }
 
         public Symbol Head
         {
-            get
-            {
-                return prod.First.Value;
-            }
+            get { return prod.First.Value; }
         }
 
         public LinkedList<Symbol> Tail
@@ -74,8 +50,7 @@ namespace LL1AnalyzerTool
                 newProd.AddLast(Head);
                 foreach (Symbol sym in value)
                 {
-
-                    newProd.AddLast(sym);   
+                    newProd.AddLast(sym);
                 }
                 prod = newProd;
             }
@@ -84,10 +59,27 @@ namespace LL1AnalyzerTool
         // right part of production consists only of one epsilon sym
         public bool Epsilon
         {
-            get
+            get { return ((Tail.Count == 1) && Tail.First.Value.Epsilon); }
+        }
+
+        private bool HasEpsilonTail()
+        {
+            return TailAt(Tail.Count - 1).Epsilon;
+        }
+
+        public override string ToString()
+        {
+            return Head + "->" + TailToString();
+        }
+
+        private string TailToString()
+        {
+            string result = "";
+            foreach (Symbol sym in Tail)
             {
-                return ((Tail.Count == 1) && Tail.First.Value.Epsilon);
+                result += sym + " ";
             }
+            return result;
         }
 
         public LinkedList<Symbol> ToLinkedList()
@@ -112,10 +104,10 @@ namespace LL1AnalyzerTool
 
             LinkedList<Symbol> alpha = new LinkedList<Symbol>();
             for (int i = 0; i < endIndex; i++)
-			{
-			    alpha.AddLast(rightPart[i]);
-			}
-            
+            {
+                alpha.AddLast(rightPart[i]);
+            }
+
             return alpha;
         }
 
@@ -153,14 +145,10 @@ namespace LL1AnalyzerTool
             return TailToSymbolArray()[i];
         }
 
-        #region ICloneable Members
-
         public Production Clone()
         {
-            return new Production(this.prod);
+            return new Production(prod);
         }
-
-        #endregion
 
         internal LinkedList<Symbol> SubTail(int startIndex, int endIndex)
         {
