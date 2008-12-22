@@ -107,7 +107,10 @@ namespace LL1AnalyzerTool
             {
                 Set actual = grammar.First(syms[i]);
                 Set difference = firsts[i]/actual;
-                Assert.AreEqual(0, difference.Count);
+                Assert.AreEqual(0, difference.Count,
+                    String.Format("Symbol: {0}, actual set: {1}, expected: {2}",
+                        syms[i], actual, firsts[i])
+                        );
             }
         }
 
@@ -126,11 +129,11 @@ namespace LL1AnalyzerTool
             };
             Set[] follows = {
                     new Set(new Symbol("c")),
-                    new Set(),
+                    new Set(Symbol.NewTerminator()),
                     new Set(new Symbol("a"), new Symbol("c")),
                     new Set(new Symbol("c")),
                     new Set(new Symbol("b")),
-                    new Set(),
+                    new Set(Symbol.NewTerminator()),
                     new Set(new Symbol("d")),
                     new Set(new Symbol("b"))
                            };
@@ -148,35 +151,25 @@ namespace LL1AnalyzerTool
         [Test]
         public void DirSymbolsSimpleSet()
         {
-
             string[] productionsSimple = { "S a S b",
                 "S a S c",
                 "S #"
             };
             Grammar simpleGrammar = new Grammar(productionsSimple);
-              Symbol[] syms = {
-                new Symbol("A"),
-                new Symbol("C"),
-                new Symbol("D"),
-                new Symbol("E"),
-                new Symbol("F"),
-                new Symbol("G"),
-                new Symbol("H"),
-                new Symbol("K")
-            };
+
             Set[] dirSyms = {
                     new Set(new Symbol("a")),
-                    new Set(new Symbol("a"),
-                    new Set(new Symbol("b"),  new Symbol("c"), Symbol.NewTerminator() ))
-                           };
-            for (int i = 0; i < syms.Length; i++)
+                    new Set(new Symbol("a")),
+                    new Set(new Symbol("b"),  new Symbol("c"))
+                            };
+            for (int i = 0; i < simpleGrammar.Length; i++)
             {
-                Set actual = 
-                    grammar.GetDirectionSymbols(grammar.GetProduction(i).ToLinkedList());
+                Set actual =
+                    simpleGrammar.GetDirectionSymbols(simpleGrammar.GetProduction(i).ToLinkedList());
                 Set difference = dirSyms[i] / actual;
                 Assert.AreEqual(0, difference.Count,
                     String.Format("Production: {0}, actual set: {1}, expected: {2}",
-                        grammar.GetProduction(i), actual, dirSyms[i])
+                        simpleGrammar.GetProduction(i), actual, dirSyms[i])
                     );
             }
         }
