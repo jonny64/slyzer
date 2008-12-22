@@ -33,10 +33,27 @@ namespace LL1AnalyzerTool
             BuildTable();
         }
 
+        public override string ToString()
+        {
+            string view = "";
+            for (int rowIndex = 0; rowIndex < m_table.Length; rowIndex++)
+            {
+
+                view += "" +
+                                    rowIndex    +"\t"+
+                                    "new TableRow( new char[] { " + m_table[rowIndex].terminals + "},\t" +
+                                    m_table[rowIndex].jump.ToString().ToLower() + ",\t" +
+                                    m_table[rowIndex].accept.ToString().ToLower() + ",\t" +
+                                    m_table[rowIndex].stack.ToString().ToLower() + ",\t" +
+                                    m_table[rowIndex].error.ToString().ToLower() + ", \"\" ),\n";
+            }
+            return view;
+        }
         //получить таблицу разбора
         public void BuildTable()
         {
             m_table = new TableRow[GetGrammarSize()];
+            m_grammar.Sort();
             NumerateProductions();
 
             int currProdID;
@@ -111,11 +128,11 @@ namespace LL1AnalyzerTool
 
         private int GetFirstAltProdID(Symbol sym)
         {
-            //for (int prodIndex = 0; prodIndex < m_grammar.Length; prodIndex++)
-            //{
-            //    char head = m_grammar.GetProductionAt(prodIndex[0];
-            //    if (head == sym) return prodIDs[prodIndex][0];
-            //}
+            for (int prodIndex = 0; prodIndex < m_grammar.Length; prodIndex++)
+            {
+                if (m_grammar.GetProductionAt(prodIndex).Head == sym) 
+                    return prodIDs[prodIndex][0];
+            }
             throw new Exception("Нет продукции, описывающей символ '" + sym + "'");
         }
 
@@ -123,7 +140,7 @@ namespace LL1AnalyzerTool
         private Set GetDSUnionForHeadNonTerm(Symbol sym)
         {
             Set result = new Set();
-            foreach (Production production in m_grammar.grammar)
+            foreach (Production production in m_grammar.Productions)
                 if (production.Head.Equals(sym))
                     result += m_grammar.GetDirectSymbols(production);
             return result;
