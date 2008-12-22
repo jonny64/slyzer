@@ -1,0 +1,12 @@
+a c
+a c
+c
+terminator
+a
+a c
+a
+c
+c
+b
+c
+d
