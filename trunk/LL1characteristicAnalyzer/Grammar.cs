@@ -87,10 +87,14 @@ namespace LL1AnalyzerTool
 
         public Set First(Symbol sym)
         {
-            if (sym.Terminal)
-                return new Set(sym);
-
             Set first = new Set();
+            
+            if (sym.Terminal)
+            {
+                first.Add(sym);
+                return first;
+            }
+
             Set terminals = GetTerminals();
             foreach (Symbol terminal in terminals)
             {
@@ -120,7 +124,7 @@ namespace LL1AnalyzerTool
             while (currNode != null)
             {
                 if (!currNode.Value.Epsilon)
-                    first.Add(First(currNode.Value) );
+                    first += First(currNode.Value);
                 
                 if (Empty(currNode.Value))
                     currNode = currNode.Next;

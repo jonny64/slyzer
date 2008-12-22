@@ -62,7 +62,6 @@ namespace LL1AnalyzerTool
         private void ViewDirectionSymbols(object sender, EventArgs e)
         {
             string[] productions = GetProductions();
-            string[] terminals = GetTerminals();
 
             Grammar myGrammar = new Grammar(productions);
 
@@ -71,14 +70,6 @@ namespace LL1AnalyzerTool
             // выводим множество направляющих символов для каждой продукции
             tbOutput.AppendText("\r\n");
             tbOutput.AppendText(myGrammar.GetDirectionSymbolsLog());
-        }
-
-        private string[] GetTerminals()
-        {
-            char [] seps = {' '};
-            string[] terms = tbTerminal.Text.Split(seps, 
-                StringSplitOptions.RemoveEmptyEntries);
-            return terms;
         }
 
         private string[] GetProductions()
