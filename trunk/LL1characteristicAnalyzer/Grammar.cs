@@ -169,9 +169,8 @@ namespace LL1AnalyzerTool
             foreach (Production production in grammar)
             {
                 Set dirSyms = GetDirectionSymbols(production.ToLinkedList());
-                log += "DS[" + production.Head + ">" +
-                       production.Tail +
-                       "] = " + dirSyms + "\r\n";
+                log += "DS[" + production +"] = " + 
+                    dirSyms + "\r\n";
             }
             return log;
         }
@@ -263,11 +262,11 @@ namespace LL1AnalyzerTool
                     if ((!sym.Terminal) && m_empty.ContainsKey(sym))
                     {
                         // if sym is eps gen and no alternatives for him
-                        // mark prod head sym as non eps genarating
+                        // mark prod head sym as non eps generating
                         if (EmptyState.EMPTY == m_empty[sym])
                         {
                             prod.RemoveFromTail(sym);
-                            if (prod.Tail.Empty)
+                            if (prod.HasEmptyTail())
                             {
                                 m_empty[prod.Head] = EmptyState.EMPTY;
                                 foreach (Production p in aGrammar)
@@ -436,7 +435,7 @@ namespace LL1AnalyzerTool
                         {
                             Symbol B = production.TailAt(bIndex);//B
                             LinkedList<Symbol> beta = production.SubTail(aIndex + 1, bIndex);
-                            if (Empty(beta))
+                            if (Empty(beta) && !B.Epsilon)
                                 straightBefore[GetSymIndex(A), GetSymIndex(B)] = true;
                         }
                     }
@@ -484,6 +483,11 @@ namespace LL1AnalyzerTool
         public Dictionary<Symbol, EmptyState> GetEmptyHashtable()
         {
             return m_empty;
+        }
+
+        public Production GetProduction(int i)
+        {
+            return grammar.ToArray()[i];
         }
     }
 }

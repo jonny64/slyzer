@@ -9,6 +9,7 @@ namespace LL1AnalyzerTool
     {
         private string representation;
         public const string EPSILON_STRING = "#";
+        public const string TERMINATOR_STRING = "terminator";
         // terminal identification rule
         public bool Terminal
         {
@@ -72,5 +73,10 @@ namespace LL1AnalyzerTool
         }
 
         #endregion
+
+        public static Symbol NewTerminator()
+        {
+            return new Symbol(TERMINATOR_STRING);
+        }
     }
 }

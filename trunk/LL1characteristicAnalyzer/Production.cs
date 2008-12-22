@@ -6,39 +6,78 @@ namespace LL1AnalyzerTool
 {
     class Production
     {
-        private List<Symbol> prod = new List<Symbol>();
-    
+        private LinkedList<Symbol> prod = new LinkedList<Symbol>();
+        private string representation = "";
+        public Symbol FIRST_GRAMMAR_SYMBOL = new Symbol("S");
+
         public Production(string prodString)
         {
+            representation = prodString;
+
             char[] seps ={ ' ' };
             string[] syms = prodString.Split(seps,
                 StringSplitOptions.RemoveEmptyEntries);
             foreach (string symString in syms)
             {
-                prod.Add(new Symbol(symString));
+                prod.AddLast( new Symbol(symString) );
             }
+            if (Head.Equals(FIRST_GRAMMAR_SYMBOL) &&
+                !HasEpsilonTail())
+                prod.AddLast(Symbol.NewTerminator());
         }
 
-        public Production(List<Symbol> prodList)
+        private bool HasEpsilonTail()
+        {
+            return TailAt(Tail.Count).Epsilon;
+        }
+
+        public Production(LinkedList<Symbol> prodList)
         {
             foreach (Symbol sym in prodList)
-                this.prod.Add(sym);
+                prod.AddLast(sym);
         }
     
+        public override string ToString()
+        {
+            return Head.ToString() + "->"+ TailToString();
+        }
+
+        private string TailToString()
+        {
+            string result = "";
+            foreach (Symbol sym in Tail)
+            {
+                result += sym + " ";
+            }
+            return result;
+        }
+
         public Symbol Head
         {
             get
             {
-                return prod.ToArray()[0];
+                return prod.First.Value;
             }
         }
 
-        public Set Tail
+        public LinkedList<Symbol> Tail
         {
             get
             {
-                object[] values = prod.GetRange(1, prod.Count - 1).ToArray();
-                return new Set(values);
+                LinkedList<Symbol> tail = new LinkedList<Symbol>(prod);
+                tail.RemoveFirst();
+                return tail;
+            }
+            set
+            {
+                LinkedList<Symbol> newProd = new LinkedList<Symbol>();
+                newProd.AddLast(Head);
+                foreach (Symbol sym in value)
+                {
+
+                    newProd.AddLast(sym);   
+                }
+                prod = newProd;
             }
         }
 
@@ -47,18 +86,13 @@ namespace LL1AnalyzerTool
         {
             get
             {
-                return (Tail / (new Set(new Symbol(Symbol.EPSILON_STRING))) ).Empty;
+                return ((Tail.Count == 1) && Tail.First.Value.Epsilon);
             }
         }
 
         public LinkedList<Symbol> ToLinkedList()
         {
             return new LinkedList<Symbol>(prod);
-        }
-
-        public override string ToString()
-        {
-            return Head.ToString() + "->" + Tail.ToString();
         }
 
         public Set ToSet()
@@ -88,11 +122,11 @@ namespace LL1AnalyzerTool
         private Symbol[] TailToSymbolArray()
         {
             List<Symbol> syms = new List<Symbol>();
-            object[] content = Tail.ToArray();
-            foreach (object obj in content)
+            LinkedListNode<Symbol> currNode = prod.First;
+            while (currNode != null)
             {
-                Symbol sym = (Symbol)obj;
-                syms.Add(sym);
+                syms.Add(currNode.Value);
+                currNode = currNode.Next;
             }
             return syms.ToArray();
         }
@@ -109,7 +143,9 @@ namespace LL1AnalyzerTool
 
         internal void RemoveFromTail(Symbol sym)
         {
-            prod.Remove(sym);
+            LinkedList<Symbol> newTail = new LinkedList<Symbol>(Tail);
+            newTail.Remove(sym);
+            Tail = newTail;
         }
 
         internal Symbol TailAt(int i)
@@ -134,6 +170,24 @@ namespace LL1AnalyzerTool
             for (int i = startIndex; i < endIndex; i++)
             {
                 alpha.AddLast(rightPart[i]);
+            }
+
+            return alpha;
+        }
+
+        internal bool HasEmptyTail()
+        {
+            return (Tail.Count == 0);
+        }
+
+        internal Set TailToSet()
+        {
+            Symbol[] rightPart = TailToSymbolArray();
+
+            Set alpha = new Set();
+            for (int i = 0; i < rightPart.Length; i++)
+            {
+                alpha.Add(rightPart[i]);
             }
 
             return alpha;
