@@ -7,6 +7,10 @@ namespace LL1AnalyzerTool
         public const string EPSILON_STRING = "#";
         public const string TERMINATOR_STRING = "terminator";
         private readonly string representation;
+        public bool Terminator
+        {
+            get{ return representation == TERMINATOR_STRING;}
+        }
 
         public Symbol(string representation)
         {
