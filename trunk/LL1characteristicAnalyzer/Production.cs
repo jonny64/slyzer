@@ -3,11 +3,15 @@ using System.Collections.Generic;
 
 namespace LL1AnalyzerTool
 {
-    internal class Production
+    public class Production
     {
         public Symbol FIRST_GRAMMAR_SYMBOL = new Symbol("S");
         private LinkedList<Symbol> prod = new LinkedList<Symbol>();
         private string representation = "";
+        public int Length
+        {
+            get { return prod.Count;}
+        }
 
         public Production(string prodString)
         {
