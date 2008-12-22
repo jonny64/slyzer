@@ -28,7 +28,7 @@ namespace LL1AnalyzerTool
 
         private bool HasEpsilonTail()
         {
-            return TailAt(Tail.Count).Epsilon;
+            return TailAt(Tail.Count  - 1).Epsilon;
         }
 
         public Production(LinkedList<Symbol> prodList)
@@ -122,7 +122,7 @@ namespace LL1AnalyzerTool
         private Symbol[] TailToSymbolArray()
         {
             List<Symbol> syms = new List<Symbol>();
-            LinkedListNode<Symbol> currNode = prod.First;
+            LinkedListNode<Symbol> currNode = prod.First.Next;
             while (currNode != null)
             {
                 syms.Add(currNode.Value);

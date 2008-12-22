@@ -19,10 +19,9 @@ namespace LL1AnalyzerTool
         #endregion
 
         private readonly Dictionary<Symbol, EmptyState> m_empty = new Dictionary<Symbol, EmptyState>();
+        private readonly List<Production> m_grammar = new List<Production>();
         private bool[,] m_first;
         private bool[,] m_follow;
-
-        private List<Production> m_grammar = new List<Production>();
 
         public Grammar(string[] productions)
         {
@@ -39,6 +38,11 @@ namespace LL1AnalyzerTool
         public List<Production> grammar
         {
             get { return m_grammar; }
+        }
+
+        public decimal Length
+        {
+            get { return m_grammar.Count; }
         }
 
         public Set GetDirectionSymbols(string[] productions, string[] terminalWords, List<Symbol> sequence)
@@ -88,7 +92,7 @@ namespace LL1AnalyzerTool
         public Set First(Symbol sym)
         {
             Set first = new Set();
-            
+
             if (sym.Terminal)
             {
                 first.Add(sym);
@@ -109,23 +113,23 @@ namespace LL1AnalyzerTool
             Set terminals = new Set();
             foreach (object o in GetGrammarSymbols())
             {
-                Symbol sym = (Symbol)o;
+                Symbol sym = (Symbol) o;
                 if (sym.Terminal)
                     terminals.Add(sym);
-            };
+            }
             return terminals;
         }
 
         private Set First(LinkedList<Symbol> sequence)
         {
-            Set first =  new Set();
+            Set first = new Set();
 
             LinkedListNode<Symbol> currNode = sequence.First;
             while (currNode != null)
             {
                 if (!currNode.Value.Epsilon)
                     first += First(currNode.Value);
-                
+
                 if (Empty(currNode.Value))
                     currNode = currNode.Next;
                 else
@@ -169,8 +173,8 @@ namespace LL1AnalyzerTool
             foreach (Production production in grammar)
             {
                 Set dirSyms = GetDirectionSymbols(production.ToLinkedList());
-                log += "DS[" + production +"] = " + 
-                    dirSyms + "\r\n";
+                log += "DS[" + production + "] = " +
+                       dirSyms + "\r\n";
             }
             return log;
         }
@@ -289,7 +293,7 @@ namespace LL1AnalyzerTool
                 if (!sym.Terminal && !m_empty.ContainsKey(sym))
                     return false;
             }
-            
+
             return true;
         }
 
@@ -349,17 +353,7 @@ namespace LL1AnalyzerTool
 
         private bool GetFirst(Symbol nonTerminal, Symbol terminal)
         {
-            Set grammarSyms = GetGrammarSymbols();
-            List<Symbol> syms = new List<Symbol>();
-            foreach (object obj in grammarSyms)
-            {
-                Symbol sym = (Symbol)obj;
-                syms.Add(sym);
-            }
-            int nonTerminalIndex = Array.BinarySearch(syms.ToArray(), nonTerminal);
-            int terminalIndex = Array.BinarySearch(syms.ToArray(), terminal);
-
-            return m_first[nonTerminalIndex, terminalIndex];
+            return m_first[GetSymIndex(nonTerminal), GetSymIndex(terminal)];
         }
 
         // retrieve all grammar symbols set
@@ -397,7 +391,7 @@ namespace LL1AnalyzerTool
         private bool[,] GetStraightAtTheEndRelation()
         {
             int size = GetGrammarSymbols().Count;
-            bool[,] straightAtTheEnd = new bool[size, size];
+            bool[,] straightAtTheEnd = new bool[size,size];
             // A GetStraightAtTheEnd B if exists production
             // B > alpha A beta, where beta is eps gen
             foreach (Production production in grammar)
@@ -405,12 +399,11 @@ namespace LL1AnalyzerTool
                 for (int aIndex = 0; aIndex < production.Tail.Count; aIndex++)
                 {
                     Symbol A = production.TailAt(aIndex);
-                    if (!A.Terminal && !A.Epsilon)//A
+                    if (!A.Terminal && !A.Epsilon) //A
                     {
                         LinkedList<Symbol> beta = production.SubTail(aIndex + 1, production.Tail.Count);
                         if (Empty(beta))
                             straightAtTheEnd[GetSymIndex(A), GetSymIndex(production.Head)] = true;
-
                     }
                 }
             }
@@ -420,7 +413,7 @@ namespace LL1AnalyzerTool
         private bool[,] GetStraightBeforeRelation()
         {
             int size = GetGrammarSymbols().Count;
-            bool[,] straightBefore = new bool[size, size];
+            bool[,] straightBefore = new bool[size,size];
 
             // A straightBefore B if
             // exists production D > alpha A beta B gamma
@@ -429,11 +422,11 @@ namespace LL1AnalyzerTool
                 for (int aIndex = 0; aIndex < production.Tail.Count - 1; aIndex++)
                 {
                     Symbol A = production.TailAt(aIndex);
-                    if (!A.Terminal)//A
+                    if (!A.Terminal) //A
                     {
                         for (int bIndex = aIndex + 1; bIndex < production.Tail.Count; bIndex++)
                         {
-                            Symbol B = production.TailAt(bIndex);//B
+                            Symbol B = production.TailAt(bIndex); //B
                             LinkedList<Symbol> beta = production.SubTail(aIndex + 1, bIndex);
                             if (Empty(beta) && !B.Epsilon)
                                 straightBefore[GetSymIndex(A), GetSymIndex(B)] = true;
@@ -452,16 +445,17 @@ namespace LL1AnalyzerTool
              * (т.е. высказывание xPQy оказывается истинным) тогда и только тогда,
              * когда в М существует элемент z такой, что верно как xPz, так и zQy.*/
             int grammarSymsCount = GetGrammarSymbols().Count;
-            bool[,] result = new bool[grammarSymsCount, grammarSymsCount];;
+            bool[,] result = new bool[grammarSymsCount,grammarSymsCount];
+            ;
             for (int xIndex = 0; xIndex < grammarSymsCount; xIndex++)
             {
                 for (int zIndex = 0; zIndex < grammarSymsCount; zIndex++)
                 {
-                    if (p[xIndex, zIndex])//xPz
+                    if (p[xIndex, zIndex]) //xPz
                         for (int yIndex = 0; yIndex < grammarSymsCount; yIndex++)
                         {
-                            if (q[zIndex, yIndex])//zQy
-                                result[xIndex, yIndex] = true;//xPQy
+                            if (q[zIndex, yIndex]) //zQy
+                                result[xIndex, yIndex] = true; //xPQy
                         }
                 }
             }
@@ -474,7 +468,7 @@ namespace LL1AnalyzerTool
             List<Symbol> syms = new List<Symbol>();
             foreach (object obj in grammarSyms)
             {
-                Symbol sym = (Symbol)obj;
+                Symbol sym = (Symbol) obj;
                 syms.Add(sym);
             }
             return Array.BinarySearch(syms.ToArray(), symbol);
