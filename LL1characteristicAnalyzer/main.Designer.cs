@@ -44,7 +44,6 @@
             this.toolTipMain = new System.Windows.Forms.ToolTip(this.components);
             this.tbGrammar = new System.Windows.Forms.TextBox();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
-            this.tbTerminal = new System.Windows.Forms.TextBox();
             this.tbOutput = new System.Windows.Forms.TextBox();
             this.menuStripMain.SuspendLayout();
             this.splitContainerMain.Panel1.SuspendLayout();
@@ -175,35 +174,21 @@
             // 
             // splitContainerMain.Panel2
             // 
-            this.splitContainerMain.Panel2.Controls.Add(this.tbTerminal);
             this.splitContainerMain.Panel2.Controls.Add(this.tbOutput);
             this.splitContainerMain.Size = new System.Drawing.Size(709, 403);
             this.splitContainerMain.SplitterDistance = 139;
             this.splitContainerMain.TabIndex = 3;
             // 
-            // tbTerminal
-            // 
-            this.tbTerminal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.tbTerminal.Location = new System.Drawing.Point(15, 15);
-            this.tbTerminal.Multiline = true;
-            this.tbTerminal.Name = "tbTerminal";
-            this.tbTerminal.Size = new System.Drawing.Size(539, 87);
-            this.tbTerminal.TabIndex = 11;
-            this.tbTerminal.Text = "b d a b e d c";
-            // 
             // tbOutput
             // 
-            this.tbOutput.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                        | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.tbOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tbOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbOutput.Location = new System.Drawing.Point(15, 108);
+            this.tbOutput.Location = new System.Drawing.Point(0, 0);
             this.tbOutput.Multiline = true;
             this.tbOutput.Name = "tbOutput";
             this.tbOutput.ReadOnly = true;
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbOutput.Size = new System.Drawing.Size(539, 295);
+            this.tbOutput.Size = new System.Drawing.Size(566, 403);
             this.tbOutput.TabIndex = 11;
             this.tbOutput.WordWrap = false;
             // 
@@ -247,7 +232,6 @@
         private System.Windows.Forms.TextBox tbGrammar;
         private System.Windows.Forms.TextBox tbOutput;
         private System.Windows.Forms.ToolStripMenuItem lL1ТаблицаРазбораToolStripMenuItem;
-        private System.Windows.Forms.TextBox tbTerminal;
     }
 }
 
