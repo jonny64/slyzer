@@ -72,12 +72,12 @@ namespace LL1AnalyzerTool
             return syms;
         }
 
-        public LinkedList<Symbol> SubTail(int index)
+        public LinkedList<Symbol> SubTail(int endIndex)
         {
             Symbol[] rightPart = TailToSymbolArray();
 
             LinkedList<Symbol> alpha = new LinkedList<Symbol>();
-            for (int i = 0; i < index; i++)
+            for (int i = 0; i < endIndex; i++)
 			{
 			    alpha.AddLast(rightPart[i]);
 			}
@@ -125,5 +125,18 @@ namespace LL1AnalyzerTool
         }
 
         #endregion
+
+        internal LinkedList<Symbol> SubTail(int startIndex, int endIndex)
+        {
+            Symbol[] rightPart = TailToSymbolArray();
+
+            LinkedList<Symbol> alpha = new LinkedList<Symbol>();
+            for (int i = startIndex; i < endIndex; i++)
+            {
+                alpha.AddLast(rightPart[i]);
+            }
+
+            return alpha;
+        }
     }
 }

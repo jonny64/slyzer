@@ -33,8 +33,7 @@ namespace LL1AnalyzerTool
             }
             CreateEmptySymTable();
             CreateFirstRelationTable();
-            return;
-            CreateFollowRealationTable();
+            CreateFollowRelationTable();
         }
 
         public List<Production> grammar
@@ -352,9 +351,113 @@ namespace LL1AnalyzerTool
             return syms;
         }
 
-        private void CreateFollowRealationTable()
+        private void CreateFollowRelationTable()
         {
-            ;
+            //строим отношение пр€мо_перед
+            bool[,] straightBefore = GetStraightBeforeRelation();
+            //строим отношение пр€мо_на_конце
+            bool[,] straightAtTheEnd = GetStraightAtTheEndRelation();
+
+            //вычислим отношение на_конце как рефлексивно-транзитивное замыкание пр€мо_на_конце
+            bool[,] atTheEnd = straightAtTheEnd;
+            Set grammarSyms = GetGrammarSymbols();
+            foreach (Symbol sym in grammarSyms)
+            {
+                atTheEnd[GetSymIndex(sym), GetSymIndex(sym)] = true;
+            }
+            atTheEnd = Transitive(atTheEnd);
+            //вычислим отношение перед как произведение отношений
+            //на_конце * пр€мо_перед * начинаетс€_с
+            m_follow = Multiply(atTheEnd, straightBefore);
+            m_follow = Multiply(m_follow, m_first);
+        }
+
+        private bool[,] GetStraightAtTheEndRelation()
+        {
+            int size = GetGrammarSymbols().Count;
+            bool[,] straightAtTheEnd = new bool[size, size];
+
+            //for (int prodIndex = 0; prodIndex < m_grammar.Length; prodIndex++)
+            //{
+            //    string production = m_grammar[prodIndex];
+            //    char head = production[0];//B
+            //    for (int aIndex = 1; aIndex < production.Length; aIndex++)
+            //    {
+            //        //есть продукци€ B>alphaAbeta, где beta eps порождающа€
+            //        char a = production[aIndex];
+            //        if (!Terminal(a) && (a != EPSILON_CHAR))//A
+            //        {
+            //            string beta = production.Substring(aIndex + 1);
+            //            if (Empty(beta))
+            //                straightAtTheEnd[GetSymIndex(a), GetSymIndex(head)] = true;
+
+            //        }
+            //    }
+            //}
+            return straightAtTheEnd;
+        }
+
+        private bool[,] GetStraightBeforeRelation()
+        {
+            int size = GetGrammarSymbols().Count;
+            bool[,] straightBefore = new bool[size, size];
+
+            // A straightBefore B if
+            // exists production D > alpha A beta B gamma
+            foreach (Production production in grammar)
+            {
+                for (int aIndex = 0; aIndex < production.Tail.Count - 1; aIndex++)
+                {
+                    Symbol A = production.TailAt(aIndex);
+                    if (!A.Terminal)//A
+                    {
+                        for (int bIndex = aIndex + 1; bIndex < production.Tail.Count; bIndex++)
+                        {
+                            Symbol B = production.TailAt(bIndex);//B
+                            LinkedList<Symbol> beta = production.SubTail(aIndex + 1, bIndex);
+                            if (Empty(beta))
+                                straightBefore[GetSymIndex(A), GetSymIndex(B)] = true;
+                        }
+                    }
+                }
+            }
+
+            return straightBefore;
+        }
+
+        private bool[,] Multiply(bool[,] p, bool[,] q)
+        {
+            /*ѕусть – и Q Ч два бинарных отношени€; тогда их произведе≠ние PQ Ч 
+             * результат операции умножени€ отношений Ч выполн€≠етс€ дл€ х и у 
+             * (т.е. высказывание xPQy оказываетс€ истинным) тогда и только тогда,
+             * когда в ћ существует элемент z такой, что верно как xPz, так и zQy.*/
+            int grammarSymsCount = GetGrammarSymbols().Count;
+            bool[,] result = new bool[grammarSymsCount, grammarSymsCount];;
+            for (int xIndex = 0; xIndex < grammarSymsCount; xIndex++)
+            {
+                for (int zIndex = 0; zIndex < grammarSymsCount; zIndex++)
+                {
+                    if (p[xIndex, zIndex])//xPz
+                        for (int yIndex = 0; yIndex < grammarSymsCount; yIndex++)
+                        {
+                            if (q[zIndex, yIndex])//zQy
+                                result[xIndex, yIndex] = true;//xPQy
+                        }
+                }
+            }
+            return result;
+        }
+
+        private int GetSymIndex(Symbol symbol)
+        {
+            Set grammarSyms = GetGrammarSymbols();
+            List<Symbol> syms = new List<Symbol>();
+            foreach (object obj in grammarSyms)
+            {
+                Symbol sym = (Symbol)obj;
+                syms.Add(sym);
+            }
+            return Array.BinarySearch(syms.ToArray(), symbol);
         }
 
         public Dictionary<Symbol, EmptyState> GetEmptyHashtable()
