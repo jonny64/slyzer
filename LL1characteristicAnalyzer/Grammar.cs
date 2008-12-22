@@ -165,8 +165,9 @@ namespace LL1AnalyzerTool
 
         private bool Empty(Symbol sym)
         {
-            if (sym.Epsilon)
+            if ((sym.Terminator)||(sym.Epsilon))
                 return true;
+
             if (m_empty.ContainsKey(sym))
                 if (m_empty[sym] == EmptyState.EMPTY)
                     return true;
