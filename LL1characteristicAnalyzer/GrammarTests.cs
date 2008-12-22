@@ -64,8 +64,8 @@ namespace LL1AnalyzerTool
         [Test]
         public void DirSymbols()
         {
-            string[] grFilesList = {"test1.txt", "test2.txt", "test3.txt", "test4.txt"};
-            string[] dirSymsFilesList = {"set1.txt", "set2.txt", "set3.txt", "set4.txt"};
+            string[] grFilesList = { "test1.txt", "test2.txt", "test3.txt", "test4.txt", "test5.txt" };
+            string[] dirSymsFilesList = { "set1.txt", "set2.txt", "set3.txt", "set4.txt", "set5.txt" };
 
             for (int grFile = 0; grFile < grFilesList.Length; grFile++)
             {
@@ -75,11 +75,11 @@ namespace LL1AnalyzerTool
                 for (int i = 0; i < simpleGrammar.Length; i++)
                 {
                     Set actual =
-                        simpleGrammar.GetDirectionSymbols(simpleGrammar.GetProduction(i).ToLinkedList());
+                        simpleGrammar.GetDirectionSymbols(simpleGrammar[i]);
                     Set difference = dirSyms[i]/actual;
                     Assert.AreEqual(0, difference.Count,
                                     String.Format("Grammar {3}; Production {0}; actual set {1}; expected {2};",
-                                                  simpleGrammar.GetProduction(i), actual, dirSyms[i],
+                                                  simpleGrammar.GetProductionAt(i), actual, dirSyms[i],
                                                   grFilesList[grFile])
                         );
                 }

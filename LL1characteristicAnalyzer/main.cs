@@ -15,26 +15,26 @@ namespace LL1AnalyzerTool
 
         private void BuildAnalysisTable(object sender, EventArgs e)
         {
-            string[] productions = GetProductions();
-            GrammarTableBuilder builder = new GrammarTableBuilder(productions);
-            tbOutput.AppendText("rowIndex\tterminals\t\t\t\tjump\taccept\tstack\terror\n");
-            tbOutput.AppendText("{\n");
+            //string[] productions = GetProductions();
+            //ParsTable builder = new ParsTable(productions);
+            //tbOutput.AppendText("rowIndex\tterminals\t\t\t\tjump\taccept\tstack\terror\n");
+            //tbOutput.AppendText("{\n");
 
-            // TODO переписать здесь код сделать понятным
-            TableRow[] parsTable = builder.GetParsingTable();
-            for (int rowIndex = 0; rowIndex < parsTable.Length; rowIndex++)
-            {
-                string terminals = ConvertToCharList(parsTable[rowIndex].terminals);
+            //// TODO переписать здесь код сделать понятным
+            //TableRow[] parsTable = builder.GetParsingTable();
+            //for (int rowIndex = 0; rowIndex < parsTable.Length; rowIndex++)
+            //{
+            //    string terminals = ConvertToCharList(parsTable[rowIndex].terminals);
 
-                tbOutput.AppendText("" +
-                                    //rowIndex    +"\t"+
-                                    "new TableRow( new char[] { " + terminals.PadLeft(20, ' ') + "},\t" +
-                                    parsTable[rowIndex].jump.ToString().ToLower() + ",\t" +
-                                    parsTable[rowIndex].accept.ToString().ToLower() + ",\t" +
-                                    parsTable[rowIndex].stack.ToString().ToLower() + ",\t" +
-                                    parsTable[rowIndex].error.ToString().ToLower() + ", \"\" ),\n");
-            }
-            tbOutput.AppendText("};\n");
+            //    tbOutput.AppendText("" +
+            //                        //rowIndex    +"\t"+
+            //                        "new TableRow( new char[] { " + terminals.PadLeft(20, ' ') + "},\t" +
+            //                        parsTable[rowIndex].jump.ToString().ToLower() + ",\t" +
+            //                        parsTable[rowIndex].accept.ToString().ToLower() + ",\t" +
+            //                        parsTable[rowIndex].stack.ToString().ToLower() + ",\t" +
+            //                        parsTable[rowIndex].error.ToString().ToLower() + ", \"\" ),\n");
+            //}
+            //tbOutput.AppendText("};\n");
         }
 
         //переводит массив символов {a,b,c} в красивую строку  'a', 'b', 'c'

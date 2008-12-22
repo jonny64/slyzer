@@ -4,7 +4,7 @@ using System.IO;
 
 namespace LL1AnalyzerTool
 {
-    internal class Grammar
+    public class Grammar
     {
         // FIRST and FOLLOW relations matrices
 
@@ -24,6 +24,14 @@ namespace LL1AnalyzerTool
         private bool[,] m_first;
         private bool[,] m_follow;
 
+        public Production this[int arg]
+        {
+          get
+          {
+            return GetProductionAt(arg);
+          }
+        }
+
         public Grammar(string[] productions)
         {
             foreach (string prodString in productions)
@@ -41,7 +49,7 @@ namespace LL1AnalyzerTool
             get { return m_grammar; }
         }
 
-        public decimal Length
+        public int Length
         {
             get { return m_grammar.Count; }
         }
@@ -54,6 +62,11 @@ namespace LL1AnalyzerTool
         public Set GetDirectionSymbols(List<Symbol> sequence, string[] productions, string[] terminalWords)
         {
             throw new NotImplementedException();
+        }
+
+        public Set GetDirectionSymbols(Production production)
+        {
+            return GetDirectionSymbols(production.ToLinkedList());
         }
 
         public Set GetDirectionSymbols(LinkedList<Symbol> sequence)
@@ -226,7 +239,6 @@ namespace LL1AnalyzerTool
             {
                 foreach (Symbol sym in prod.Tail)
                 {
-                    bool epsGen;
                     if (m_empty.ContainsKey(sym))
                     {
                         // if sym is non eps gen and no alternatives for him
@@ -480,7 +492,7 @@ namespace LL1AnalyzerTool
             return m_empty;
         }
 
-        public Production GetProduction(int i)
+        public Production GetProductionAt(int i)
         {
             return grammar.ToArray()[i];
         }
@@ -506,6 +518,11 @@ namespace LL1AnalyzerTool
             Grammar result = new Grammar(productions.ToArray());
             return result;
             ;
+        }
+
+        public Set GetDirectSymbols(Production production)
+        {
+            return GetDirectionSymbols(production.ToLinkedList());
         }
     }
 }
