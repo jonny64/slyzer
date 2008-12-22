@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace LL1AnalyzerTool
 {
-    public class Production
+    public class Production : IComparable<Production>
     {
         public Symbol FIRST_GRAMMAR_SYMBOL = new Symbol("S");
         private LinkedList<Symbol> prod = new LinkedList<Symbol>();
@@ -69,6 +69,11 @@ namespace LL1AnalyzerTool
         private bool HasEpsilonTail()
         {
             return TailAt(Tail.Count - 1).Epsilon;
+        }
+
+        public int CompareTo(Production other)
+        {
+            return representation[0].CompareTo(other.representation[0]);
         }
 
         public override string ToString()

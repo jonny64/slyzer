@@ -37,14 +37,19 @@ namespace LL1AnalyzerTool
             foreach (string prodString in productions)
             {
                 Production prod = new Production(prodString);
-                grammar.Add(prod);
+                Productions.Add(prod);
             }
             CreateEmptySymTable();
             CreateFirstRelationTable();
             CreateFollowRelationTable();
         }
 
-        public List<Production> grammar
+        public void Sort()
+        {
+            m_grammar.Sort();
+        }
+
+        public List<Production> Productions
         {
             get { return m_grammar; }
         }
@@ -185,7 +190,7 @@ namespace LL1AnalyzerTool
         internal string GetDirectionSymbolsLog()
         {
             string log = "";
-            foreach (Production production in grammar)
+            foreach (Production production in Productions)
             {
                 Set dirSyms = GetDirectionSymbols(production.ToLinkedList());
                 log += "DS[" + production + "] = " +
@@ -196,7 +201,7 @@ namespace LL1AnalyzerTool
 
         private void CreateEmptySymTable()
         {
-            LinkedList<Production> grammar = new LinkedList<Production>(this.grammar);
+            LinkedList<Production> grammar = new LinkedList<Production>(this.Productions);
 
             LinkedList<Production> updatedGrammar = new LinkedList<Production>(grammar);
             // delete productions with terminals
@@ -317,7 +322,7 @@ namespace LL1AnalyzerTool
             m_first = new bool[grammarSymsCount,grammarSymsCount];
 
             //вычисление отношения начинается_прямо_с
-            foreach (Production prod in grammar)
+            foreach (Production prod in Productions)
             {
                 for (int i = 0; i < prod.Tail.Count; i++)
                 {
@@ -374,7 +379,7 @@ namespace LL1AnalyzerTool
         private Set GetGrammarSymbols()
         {
             Set syms = new Set();
-            foreach (Production prod in grammar)
+            foreach (Production prod in Productions)
             {
                 syms = syms + prod.ToSet();
             }
@@ -408,7 +413,7 @@ namespace LL1AnalyzerTool
             bool[,] straightAtTheEnd = new bool[size,size];
             // A GetStraightAtTheEnd B if exists production
             // B > alpha A beta, where beta is eps gen
-            foreach (Production production in grammar)
+            foreach (Production production in Productions)
             {
                 for (int aIndex = 0; aIndex < production.Tail.Count; aIndex++)
                 {
@@ -431,7 +436,7 @@ namespace LL1AnalyzerTool
 
             // A straightBefore B if
             // exists production D > alpha A beta B gamma
-            foreach (Production production in grammar)
+            foreach (Production production in Productions)
             {
                 for (int aIndex = 0; aIndex < production.Tail.Count - 1; aIndex++)
                 {
@@ -495,7 +500,7 @@ namespace LL1AnalyzerTool
 
         public Production GetProductionAt(int i)
         {
-            return grammar.ToArray()[i];
+            return Productions.ToArray()[i];
         }
 
         public static Grammar LoadFromFile(string filename)
