@@ -65,15 +65,30 @@ namespace LL1AnalyzerTool
             return ds;
         }
 
-        private Set Follow(Symbol head)
+        public Set Follow(Symbol sym)
         {
-            throw new Exception("The method or operation is not implemented.");
+            if (sym.Terminal)
+                throw new Exception("Follow can be calculated only for non terminal");
+
+            Set follow = new Set();
+            Set terminals = GetTerminals();
+            foreach (Symbol terminal in terminals)
+            {
+                if (GetFollow(sym, terminal))
+                    follow.Add(terminal);
+            }
+            return follow;
+        }
+
+        private bool GetFollow(Symbol nonTerminal, Symbol terminal)
+        {
+            return m_follow[GetSymIndex(nonTerminal), GetSymIndex(terminal)];
         }
 
         public Set First(Symbol sym)
         {
             if (sym.Terminal)
-                throw new Exception("First can be calculated only for non terminal");
+                return new Set(sym);
 
             Set first = new Set();
             Set terminals = GetTerminals();
@@ -104,7 +119,9 @@ namespace LL1AnalyzerTool
             LinkedListNode<Symbol> currNode = sequence.First;
             while (currNode != null)
             {
-                first = first + First(currNode.Value);
+                if (!currNode.Value.Epsilon)
+                    first.Add(First(currNode.Value) );
+                
                 if (Empty(currNode.Value))
                     currNode = currNode.Next;
                 else
@@ -126,6 +143,8 @@ namespace LL1AnalyzerTool
 
         private bool Empty(Symbol sym)
         {
+            if (sym.Epsilon)
+                return true;
             if (m_empty.ContainsKey(sym))
                 if (m_empty[sym] == EmptyState.EMPTY)
                     return true;
@@ -376,24 +395,22 @@ namespace LL1AnalyzerTool
         {
             int size = GetGrammarSymbols().Count;
             bool[,] straightAtTheEnd = new bool[size, size];
+            // A GetStraightAtTheEnd B if exists production
+            // B > alpha A beta, where beta is eps gen
+            foreach (Production production in grammar)
+            {
+                for (int aIndex = 0; aIndex < production.Tail.Count; aIndex++)
+                {
+                    Symbol A = production.TailAt(aIndex);
+                    if (!A.Terminal && !A.Epsilon)//A
+                    {
+                        LinkedList<Symbol> beta = production.SubTail(aIndex + 1, production.Tail.Count);
+                        if (Empty(beta))
+                            straightAtTheEnd[GetSymIndex(A), GetSymIndex(production.Head)] = true;
 
-            //for (int prodIndex = 0; prodIndex < m_grammar.Length; prodIndex++)
-            //{
-            //    string production = m_grammar[prodIndex];
-            //    char head = production[0];//B
-            //    for (int aIndex = 1; aIndex < production.Length; aIndex++)
-            //    {
-            //        //есть продукция B>alphaAbeta, где beta eps порождающая
-            //        char a = production[aIndex];
-            //        if (!Terminal(a) && (a != EPSILON_CHAR))//A
-            //        {
-            //            string beta = production.Substring(aIndex + 1);
-            //            if (Empty(beta))
-            //                straightAtTheEnd[GetSymIndex(a), GetSymIndex(head)] = true;
-
-            //        }
-            //    }
-            //}
+                    }
+                }
+            }
             return straightAtTheEnd;
         }
 

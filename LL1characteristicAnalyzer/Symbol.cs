@@ -12,7 +12,11 @@ namespace LL1AnalyzerTool
         // terminal identification rule
         public bool Terminal
         {
-            get { return Char.IsLower(representation[0]); }
+            get
+            {
+                return (Char.IsLower(representation[0])) &&
+                    (!Epsilon);
+            }
         }
 
         public bool Epsilon

@@ -109,5 +109,39 @@ namespace LL1AnalyzerTool
                 Assert.AreEqual(0, difference.Count);
             }
         }
+
+        [Test]
+        public void FollowSet()
+        {
+            Symbol[] syms = {
+                new Symbol("A"),
+                new Symbol("C"),
+                new Symbol("D"),
+                new Symbol("E"),
+                new Symbol("F"),
+                new Symbol("G"),
+                new Symbol("H"),
+                new Symbol("K")
+            };
+            Set[] follows = {
+                    new Set(new Symbol("c")),
+                    new Set(),
+                    new Set(new Symbol("a"), new Symbol("c")),
+                    new Set(new Symbol("c")),
+                    new Set(new Symbol("b")),
+                    new Set(),
+                    new Set(new Symbol("d")),
+                    new Set(new Symbol("b"))
+                           };
+            for (int i = 0; i < syms.Length; i++)
+            {
+                Set actual = grammar.Follow(syms[i]);
+                Set difference = follows[i] / actual;
+                Assert.AreEqual(0, difference.Count, 
+                    String.Format("Symbol: {0}, actual set: {1}, expected: {2}",
+                        syms[i], actual, follows[i])
+                    );
+            }
+        }
     }
 }
