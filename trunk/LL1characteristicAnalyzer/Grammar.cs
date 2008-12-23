@@ -20,7 +20,7 @@ namespace LL1AnalyzerTool
         #endregion
 
         private readonly Dictionary<Symbol, EmptyState> m_empty = new Dictionary<Symbol, EmptyState>();
-        private readonly List<Production> m_grammar = new List<Production>();
+        private List<Production> m_grammar = new List<Production>();
         private bool[,] m_first;
         private bool[,] m_follow;
 
@@ -47,6 +47,21 @@ namespace LL1AnalyzerTool
         public void Sort()
         {
             m_grammar.Sort();
+
+            List<Production> updatedGrammar = new List<Production> ();
+            // move starter (S->alpha) productions to beginning
+            foreach (Production production in m_grammar)
+            {
+                if (production.Starter)
+                    updatedGrammar.Add(production);
+            }
+            foreach (Production production in m_grammar)
+            {
+                if (!production.Starter)
+                    updatedGrammar.Add(production);
+            }
+
+            m_grammar = updatedGrammar;
         }
 
         public List<Production> Productions
@@ -281,7 +296,6 @@ namespace LL1AnalyzerTool
                 Production prod = original.Clone();
                 foreach (Symbol sym in prod.Tail)
                 {
-                    bool epsGen;
                     if ((!sym.Terminal) && m_empty.ContainsKey(sym))
                     {
                         // if sym is eps gen and no alternatives for him
