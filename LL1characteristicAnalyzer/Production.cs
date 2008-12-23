@@ -8,9 +8,24 @@ namespace LL1AnalyzerTool
         public Symbol FIRST_GRAMMAR_SYMBOL = new Symbol("S");
         private LinkedList<Symbol> prod = new LinkedList<Symbol>();
         private string representation = "";
+
+        public int LengthWithoutTerminator
+        {
+            get 
+            {
+                if (Tail.Contains(Symbol.NewTerminator()) )
+                    return prod.Count - 1;
+                return prod.Count;
+            }
+        }
         public int Length
         {
             get { return prod.Count;}
+        }
+
+        public bool Starter
+        {
+            get { return Head.Equals(FIRST_GRAMMAR_SYMBOL);  }
         }
 
         public Production(string prodString)
@@ -24,7 +39,7 @@ namespace LL1AnalyzerTool
             {
                 prod.AddLast(new Symbol(symString));
             }
-            if (Head.Equals(FIRST_GRAMMAR_SYMBOL) &&
+            if (Starter &&
                 !HasEpsilonTail())
                 prod.AddLast(Symbol.NewTerminator());
         }
