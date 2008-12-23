@@ -37,6 +37,7 @@
             this.анализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пускToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lL1ТаблицаРазбораToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.LL1tableForCsharp = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialogGrammar = new System.Windows.Forms.OpenFileDialog();
@@ -98,7 +99,8 @@
             // 
             this.анализToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.пускToolStripMenuItem,
-            this.lL1ТаблицаРазбораToolStripMenuItem});
+            this.lL1ТаблицаРазбораToolStripMenuItem,
+            this.LL1tableForCsharp});
             this.анализToolStripMenuItem.Name = "анализToolStripMenuItem";
             this.анализToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
             this.анализToolStripMenuItem.Text = "Вычислить";
@@ -116,6 +118,13 @@
             this.lL1ТаблицаРазбораToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.lL1ТаблицаРазбораToolStripMenuItem.Text = "LL(1) таблицу разбора";
             this.lL1ТаблицаРазбораToolStripMenuItem.Click += new System.EventHandler(this.BuildAnalysisTable);
+            // 
+            // LL1tableForCsharp
+            // 
+            this.LL1tableForCsharp.Name = "LL1tableForCsharp";
+            this.LL1tableForCsharp.Size = new System.Drawing.Size(273, 22);
+            this.LL1tableForCsharp.Text = "LL(1) таблицу для C#";
+            this.LL1tableForCsharp.Click += new System.EventHandler(this.LL1tableForCsharp_Click);
             // 
             // справкаToolStripMenuItem
             // 
@@ -187,7 +196,7 @@
             this.tbOutput.Multiline = true;
             this.tbOutput.Name = "tbOutput";
             this.tbOutput.ReadOnly = true;
-            this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbOutput.Size = new System.Drawing.Size(566, 403);
             this.tbOutput.TabIndex = 11;
             this.tbOutput.WordWrap = false;
@@ -232,6 +241,7 @@
         private System.Windows.Forms.TextBox tbGrammar;
         private System.Windows.Forms.TextBox tbOutput;
         private System.Windows.Forms.ToolStripMenuItem lL1ТаблицаРазбораToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem LL1tableForCsharp;
     }
 }
 

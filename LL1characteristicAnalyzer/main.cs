@@ -117,5 +117,12 @@ namespace LL1AnalyzerTool
                             "Copyleft (l) 2008 Груздев М.", "О программе",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
+
+        private void LL1tableForCsharp_Click(object sender, EventArgs e)
+        {
+            string[] productions = GetProductions();
+            ParsTable parseTable = new ParsTable(Grammar.LoadFromFile("Grammars\\test5.txt"));
+            tbOutput.AppendText(parseTable.ToCsharpSyntaxAnalyzerTable());
+        }
     }
 }
