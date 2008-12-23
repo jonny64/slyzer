@@ -59,6 +59,38 @@ namespace LL1AnalyzerTool
             }
             return view;
         }
+
+        public string ToCsharpSyntaxAnalyzerTable()
+        {
+            string view = "";
+            for (int rowIndex = 0; rowIndex < m_table.Length; rowIndex++)
+            {
+                view += String.Format("\r\nnew TableRow({0,21}, {1,4}, {2,6}, {3,6}, {4,6}),",
+                    ToCsharpContructor(m_table[rowIndex].terminals),
+                    m_table[rowIndex].jump.ToString().ToLower(),
+                    m_table[rowIndex].accept.ToString().ToLower(),
+                    m_table[rowIndex].stack.ToString().ToLower(),
+                    m_table[rowIndex].error.ToString().ToLower()
+                );
+            }
+            // delete last ","
+            view = view.Remove(view.Length - 1);
+            return view;
+        }
+
+        private string ToCsharpContructor(Set set)
+        {
+            string result = "new Set(";
+            foreach (Symbol sym in set)
+	            {
+            		 result += String.Format("new Symbol(\"{0}\"), ", sym);
+	            }
+            // remove last ", "
+            result = result.Remove(result.Length - 2);
+            result += ")";
+            return result;
+        }
+
         //получить таблицу разбора
         public void BuildTable()
         {
