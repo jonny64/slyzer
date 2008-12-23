@@ -13,7 +13,6 @@ namespace LL1AnalyzerTool
         {
             Grammar grammar = Grammar.LoadFromFile("Grammars\\test1.txt");
             ParsTable table = new ParsTable(grammar);
-            System.Windows.Forms.MessageBox.Show(table.ToString(), "ss");
         }
     }
 }

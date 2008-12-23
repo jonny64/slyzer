@@ -182,7 +182,7 @@
             // tbOutput
             // 
             this.tbOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbOutput.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.tbOutput.Location = new System.Drawing.Point(0, 0);
             this.tbOutput.Multiline = true;
             this.tbOutput.Name = "tbOutput";
