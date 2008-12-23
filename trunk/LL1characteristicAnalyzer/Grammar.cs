@@ -74,16 +74,6 @@ namespace LL1AnalyzerTool
             get { return m_grammar.Count; }
         }
 
-        public Set GetDirectionSymbols(string[] productions, string[] terminalWords, List<Symbol> sequence)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Set GetDirectionSymbols(List<Symbol> sequence, string[] productions, string[] terminalWords)
-        {
-            throw new NotImplementedException();
-        }
-
         public Set GetDirectionSymbols(Production production)
         {
             return GetDirectionSymbols(production.ToLinkedList());

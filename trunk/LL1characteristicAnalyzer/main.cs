@@ -17,9 +17,7 @@ namespace LL1AnalyzerTool
         {
             string[] productions = GetProductions();
             ParsTable parseTable = new ParsTable(Grammar.LoadFromFile("Grammars\\test5.txt"));
-            tbOutput.AppendText("rowIndex\tterminals\t\t\t\tjump\taccept\tstack\terror\n");
             tbOutput.AppendText(parseTable.ToString());
-            tbOutput.AppendText("{\n");
         }
 
         //переводит массив символов {a,b,c} в красивую строку  'a', 'b', 'c'
