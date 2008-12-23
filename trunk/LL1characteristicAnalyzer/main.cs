@@ -20,29 +20,9 @@ namespace LL1AnalyzerTool
             tbOutput.AppendText(parseTable.ToString());
         }
 
-        //переводит массив символов {a,b,c} в красивую строку  'a', 'b', 'c'
-        private string ConvertToCharList(char[] p)
-        {
-            if (p == null) return "";
-            List<char> result = new List<char>();
-            for (int charIndex = 0; charIndex < p.Length; charIndex++)
-            {
-                result.Add('\'');
-                result.Add(p[charIndex]);
-                result.Add('\'');
-                if (charIndex != p.Length - 1)
-                {
-                    result.Add(',');
-                    result.Add(' ');
-                }
-            }
-            return new string(result.ToArray());
-        }
-
         private void ViewDirectionSymbols(object sender, EventArgs e)
         {
             string[] productions = GetProductions();
-
             Grammar myGrammar = new Grammar(productions);
 
             tbOutput.Clear();
@@ -126,7 +106,7 @@ namespace LL1AnalyzerTool
             }
         }
 
-        private void выходToolStripMenuItem_Click(object sender, EventArgs e)
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
         }

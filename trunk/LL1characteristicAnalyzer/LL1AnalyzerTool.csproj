@@ -63,7 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Grammar.cs" />
-    <Compile Include="GrammarAnalyzer.cs" />
     <Compile Include="ParsTable.cs" />
     <Compile Include="GrammarTests.cs" />
     <Compile Include="main.cs">
