@@ -16,7 +16,7 @@ namespace LL1AnalyzerTool
         private void BuildAnalysisTable(object sender, EventArgs e)
         {
             string[] productions = GetProductions();
-            ParsTable parseTable = new ParsTable(Grammar.LoadFromFile("Grammars\\test5.txt"));
+            ParsTable parseTable = new ParsTable(new Grammar(productions));
             tbOutput.AppendText(parseTable.ToString());
         }
 
@@ -121,7 +121,7 @@ namespace LL1AnalyzerTool
         private void LL1tableForCsharp_Click(object sender, EventArgs e)
         {
             string[] productions = GetProductions();
-            ParsTable parseTable = new ParsTable(Grammar.LoadFromFile("Grammars\\test5.txt"));
+            ParsTable parseTable = new ParsTable(new Grammar(productions));
             tbOutput.AppendText(parseTable.ToCsharpSyntaxAnalyzerTable());
         }
     }
