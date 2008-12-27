@@ -20,7 +20,7 @@ namespace LL1AnalyzerTool
         #endregion
 
         private readonly Dictionary<Symbol, EmptyState> m_empty = new Dictionary<Symbol, EmptyState>();
-        private List<Production> m_grammar = new List<Production>();
+        private List<Production> m_productions = new List<Production>();
         private bool[,] m_first;
         private bool[,] m_follow;
 
@@ -44,34 +44,42 @@ namespace LL1AnalyzerTool
             CreateFollowRelationTable();
         }
 
+        public Grammar(Grammar example)
+        {
+            m_empty = example.m_empty;
+            m_first = example.m_first;
+            m_follow = example.m_follow;
+            m_productions = example.m_productions;
+        }
+
         public void Sort()
         {
-            m_grammar.Sort();
+            m_productions.Sort();
 
             List<Production> updatedGrammar = new List<Production> ();
             // move starter (S->alpha) productions to beginning
-            foreach (Production production in m_grammar)
+            foreach (Production production in m_productions)
             {
                 if (production.Starter)
                     updatedGrammar.Add(production);
             }
-            foreach (Production production in m_grammar)
+            foreach (Production production in m_productions)
             {
                 if (!production.Starter)
                     updatedGrammar.Add(production);
             }
 
-            m_grammar = updatedGrammar;
+            m_productions = updatedGrammar;
         }
 
         public List<Production> Productions
         {
-            get { return m_grammar; }
+            get { return m_productions; }
         }
 
         public int Length
         {
-            get { return m_grammar.Count; }
+            get { return m_productions.Count; }
         }
 
         public Set GetDirectionSymbols(Production production)
@@ -533,6 +541,41 @@ namespace LL1AnalyzerTool
         public Set GetDirectSymbols(Production production)
         {
             return GetDirectionSymbols(production.ToLinkedList());
+        }
+
+        // determines if grammar is an LL1 grammar
+        public bool LL1
+        {
+            get
+            {
+                // alternative productions will be sticked together
+                Grammar copy  = new Grammar(this);
+                copy.Sort();
+
+                Symbol currHead = new Symbol("");
+                Set accumulator = new Set();
+                for (int i = 0; i < copy.Length; i++)
+                {
+                    if (!copy[i].Head.Equals(currHead))
+                    {
+                        // switch no next alternative productions block
+                        currHead = copy[i].Head;
+                        accumulator = new Set();
+                    }
+                    else
+                    {
+                        // if alternative productions have some crosses in DS
+                        Set currProdDS = copy.GetDirectionSymbols(copy[i]);
+                        if ( !(accumulator * currProdDS).Empty )
+                        {
+                            return false;
+                        }
+                        accumulator += currProdDS;
+                    }
+
+                }
+                return true;
+            }
         }
     }
 }

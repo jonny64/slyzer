@@ -12,6 +12,8 @@ namespace LL1AnalyzerTool
         public void Test()
         {
             Grammar grammar = Grammar.LoadFromFile("Grammars\\test1.txt");
+            Assert.IsTrue(grammar.LL1);
+
             ParsTable table = new ParsTable(grammar);
             string csharptable = table.ToCsharpSyntaxAnalyzerTable(); 
         }

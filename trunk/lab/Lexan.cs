@@ -22,15 +22,15 @@ namespace lab
         };
         Position position;
 
-        public AlalysisStage.TokenTypes type;        //тип токена
+        public AnalysisStage.TokenTypes type;        //тип токена
         public int attribute;       //атрибут
-        public Token(Position _pos, AlalysisStage.TokenTypes _type, int _attribute)
+        public Token(Position _pos, AnalysisStage.TokenTypes _type, int _attribute)
         {
             position = _pos; type = _type; attribute = _attribute;
         }
     }
 
-    class Lexan : lab.AlalysisStage
+    class Lexan : lab.AnalysisStage
     {
         public string exp;  //ссылка на строку обрабатываемого выражения
         private int m_baseIndex;      //текущий индекс-база в выражении
@@ -295,7 +295,7 @@ namespace lab
                 string name = exp.Substring(m_baseIndex, m_expansionIndex - m_baseIndex);
 
                 //распознанный идентификатор может быть ключевое словом
-                int kwIndex = Array.BinarySearch(lab.AlalysisStage.m_keywords, name);
+                int kwIndex = Array.BinarySearch(lab.AnalysisStage.m_keywords, name);
                 if (kwIndex >-1)
                     token = new Token(new Token.Position(m_baseIndex, m_expansionIndex), m_keywords_enum[kwIndex], -1);
                 else
@@ -308,7 +308,7 @@ namespace lab
                         identHashtable[name]=identID;
                     }
                     token = new Token(new Token.Position(m_baseIndex, m_expansionIndex), 
-                        TokenTypes.IDENT, identID);
+                        TokenTypes.IDENTIFIER, identID);
                 }
                    return true;
             }
