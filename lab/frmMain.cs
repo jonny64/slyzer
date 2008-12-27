@@ -93,7 +93,7 @@ namespace lab
             listBoxMsg.Items.Clear();
             listBoxMsg.Items.Add("Поехали...");
             LL1Analyzer myAnalyzer = new LL1Analyzer(rtbInput.Text);
-            if (myAnalyzer.Check())
+            if (myAnalyzer.InputCorrect())
             {
                 //MessageBox.Show("Все правильно");
                 listBoxMsg.Items.Add("Синтаксис в порядке");
@@ -101,7 +101,7 @@ namespace lab
             else
             {
                 //listBoxMsg.MessageBox.Show("Ошибка: "+myAnalyzer.errMsg);
-                listBoxMsg.Items.Add("Ошибка: " + myAnalyzer.errMsg);
+                listBoxMsg.Items.Add("Ошибка: " + myAnalyzer.ErrorMessage);
             }
         }
 
