@@ -73,9 +73,9 @@ namespace LL1AnalyzerTool
             return sum;
         }
 
-        public static Symbol NewTerminator()
+        public static Symbol TERMINATOR
         {
-            return new Symbol(TERMINATOR_STRING);
+            get { return new Symbol(TERMINATOR_STRING); }
         }
     }
 }

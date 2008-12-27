@@ -1,0 +1,12 @@
+S begin BODY end
+BODY ROW TAIL
+TAIL semicolon ROW TAIL
+TAIL #
+ROW VARS colon TYPE
+VARS identifier REST
+REST comma identifier REST
+REST #
+TYPE char
+TYPE boolean
+TYPE real
+TYPE integer

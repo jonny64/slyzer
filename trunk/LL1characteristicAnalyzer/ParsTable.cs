@@ -36,6 +36,16 @@ namespace LL1AnalyzerTool
             BuildTable();
         }
 
+        public TableRow this[int i]
+        {
+            get { return m_table[i]; }
+        }
+
+        public int Length
+        {
+            get { return m_table.Length; }
+        }
+
         public override string ToString()
         {
             string view = String.Format("{0,3} {1,21} {2,4} {3,6} {4,6} {5,6}",

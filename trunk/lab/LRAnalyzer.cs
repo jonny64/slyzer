@@ -134,7 +134,7 @@ namespace lab
                         {
                             m_errMsg = GetErrMsg(m_state, inputSym);
                             return false;
-                        }; break;
+                        };
                         //сдвиг
                     case 'S':
                         {
@@ -218,15 +218,15 @@ namespace lab
             throw new Exception("Ќе могу преобраовать char в текст");
         }
 
-        private char GetCharForTokenType(AlalysisStage.TokenTypes tokentype)
+        private char GetCharForTokenType(AnalysisStage.TokenTypes tokentype)
         {
             char[] syms ={ 'r', 'e', 's', 'c', 'i', 'o', 'n', 'a', 'b', 'h', 't' };
-            AlalysisStage.TokenTypes[] eqTypes ={ AlalysisStage.TokenTypes.RECORD, AlalysisStage.TokenTypes.END,
-                                                AlalysisStage.TokenTypes.SEMICOLUMN, AlalysisStage.TokenTypes.COLON,
-                                                AlalysisStage.TokenTypes.IDENT, AlalysisStage.TokenTypes.COMMA,
-                                                AlalysisStage.TokenTypes.INTEGER, AlalysisStage.TokenTypes.REAL,
-                                                AlalysisStage.TokenTypes.BOOLEAN, AlalysisStage.TokenTypes.CHAR,
-                                                AlalysisStage.TokenTypes.TERMINATOR};
+            AnalysisStage.TokenTypes[] eqTypes ={ AnalysisStage.TokenTypes.RECORD, AnalysisStage.TokenTypes.END,
+                                                AnalysisStage.TokenTypes.SEMICOLUMN, AnalysisStage.TokenTypes.COLON,
+                                                AnalysisStage.TokenTypes.IDENTIFIER, AnalysisStage.TokenTypes.COMMA,
+                                                AnalysisStage.TokenTypes.INTEGER, AnalysisStage.TokenTypes.REAL,
+                                                AnalysisStage.TokenTypes.BOOLEAN, AnalysisStage.TokenTypes.CHAR,
+                                                AnalysisStage.TokenTypes.TERMINATOR};
             // TODO возможно, избавитьс€ от линейного поиска
             //return syms[Array.BinarySearch(eqTypes, tokentype)];
             for (int i = 0; i < eqTypes.Length; i++)
