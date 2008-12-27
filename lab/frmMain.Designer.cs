@@ -129,10 +129,12 @@
             // 
             // rtbInput
             // 
+            this.rtbInput.DetectUrls = false;
             this.rtbInput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbInput.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.rtbInput.Location = new System.Drawing.Point(0, 0);
             this.rtbInput.Name = "rtbInput";
+            this.rtbInput.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical;
             this.rtbInput.Size = new System.Drawing.Size(246, 385);
             this.rtbInput.TabIndex = 0;
             this.rtbInput.Text = "record\nfield1:boolean;\nfield3,field4:integer\nend";
