@@ -30,6 +30,7 @@ namespace LL1AnalyzerTool
             // выводим множество направляющих символов для каждой продукции
             tbOutput.AppendText("\r\n");
             tbOutput.AppendText(myGrammar.GetDirectionSymbolsLog());
+            tbOutput.AppendText("LL1: " + myGrammar.LL1);
         }
 
         private string[] GetProductions()
