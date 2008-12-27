@@ -46,6 +46,7 @@
     <Compile Include="frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Lexan.cs" />
     <Compile Include="LL1Analyzer.cs" />
     <Compile Include="LRAnalyzer.cs" />
     <Compile Include="Program.cs" />
