@@ -20,7 +20,7 @@ namespace LL1AnalyzerTool
         #endregion
 
         private readonly Dictionary<Symbol, EmptyState> m_empty = new Dictionary<Symbol, EmptyState>();
-        private List<Production> m_productions = new List<Production>();
+        private LinkedList<Production> m_productions = new LinkedList<Production>();
         private bool[,] m_first;
         private bool[,] m_follow;
 
@@ -37,7 +37,7 @@ namespace LL1AnalyzerTool
             foreach (string prodString in productions)
             {
                 Production prod = new Production(prodString);
-                Productions.Add(prod);
+                Productions.AddLast(prod);
             }
             CreateEmptySymTable();
             CreateFirstRelationTable();
@@ -54,25 +54,25 @@ namespace LL1AnalyzerTool
 
         public void Sort()
         {
-            m_productions.Sort();
-
-            List<Production> updatedGrammar = new List<Production> ();
+            Production[] arr = new Production[m_productions.Count];
+            m_productions.CopyTo(arr, 0);
+            Array.Sort(arr);
+            
+            LinkedList<Production> updatedProductions = new LinkedList<Production>(arr);
             // move starter (S->alpha) productions to beginning
             foreach (Production production in m_productions)
             {
                 if (production.Starter)
-                    updatedGrammar.Add(production);
-            }
-            foreach (Production production in m_productions)
-            {
-                if (!production.Starter)
-                    updatedGrammar.Add(production);
+                {
+                    updatedProductions.Remove(production);
+                    updatedProductions.AddFirst(production);
+                }
             }
 
-            m_productions = updatedGrammar;
+            m_productions = updatedProductions;
         }
 
-        public List<Production> Productions
+        public LinkedList<Production> Productions
         {
             get { return m_productions; }
         }
@@ -512,7 +512,9 @@ namespace LL1AnalyzerTool
 
         public Production GetProductionAt(int i)
         {
-            return Productions.ToArray()[i];
+            Production[] arr = new Production[m_productions.Count];
+            m_productions.CopyTo(arr, 0);
+            return arr[i];
         }
 
         public static Grammar LoadFromFile(string filename)
