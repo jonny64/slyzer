@@ -6,7 +6,7 @@ namespace lab
 {
     class LL1Analyzer
     {
-        public string errMsg = "<не установлен текст для ошибки>";
+        public string ErrorMessage = "<не установлен текст для ошибки>";
         
         const char TERMINATOR='t';
         //строка таблицы разбора
@@ -18,11 +18,11 @@ namespace lab
         //ТАБЛИЦА РАЗБОРА
         ParsTable parsTable = new ParsTable(Grammar.LoadFromFile("Grammars\\record.txt"));
 
-        public LL1Analyzer(string _exp)
+        public LL1Analyzer(string input)
         {
-            program = _exp;
+            program = input;
             //создаем лексический анализатор, на вход подаем текст
-            myParser = new Lexan(_exp);
+            myParser = new Lexan(input);
             //Token token;
             //while ((token = myParser.GetToken()).type != AlalysisStage.TokenTypes.TERMINATOR)
             //{
@@ -40,7 +40,7 @@ namespace lab
             return new Symbol( myParser.GetToken().type.ToString().ToLower() );
         }
 
-        public bool Check()
+        public bool InputCorrect()
         {
             symIndex = 0;
             int i = 0;//номер строки таблицы разбора
@@ -67,7 +67,7 @@ namespace lab
                 {
                     if (row.error)
                     {
-                        errMsg = GetErrMsg(i,sym);
+                        ErrorMessage = GetErrMsg(i,sym);
                         return false;//проверка неуспешна
                     }
                     else
@@ -83,7 +83,7 @@ namespace lab
                 return true;//проверка успешна (дошли до символа терминатора в последней строчке)
             else
             {
-                errMsg = GetErrMsg(i,sym);
+                ErrorMessage = GetErrMsg(i,sym);
                 return false;//проверка неуспешна
             }   
         }
