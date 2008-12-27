@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using LL1AnalyzerTool;
 
 namespace lab
 {
@@ -25,7 +26,7 @@ namespace lab
             Lexan myParser = new Lexan(this.rtbInput.Text);
             PrepareOutput();
             Token token;
-            while ((token = myParser.GetToken()).type!=AlalysisStage.TokenTypes.TERMINATOR)
+            while ((token = myParser.GetToken()).type != AnalysisStage.TokenTypes.TERMINATOR)
             {
                 OutText("(" + token.type.ToString() + ", " + token.attribute + " )\n");
             }
@@ -42,7 +43,7 @@ namespace lab
         private void ShowKeyWords()
         {
             OutText("Таблица ключевых слов\n");
-            string[] keyWords = lab.AlalysisStage.GetKeyWords();
+            string[] keyWords = lab.AnalysisStage.GetKeyWords();
             for (int kwIndex = 0; kwIndex < keyWords.Length; kwIndex++)
             {
                 OutText(kwIndex.ToString() + '\t' + keyWords[kwIndex] + '\n');
@@ -58,8 +59,8 @@ namespace lab
         {
             OutText("Таблица идентификаторов\n");
             
-            Ident[] identTable=lab.AlalysisStage.GetIdentTable();
-            for (int identIndex = 0; identIndex < lab.AlalysisStage.GetIdentTableSize(); identIndex++)
+            Ident[] identTable=lab.AnalysisStage.GetIdentTable();
+            for (int identIndex = 0; identIndex < lab.AnalysisStage.GetIdentTableSize(); identIndex++)
             {
                 OutText(identIndex.ToString()+'\t' + identTable[identIndex].name + '\n');
             }
@@ -69,8 +70,8 @@ namespace lab
         {
             OutText("Таблица числовых констант\n");
 
-            NumConst[] numConstTable = lab.AlalysisStage.GetNumConstTable();
-            for (int numConstIndex = 0; numConstIndex < lab.AlalysisStage.GetNumConstTableSize(); numConstIndex++)
+            NumConst[] numConstTable = lab.AnalysisStage.GetNumConstTable();
+            for (int numConstIndex = 0; numConstIndex < lab.AnalysisStage.GetNumConstTableSize(); numConstIndex++)
             {
                 OutText(numConstIndex.ToString() + '\t' + 
                                     numConstTable[numConstIndex].name + '\n');

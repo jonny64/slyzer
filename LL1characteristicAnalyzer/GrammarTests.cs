@@ -175,11 +175,11 @@ namespace LL1AnalyzerTool
                             };
             Set[] follows = {
                                 new Set(new Symbol("c")),
-                                new Set(Symbol.NewTerminator()),
+                                new Set(Symbol.TERMINATOR),
                                 new Set(new Symbol("a"), new Symbol("c")),
                                 new Set(new Symbol("c")),
                                 new Set(new Symbol("b")),
-                                new Set(Symbol.NewTerminator()),
+                                new Set(Symbol.TERMINATOR),
                                 new Set(new Symbol("d")),
                                 new Set(new Symbol("b"))
                             };

@@ -36,7 +36,6 @@
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.анализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.пускToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.lL1ТаблицаРазбораToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.LL1tableForCsharp = new System.Windows.Forms.ToolStripMenuItem();
             this.справкаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,7 +98,6 @@
             // 
             this.анализToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.пускToolStripMenuItem,
-            this.lL1ТаблицаРазбораToolStripMenuItem,
             this.LL1tableForCsharp});
             this.анализToolStripMenuItem.Name = "анализToolStripMenuItem";
             this.анализToolStripMenuItem.Size = new System.Drawing.Size(74, 20);
@@ -111,13 +109,6 @@
             this.пускToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
             this.пускToolStripMenuItem.Text = "Множество направляющих символов";
             this.пускToolStripMenuItem.Click += new System.EventHandler(this.ViewDirectionSymbols);
-            // 
-            // lL1ТаблицаРазбораToolStripMenuItem
-            // 
-            this.lL1ТаблицаРазбораToolStripMenuItem.Name = "lL1ТаблицаРазбораToolStripMenuItem";
-            this.lL1ТаблицаРазбораToolStripMenuItem.Size = new System.Drawing.Size(273, 22);
-            this.lL1ТаблицаРазбораToolStripMenuItem.Text = "LL(1) таблицу разбора";
-            this.lL1ТаблицаРазбораToolStripMenuItem.Click += new System.EventHandler(this.BuildAnalysisTable);
             // 
             // LL1tableForCsharp
             // 
@@ -240,7 +231,6 @@
         private System.Windows.Forms.SplitContainer splitContainerMain;
         private System.Windows.Forms.TextBox tbGrammar;
         private System.Windows.Forms.TextBox tbOutput;
-        private System.Windows.Forms.ToolStripMenuItem lL1ТаблицаРазбораToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem LL1tableForCsharp;
     }
 }

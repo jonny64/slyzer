@@ -13,7 +13,7 @@ namespace LL1AnalyzerTool
         {
             get 
             {
-                if (Tail.Contains(Symbol.NewTerminator()) )
+                if (Tail.Contains(Symbol.TERMINATOR) )
                     return prod.Count - 1;
                 return prod.Count;
             }
@@ -41,7 +41,7 @@ namespace LL1AnalyzerTool
             }
             if (Starter &&
                 !HasEpsilonTail())
-                prod.AddLast(Symbol.NewTerminator());
+                prod.AddLast(Symbol.TERMINATOR);
         }
 
         public Production(LinkedList<Symbol> prodList)

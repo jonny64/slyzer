@@ -22,7 +22,7 @@ namespace lab
 
 
     //здесь размещены "глобальные данные", разделяемые всеми частями компилятора
-    abstract class AlalysisStage
+    abstract class AnalysisStage
     {
         private const int MAX_IDENT_TABLE_SIZE = 1024;
         private const int MAX_NUM_CONST_TABLE_SIZE = 1024;
@@ -37,7 +37,7 @@ namespace lab
                                 "real","record","then","type","var"};
         public enum TokenTypes
         {
-            TERMINATOR,MULT_OP, ADD_OP, IDENT, KEYWORD, NUMBER,
+            TERMINATOR,MULT_OP, ADD_OP, IDENTIFIER, KEYWORD, NUMBER,
             EQUALITY, COMMA, SEMICOLUMN, LEFT_PARENTHESIS,
             RIGHT_PARENTHESIS, POINT, TWO_POINTS, ASSIGN, COLON, UNKNOWN,
             AND, BEGIN, BOOLEAN, CHAR, ELSE,
