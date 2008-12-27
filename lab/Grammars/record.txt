@@ -1,4 +1,4 @@
-S begin BODY end
+S record BODY end
 BODY ROW TAIL
 TAIL semicolon ROW TAIL
 TAIL #
