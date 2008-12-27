@@ -93,7 +93,7 @@ namespace lab
         {
             //throw new Exception("The method or operation is not implemented.");
             //предполагаемые символы
-            Set suggestedSyms=parsTable[errRow].terminals;
+            Set suggestedSyms = parsTable[errRow].terminals;
             //движемся вниз (по альтернативным продукциям, если они были)
             //и добавляем их terminals
             for (int row = errRow - 1; row > -1; row--)

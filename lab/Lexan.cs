@@ -225,7 +225,7 @@ namespace lab
         private bool TryCastAsOneCharTerminal(ref Token token)
         {
             string punc = ",;+-*/=()";
-            TokenTypes[] equalTypes ={ TokenTypes.COMMA, TokenTypes.SEMICOLUMN,
+            TokenTypes[] equalTypes ={ TokenTypes.COMMA, TokenTypes.SEMICOLON,
                                         TokenTypes.ADD_OP,TokenTypes.ADD_OP,
                                         TokenTypes.MULT_OP,TokenTypes.MULT_OP,
                                         TokenTypes.EQUALITY,TokenTypes.LEFT_PARENTHESIS,

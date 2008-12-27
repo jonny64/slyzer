@@ -222,7 +222,7 @@ namespace lab
         {
             char[] syms ={ 'r', 'e', 's', 'c', 'i', 'o', 'n', 'a', 'b', 'h', 't' };
             AnalysisStage.TokenTypes[] eqTypes ={ AnalysisStage.TokenTypes.RECORD, AnalysisStage.TokenTypes.END,
-                                                AnalysisStage.TokenTypes.SEMICOLUMN, AnalysisStage.TokenTypes.COLON,
+                                                AnalysisStage.TokenTypes.SEMICOLON, AnalysisStage.TokenTypes.COLON,
                                                 AnalysisStage.TokenTypes.IDENTIFIER, AnalysisStage.TokenTypes.COMMA,
                                                 AnalysisStage.TokenTypes.INTEGER, AnalysisStage.TokenTypes.REAL,
                                                 AnalysisStage.TokenTypes.BOOLEAN, AnalysisStage.TokenTypes.CHAR,
