@@ -11,7 +11,7 @@ namespace lab
         const char TERMINATOR='t';
         //строка таблицы разбора
         //лексический анализатор - "подносчик патронов"
-        Lexan myParser;
+        Lexan lexan;
 
         public string program;
         int symIndex = 0;
@@ -21,23 +21,13 @@ namespace lab
         public LL1Analyzer(string input)
         {
             program = input;
-            //создаем лексический анализатор, на вход подаем текст
-            myParser = new Lexan(input);
-            //Token token;
-            //while ((token = myParser.GetToken()).type != AlalysisStage.TokenTypes.TERMINATOR)
-            //{
-            //    OutText("(" + token.type.ToString() + ", " + token.attribute + " )\n");
-            //}
-            //string[] errors = myParser.errorMessages.ToArray();
-            //for (int errorIndex = 0; errorIndex < errors.Length; errorIndex++)
-            //    OutText(errors[errorIndex] + '\n');
-            
+            lexan = new Lexan(input);
         }
 
         //читает символ;
         private Symbol readSym()
         {
-            return new Symbol( myParser.GetToken().type.ToString().ToLower() );
+            return new Symbol( lexan.GetToken().type.ToString().ToLower() );
         }
 
         public bool InputCorrect()
