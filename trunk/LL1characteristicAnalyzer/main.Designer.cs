@@ -42,9 +42,9 @@
             this.openFileDialogGrammar = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogGrammar = new System.Windows.Forms.SaveFileDialog();
             this.toolTipMain = new System.Windows.Forms.ToolTip(this.components);
-            this.tbGrammar = new System.Windows.Forms.TextBox();
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.tbOutput = new System.Windows.Forms.TextBox();
+            this.tbGrammar = new System.Windows.Forms.TextBox();
             this.menuStripMain.SuspendLayout();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -148,20 +148,6 @@
             this.toolTipMain.IsBalloon = true;
             this.toolTipMain.ShowAlways = true;
             // 
-            // tbGrammar
-            // 
-            this.tbGrammar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbGrammar.Location = new System.Drawing.Point(0, 0);
-            this.tbGrammar.Multiline = true;
-            this.tbGrammar.Name = "tbGrammar";
-            this.tbGrammar.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.tbGrammar.Size = new System.Drawing.Size(139, 403);
-            this.tbGrammar.TabIndex = 10;
-            this.tbGrammar.Text = "S>A B C\r\nA>D E\r\nB>F G\r\nC>#\r\nD>a\r\nD>#\r\nE>a a\r\nE>#\r\nF>H K\r\nG>b b\r\nH>c c\r\nK>d d";
-            this.toolTipMain.SetToolTip(this.tbGrammar, "Продукции должны быть в формате A>BCd, по одной на строку. Как eps символ испоьзу" +
-                    "йте #.");
-            this.tbGrammar.WordWrap = false;
-            // 
             // splitContainerMain
             // 
             this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -191,6 +177,16 @@
             this.tbOutput.Size = new System.Drawing.Size(566, 403);
             this.tbOutput.TabIndex = 11;
             this.tbOutput.WordWrap = false;
+            // 
+            // tbGrammar
+            // 
+            this.tbGrammar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbGrammar.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbGrammar.Location = new System.Drawing.Point(0, 0);
+            this.tbGrammar.Multiline = true;
+            this.tbGrammar.Name = "tbGrammar";
+            this.tbGrammar.Size = new System.Drawing.Size(139, 403);
+            this.tbGrammar.TabIndex = 0;
             // 
             // main
             // 
@@ -229,9 +225,9 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolTip toolTipMain;
         private System.Windows.Forms.SplitContainer splitContainerMain;
-        private System.Windows.Forms.TextBox tbGrammar;
         private System.Windows.Forms.TextBox tbOutput;
         private System.Windows.Forms.ToolStripMenuItem LL1tableForCsharp;
+        private System.Windows.Forms.TextBox tbGrammar;
     }
 }
 
