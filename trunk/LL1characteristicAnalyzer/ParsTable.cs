@@ -145,7 +145,9 @@ namespace LL1AnalyzerTool
                     m_table[currProdID].accept = true;
                     // крайний правый терминал: return = true
                     if (symIndex == production.LengthWithoutTerminator - 1)
+                    {
                         m_table[currProdID].jump = JUMP_FINISH;
+                    }
                     else
                         m_table[currProdID].jump = prodIDs[prodIndex][symIndex + 1];
                     m_table[currProdID].dbgMsg = String.Format("For right part sym {1} of production {0}", production, sym);
@@ -156,7 +158,9 @@ namespace LL1AnalyzerTool
                     m_table[currProdID].terminals = GetDSUnionForHeadNonTerm(sym);
                     if (symIndex < production.LengthWithoutTerminator - 1)
                         m_table[currProdID].stack = true;
+                        
                     m_table[currProdID].jump = GetFirstAlternativeProdID(sym);
+                    
                     m_table[currProdID].dbgMsg = String.Format("For right part nonterm {1} of production {0}", production, sym);
                 }
 

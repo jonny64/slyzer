@@ -1,0 +1,5 @@
+record
+field1: integer;
+field3,field4: char;
+field3,field4, field5: real
+end

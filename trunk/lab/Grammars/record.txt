@@ -7,6 +7,6 @@ VARS identifier REST
 REST comma identifier REST
 REST #
 TYPE char
-TYPE boolean
-TYPE real
 TYPE integer
+TYPE real
+TYPE boolean
