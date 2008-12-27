@@ -47,19 +47,20 @@ namespace lab
             Stack<int> S = new Stack<int>();
             bool la = true;
             Symbol sym = readSym();
-            while ((sym != Symbol.TERMINATOR) && (i != -1))
+            while ((sym != Symbol.TERMINATOR) && (i != ParsTable.JUMP_FINISH))
             {
                 TableRow row = parsTable[i];
                 if ( row.terminals.Contains(sym) )
                 {
                     la = row.accept;
-                    if (row.jump==-1)
+                    if (row.jump == ParsTable.JUMP_FINISH)
                     {
                         i = S.Pop();
                     }
                     else
                     {
-                        if (row.stack) S.Push( i + 1 );
+                        if (row.stack) 
+                            S.Push( i + 1 );
                         i=row.jump;
                     }
                 }

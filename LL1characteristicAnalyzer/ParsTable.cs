@@ -7,7 +7,7 @@ namespace LL1AnalyzerTool
     {
         public bool accept;
         public bool error;
-        public string errorMsg;
+        public string dbgMsg;
         public int jump;
         public bool stack;
         public Set terminals;
@@ -17,7 +17,7 @@ namespace LL1AnalyzerTool
     public  class ParsTable
     {
         //нумера всех символов грамматики
-        private readonly int[][] prodIDs;
+        private int[][] prodIDs;
         TableRow[] m_table;
         private  Grammar m_grammar;
 
@@ -26,13 +26,6 @@ namespace LL1AnalyzerTool
         public ParsTable(Grammar grammar)
         {
             m_grammar = grammar;
-            m_grammar.Sort();
-            prodIDs = new int[m_grammar.Length][];
-            for (int prodIndex = 0; prodIndex < m_grammar.Length; prodIndex++)
-            {
-                Production production = m_grammar.GetProductionAt(prodIndex);
-                prodIDs[prodIndex] = new int[production.LengthWithoutTerminator];
-            }
             BuildTable();
         }
 
@@ -104,7 +97,6 @@ namespace LL1AnalyzerTool
         //получить таблицу разбора
         public void BuildTable()
         {
-            m_table = new TableRow[GetGrammarSize()];
             NumerateProductions();
 
             int currProdID;
@@ -121,14 +113,16 @@ namespace LL1AnalyzerTool
                 // заполняем строку для головы продукции
                 m_table[currProdID].terminals = m_grammar.GetDirectSymbols(production);
                 m_table[currProdID].jump = prodIDs[prodIndex][1];
+                m_table[currProdID].dbgMsg = String.Format("For head of production {0}", production);
 
-                // если это eps - правая часть eps продукции
+                // если правая часть продукции eps
                 if (production.Epsilon)
                 {
                     currProdID = prodIDs[prodIndex][1];
                     m_table[currProdID].terminals = m_grammar.GetDirectSymbols(production);
                     m_table[currProdID].jump = JUMP_FINISH;
                     m_table[currProdID].error = true;
+                    m_table[currProdID].dbgMsg = String.Format("For right part of eps production {0}", production);
                 }
                 else
                     // заполняем строку для правой части продукции
@@ -154,6 +148,7 @@ namespace LL1AnalyzerTool
                         m_table[currProdID].jump = JUMP_FINISH;
                     else
                         m_table[currProdID].jump = prodIDs[prodIndex][symIndex + 1];
+                    m_table[currProdID].dbgMsg = String.Format("For right part sym {1} of production {0}", production, sym);
                 }
                 else
                 {
@@ -162,7 +157,9 @@ namespace LL1AnalyzerTool
                     if (symIndex < production.LengthWithoutTerminator - 1)
                         m_table[currProdID].stack = true;
                     m_table[currProdID].jump = GetFirstAlternativeProdID(sym);
+                    m_table[currProdID].dbgMsg = String.Format("For right part nonterm {1} of production {0}", production, sym);
                 }
+
             }
         }
 
@@ -199,6 +196,14 @@ namespace LL1AnalyzerTool
 
         private void NumerateProductions()
         {
+            m_grammar.Sort();
+            prodIDs = new int[m_grammar.Length][];
+            for (int prodIndex = 0; prodIndex < m_grammar.Length; prodIndex++)
+            {
+                Production production = m_grammar[prodIndex];
+                prodIDs[prodIndex] = new int[production.LengthWithoutTerminator];
+            }
+
             // нумеруем все символы грамматики с 0
             int counter = 0;
             for (int prodIndex = 0; prodIndex < m_grammar.Length; prodIndex++)
@@ -209,10 +214,12 @@ namespace LL1AnalyzerTool
                 // номера альтернативных продукциий должны следовать подряд
                 for (int altProdIndex = prodIndex; altProdIndex < m_grammar.Length; altProdIndex++)
                 {
-                    if (!m_grammar.GetProductionAt(altProdIndex).Head.Equals(production.Head) )
+                    bool currProdIsAlternative = m_grammar.GetProductionAt(altProdIndex).Head.Equals(production.Head);
+                    bool currProdAlreadyNumerated = (prodIDs[altProdIndex][0] != 0);
+                    if (!currProdIsAlternative || currProdAlreadyNumerated)
                         break;
-                    if (prodIDs[altProdIndex][0] == 0)
-                        prodIDs[altProdIndex][0] = counter++;
+                    
+                    prodIDs[altProdIndex][0] = counter++;
                 }
                 // нумерация внутри продукции
                 for (int symIndex = 1; symIndex < production.LengthWithoutTerminator; symIndex++)
@@ -220,6 +227,8 @@ namespace LL1AnalyzerTool
                     prodIDs[prodIndex][symIndex] = counter++;
                 }
             }
+
+            m_table = new TableRow[counter];
         }
     }
 }
