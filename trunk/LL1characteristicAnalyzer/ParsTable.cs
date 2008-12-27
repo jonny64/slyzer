@@ -127,7 +127,7 @@ namespace LL1AnalyzerTool
                 {
                     currProdID = prodIDs[prodIndex][1];
                     m_table[currProdID].terminals = m_grammar.GetDirectSymbols(production);
-                    m_table[currProdID].jump = 0;
+                    m_table[currProdID].jump = JUMP_FINISH;
                     m_table[currProdID].error = true;
                 }
                 else
