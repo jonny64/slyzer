@@ -88,7 +88,7 @@ namespace LL1AnalyzerTool
 
         public int CompareTo(Production other)
         {
-            return representation[0].CompareTo(other.representation[0]);
+            return representation.CompareTo(other.representation);
         }
 
         public override string ToString()

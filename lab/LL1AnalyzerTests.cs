@@ -12,17 +12,27 @@ namespace lab
         [Test]
         public void InputCheck()
         {
-            bool[] correctList = { true };
-            string[] inputFilesList = { "record1.txt" };
+            bool[] correctList = { true, true, false, false, false, false, false, false, true, false};
+            int inputFilesListSize = 10;
 
             Grammar grammar = Grammar.LoadFromFile("Grammars\\record.txt");
             Assert.IsTrue(grammar.LL1);
 
-            for (int inFile = 0; inFile < inputFilesList.Length; inFile++)
+            for (int i = 0; i < inputFilesListSize; i++)
             {
-                String input = LoadFromFile("Inputs\\" + inputFilesList[inFile]);
+                String input = LoadFromFile("Inputs\\" + "record" + i + ".txt");
+                input = input.Replace("\r", "");
                 LL1Analyzer analyzer = new LL1Analyzer(input);
-                Assert.IsTrue(analyzer.InputCorrect(), analyzer.ErrorMessage) ;
+                Assert.AreEqual(
+                    correctList[i],
+                    analyzer.InputCorrect(),
+                    String.Format("Номер теста {0}; Сообщение: {1}; Тест:\n {2}",
+                    i,
+                    analyzer.ErrorMessage,
+                    input
+                    )
+                );
+
             }
         }
 

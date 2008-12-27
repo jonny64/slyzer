@@ -45,6 +45,7 @@ namespace lab
             symIndex = 0;
             int i = 0;//номер строки таблицы разбора
             Stack<int> S = new Stack<int>();
+            S.Push(ParsTable.JUMP_FINISH);
             bool la = true;
             Symbol sym = readSym();
             while ((sym != Symbol.TERMINATOR) && (i != ParsTable.JUMP_FINISH))
@@ -53,7 +54,7 @@ namespace lab
                 if ( row.terminals.Contains(sym) )
                 {
                     la = row.accept;
-                    if (row.jump == ParsTable.JUMP_FINISH)
+                    if (row.jump == ParsTable.JUMP_FINISH) //return
                     {
                         i = S.Pop();
                     }
@@ -80,13 +81,18 @@ namespace lab
                 if (la) 
                     sym = readSym();
             }
-            if (i == parsTable.Length - 1)
-                return true;//проверка успешна (дошли до символа терминатора в последней строчке)
-            else
+
+            if ((sym == Symbol.TERMINATOR) && (S.Count == 0) )
+                return true;
+
+            if (S.Count != 0)
             {
-                ErrorMessage = GetErrMsg(i,sym);
-                return false;//проверка неуспешна
-            }   
+                ErrorMessage = GetErrMsg(i, sym);
+                return false;
+            }
+
+            ErrorMessage = "Лишнее " + sym;
+            return false;
         }
 
         //выбрасывает сообщение об ошибке, произошедшей при разборе по строке i

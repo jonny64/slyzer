@@ -58,6 +58,16 @@ namespace LL1AnalyzerTool
 
         #endregion
 
+        public static bool operator ==(Symbol x, Symbol y)
+        {
+            return x.Equals(y);
+        }
+
+        public static bool operator !=(Symbol x, Symbol y)
+        {
+            return !x.Equals(y);
+        }
+
         public override string ToString()
         {
             return representation;
