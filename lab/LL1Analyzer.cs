@@ -13,15 +13,18 @@ namespace lab
         //лексический анализатор - "подносчик патронов"
         Lexan lexan;
 
-        public string program;
-        int symIndex = 0;
+        public string m_program;
         //ТАБЛИЦА РАЗБОРА
-        ParsTable parsTable = new ParsTable(Grammar.LoadFromFile("Grammars\\record.txt"));
+        ParsTable m_parsTable;
 
-        public LL1Analyzer(string input)
+        public LL1Analyzer(ParsTable parsTable)
         {
-            program = input;
-            lexan = new Lexan(input);
+            m_parsTable = parsTable;
+        }
+
+        public LL1Analyzer()
+        {
+            m_parsTable = new ParsTable(Grammar.LoadFromFile("Grammars\\expression.txt"));
         }
 
         //читает символ;
@@ -30,17 +33,19 @@ namespace lab
             return new Symbol( lexan.GetToken().type.ToString().ToLower() );
         }
 
-        public bool InputCorrect()
+        public bool Check(string input)
         {
-            symIndex = 0;
+            m_program = input;
+            lexan = new Lexan(input);
+
             int i = 0;//номер строки таблицы разбора
             Stack<int> S = new Stack<int>();
             S.Push(ParsTable.JUMP_FINISH);
             bool la = true;
             Symbol sym = readSym();
-            while ((sym != Symbol.TERMINATOR) && (i != ParsTable.JUMP_FINISH))
+            while (i != ParsTable.JUMP_FINISH)
             {
-                TableRow row = parsTable[i];
+                TableRow row = m_parsTable[i];
                 if ( row.terminals.Contains(sym) )
                 {
                     la = row.accept;
@@ -90,13 +95,13 @@ namespace lab
         {
             //throw new Exception("The method or operation is not implemented.");
             //предполагаемые символы
-            Set suggestedSyms = parsTable[errRow].terminals;
+            Set suggestedSyms = m_parsTable[errRow].terminals;
             //движемся вниз (по альтернативным продукциям, если они были)
             //и добавляем их terminals
             for (int row = errRow - 1; row > -1; row--)
             {
-                if (!parsTable[row].error) 
-                    suggestedSyms += parsTable[row].terminals;
+                if (!m_parsTable[row].error) 
+                    suggestedSyms += m_parsTable[row].terminals;
                 else 
                     break;
             }
