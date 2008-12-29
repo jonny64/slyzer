@@ -562,7 +562,7 @@ namespace LL1AnalyzerTool
                     {
                         // switch no next alternative productions block
                         currHead = copy[i].Head;
-                        accumulator = new Set();
+                        accumulator = copy.GetDirectionSymbols(copy[i]);
                     }
                     else
                     {
