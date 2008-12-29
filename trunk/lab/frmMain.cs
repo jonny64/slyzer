@@ -138,8 +138,8 @@ namespace lab
         {
             listBoxMsg.Items.Clear();
             listBoxMsg.Items.Add("Поехали...");
-            LL1Analyzer myAnalyzer = new LL1Analyzer(rtbInput.Text);
-            if (myAnalyzer.InputCorrect())
+            LL1Analyzer myAnalyzer = new LL1Analyzer();
+            if (myAnalyzer.Check(rtbInput.Text))
             {
                 //MessageBox.Show("Все правильно");
                 listBoxMsg.Items.Add("Синтаксис в порядке");

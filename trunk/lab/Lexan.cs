@@ -57,33 +57,60 @@ namespace lab
             {
                 switch(m_state)
                 {
-                    case 0: if (char.IsDigit(sym)) m_state = 1;
+                    case 0: 
+                        if (char.IsDigit(sym)) 
+                            m_state = 1;
                         break;
-                    case 1: if (sym == '.') m_state = 2; 
-                            else
-                            if ((sym == 'e')||(sym=='E')) m_state=4 ; else m_state = 7;          //конец
-                        break;
-                    case 2: if (char.IsDigit(sym)) m_state = 3;
-                        else GoToErrorState("после '.' ожидается продолжение константы");
-                        break;
-                    case 3: if ((sym == 'e')||(sym=='E')) m_state = 4; 
-                            else 
-                                if (!char.IsDigit(sym)) m_state = 7;
-                        break;
-                    case 4: if ((sym == '+') || (sym == '-')) m_state = 5;
-                        else
-                            if (char.IsDigit(sym)) m_state = 6;
-                            else GoToErrorState("ожидается +- или цедлое число");
 
+                    case 1: 
+                        if (sym == '.') 
+                            m_state = 2; 
+                        else
+                            if ((sym == 'e')||(sym=='E')) 
+                                m_state=4 ; 
+                            else 
+                                m_state = 7;          //конец
                         break;
-                    case 5: if (char.IsDigit(sym)) m_state = 6; 
-                            else GoToErrorState("ожидается целое число");
+
+                    case 2: 
+                        if (char.IsDigit(sym)) 
+                            m_state = 3;
+                        else
+                            GoToErrorState("после '.' ожидается продолжение константы");
                         break;
-                    case 6: if (!char.IsDigit(sym)) m_state = 7;                  //конец
+
+                    case 3: if ((sym == 'e')||(sym=='E')) 
+                        m_state = 4; 
+                        else 
+                            if (!char.IsDigit(sym)) 
+                                m_state = 7;
+                        break;
+
+                    case 4: 
+                        if ((sym == '+') || (sym == '-'))
+                            m_state = 5;
+                        else
+                            if (char.IsDigit(sym))
+                                m_state = 6;
+                            else 
+                                GoToErrorState("ожидается +- или целое число");
+                        break;
+
+                    case 5: 
+                        if (char.IsDigit(sym))
+                            m_state = 6; 
+                        else 
+                            GoToErrorState("ожидается целое число");
+                        break;
+
+                    case 6: 
+                        if (!char.IsDigit(sym)) 
+                            m_state = 7;                  //конец
                         break;
                 }
 
-                if (m_state == 7) EndState = true;
+                if (m_state == 7) 
+                    EndState = true;
             }
             //переводит автомат в конечное состояние с ошибкой
             void GoToErrorState(string msg)
@@ -109,7 +136,6 @@ namespace lab
                 /*'='*/{-1, 6,  7,  9,  11  },
              /*другой*/{-1, 6,  8,  10,  13  }
             };
-            private bool error = false;
             //скармливает автомату входной символ, переволя его в новое состояние
             
             public bool EndState = false;                             //автомат в конечном состоянии
@@ -131,9 +157,8 @@ namespace lab
                     TokenTypes[] equalTypes ={ TokenTypes.TWO_POINTS, TokenTypes.POINT,
                                                 TokenTypes.ASSIGN,TokenTypes.COLON};
                     if (state < 9) acceptedStringType = equalTypes[state-5];
-                    else acceptedStringType = TokenTypes.EQUALITY;
+                    else acceptedStringType = TokenTypes.EQUALITY_OP;
                 }
-                if (state == -1) error = true;
             }
         }
 
@@ -204,11 +229,11 @@ namespace lab
                         else tokenType = TokenTypes.COLON;
                         break;
                     case '>': if (exp[m_expansionIndex + 1] == '=') tokenLength = 2;
-                        tokenType = TokenTypes.EQUALITY;
+                        tokenType = TokenTypes.EQUALITY_OP;
                         break;
                     case '<': if ((exp[m_expansionIndex + 1] == '=') || (exp[m_expansionIndex + 1] == '>'))
                             tokenLength = 2;
-                        tokenType = TokenTypes.EQUALITY;
+                        tokenType = TokenTypes.EQUALITY_OP;
                         break;
 
                 }
@@ -228,7 +253,7 @@ namespace lab
             TokenTypes[] equalTypes ={ TokenTypes.COMMA, TokenTypes.SEMICOLON,
                                         TokenTypes.ADD_OP,TokenTypes.ADD_OP,
                                         TokenTypes.MULT_OP,TokenTypes.MULT_OP,
-                                        TokenTypes.EQUALITY,TokenTypes.LEFT_PARENTHESIS,
+                                        TokenTypes.EQUALITY_OP,TokenTypes.LEFT_PARENTHESIS,
                                         TokenTypes.RIGHT_PARENTHESIS};
             //проверяем является ли символ 'пунктуационным'
             int index = punc.IndexOf(exp[m_expansionIndex]);
@@ -254,7 +279,11 @@ namespace lab
                 do
                 {
                     m_expansionIndex++;
-                    numberDFA.ReadSymbol(exp[m_expansionIndex]);
+                    if (m_expansionIndex < exp.Length)
+                        numberDFA.ReadSymbol(exp[m_expansionIndex]);
+                    else
+                        //eof
+                        numberDFA.ReadSymbol('#');
                 }
                 while (!numberDFA.EndState);         //пока КА не в конечном сстоянии
 

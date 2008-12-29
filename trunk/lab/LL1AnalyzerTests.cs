@@ -10,7 +10,7 @@ namespace lab
     public class LL1AnalyzerTests
     {
         [Test]
-        public void InputCheck()
+        public void RecordGrammarTests()
         {
             bool[] correctList = { true, true, false, false, false, false, false, false, true, false};
             int inputFilesListSize = 10;
@@ -22,10 +22,10 @@ namespace lab
             {
                 String input = LoadFromFile("Inputs\\" + "record" + i + ".txt");
                 input = input.Replace("\r", "");
-                LL1Analyzer analyzer = new LL1Analyzer(input);
+                LL1Analyzer analyzer = new LL1Analyzer(new ParsTable(grammar));
                 Assert.AreEqual(
                     correctList[i],
-                    analyzer.InputCorrect(),
+                    analyzer.Check(input),
                     String.Format("Номер теста {0}; Сообщение: {1}; Тест:\n {2}",
                     i,
                     analyzer.ErrorMessage,
@@ -33,6 +33,32 @@ namespace lab
                     )
                 );
 
+            }
+        }
+
+        [Test]
+        public void ExpressionGrammarTests()
+        {
+            bool[] correctList = { true, true, false, true}; //, false, false, false, false, true, false };
+            int inputFilesListSize = 4;
+
+            Grammar grammar = Grammar.LoadFromFile("Grammars\\expression.txt");
+            Assert.IsTrue(grammar.LL1);
+            LL1Analyzer analyzer = new LL1Analyzer(new ParsTable(grammar));
+
+            for (int i = 0; i < inputFilesListSize; i++)
+            {
+                String input = LoadFromFile("Inputs\\" + "expr" + i + ".txt");
+                input = input.Replace("\r", "");
+                Assert.AreEqual(
+                    correctList[i],
+                    analyzer.Check(input),
+                    String.Format("Номер теста {0}; Сообщение: {1}; Тест:\n {2}",
+                    i,
+                    analyzer.ErrorMessage,
+                    input
+                    )
+                );
             }
         }
 

@@ -37,8 +37,8 @@ namespace lab
                                 "real","record","then","type","var"};
         public enum TokenTypes
         {
-            TERMINATOR,MULT_OP, ADD_OP, IDENTIFIER, KEYWORD, NUMBER,
-            EQUALITY, COMMA, SEMICOLON, LEFT_PARENTHESIS,
+            TERMINATOR, MULT_OP, ADD_OP, IDENTIFIER, KEYWORD, NUMBER,
+            EQUALITY_OP, COMMA, SEMICOLON, LEFT_PARENTHESIS,
             RIGHT_PARENTHESIS, POINT, TWO_POINTS, ASSIGN, COLON, UNKNOWN,
             AND, BEGIN, BOOLEAN, CHAR, ELSE,
             END, IF, INTEGER, NOT, OR, PROGRAM,
