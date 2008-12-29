@@ -11,6 +11,10 @@ namespace LL1AnalyzerTool
         public int jump;
         public bool stack;
         public Set terminals;
+        public string ToString()
+        {
+            return terminals + dbgMsg;
+        }
     }
 
     //строит таблицу разбора для заданной грамматики
