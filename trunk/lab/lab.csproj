@@ -88,7 +88,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Grammars\record.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Grammars\V50simplified.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

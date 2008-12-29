@@ -92,16 +92,23 @@ namespace lab
             {
                 get
                 {
-                    LinkedList<int> candidates = GetCandidatesList(key);
-                    if (candidates == null) return -1;
-                    LinkedListNode<int> candidate = candidates.First;
-                    while (candidate != null)
+                    try
                     {
-                        if (m_identTable[candidate.Value].name == key)
+                        LinkedList<int> candidates = GetCandidatesList(key);
+                        if (candidates == null) return -1;
+                        LinkedListNode<int> candidate = candidates.First;
+                        while (candidate != null)
                         {
-                            return candidate.Value;
+                            if (m_identTable[candidate.Value].name == key)
+                            {
+                                return candidate.Value;
+                            }
+                            candidate = candidate.Next;
                         }
-                        candidate = candidate.Next;
+                    }
+                    catch (Exception e)
+                    {
+                        return -1;
                     }
                     //не нашли
                     return -1;
@@ -118,12 +125,18 @@ namespace lab
                     }
                     else
                     {
-                        // TODO линейный поиск замнить чем-то другим
-                        while (candidate != null)
+                        try
                         {
-                            if (m_identTable[candidate.Value].name == key)
-                                return;//уже есть в таблице
-                            candidate = candidate.Next;
+                            // TODO линейный поиск замнить чем-то другим
+                            while (candidate != null)
+                            {
+                                if (m_identTable[candidate.Value].name == key)
+                                    return;//уже есть в таблице
+                                candidate = candidate.Next;
+                            }
+                        }
+                        catch (Exception e)
+                        {
                         }
                         //не нашли - придется добавить
                         AddToIdentTable(value, key, candidates);
