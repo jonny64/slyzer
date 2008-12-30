@@ -24,7 +24,7 @@ namespace lab
 
         public LL1Analyzer()
         {
-            m_parsTable = new ParsTable(Grammar.LoadFromFile("Grammars\\expression.txt"));
+            m_parsTable = new ParsTable(Grammar.LoadFromFile("Grammars\\operator.txt"));
         }
 
         //читает символ;

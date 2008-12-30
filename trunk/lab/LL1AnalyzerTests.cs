@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
@@ -62,9 +63,35 @@ namespace lab
             }
         }
 
+        [Test]
+        public void OperatorGrammarTests()
+        {
+            bool[] correctList = { true };//, false, true, false };
+            int inputFilesListSize = 1;
+
+            Grammar grammar = Grammar.LoadFromFile("Grammars\\operator.txt");
+            Assert.IsTrue(grammar.LL1);
+            LL1Analyzer analyzer = new LL1Analyzer(new ParsTable(grammar));
+
+            for (int i = 0; i < inputFilesListSize; i++)
+            {
+                String input = LoadFromFile("Inputs\\" + "operator" + i + ".txt");
+                input = input.Replace("\r", "");
+                Assert.AreEqual(
+                    correctList[i],
+                    analyzer.Check(input),
+                    String.Format("Номер теста {0}; Сообщение: {1}; Тест:\n {2}",
+                    i,
+                    analyzer.ErrorMessage,
+                    input
+                    )
+                );
+            }
+        }
+
         private string LoadFromFile(string filename)
         {
-            return (new System.IO.StreamReader(filename).ReadToEnd());
+            return (new StreamReader(filename).ReadToEnd());
         }
     }
 }
