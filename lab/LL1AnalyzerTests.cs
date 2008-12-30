@@ -39,8 +39,8 @@ namespace lab
         [Test]
         public void ExpressionGrammarTests()
         {
-            bool[] correctList = { true, true, false, true}; //, false, false, false, false, true, false };
-            int inputFilesListSize = 4;
+            bool[] correctList = { true, true, false, true, true, true, false};//, false, true, false };
+            int inputFilesListSize = 6;
 
             Grammar grammar = Grammar.LoadFromFile("Grammars\\expression.txt");
             Assert.IsTrue(grammar.LL1);
