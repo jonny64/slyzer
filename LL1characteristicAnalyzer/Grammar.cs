@@ -24,6 +24,7 @@ namespace LL1AnalyzerTool
         private LinkedList<Production> m_productions = new LinkedList<Production>();
         private bool[,] m_first;
         private bool[,] m_follow;
+        private Set m_syms;
 
         public Production this[int arg]
         {
@@ -40,17 +41,25 @@ namespace LL1AnalyzerTool
                 Production prod = new Production(prodString);
                 Productions.AddLast(prod);
             }
+            
+            m_syms = new Set();
+            foreach (Production prod in Productions)
+            {
+                m_syms = m_syms + prod.ToSet();
+            }
+
             CreateEmptySymTable();
             CreateFirstRelationTable();
             CreateFollowRelationTable();
         }
 
-        public Grammar(Grammar example)
+        public Grammar(Grammar other)
         {
-            m_empty = example.m_empty;
-            m_first = example.m_first;
-            m_follow = example.m_follow;
-            m_productions = example.m_productions;
+            m_empty = other.m_empty;
+            m_first = other.m_first;
+            m_follow = other.m_follow;
+            m_productions = other.m_productions;
+            m_syms = other.m_syms;
         }
 
         public void Sort()
@@ -391,12 +400,7 @@ namespace LL1AnalyzerTool
         // retrieve all grammar symbols set
         private Set GetGrammarSymbols()
         {
-            Set syms = new Set();
-            foreach (Production prod in Productions)
-            {
-                syms = syms + prod.ToSet();
-            }
-            return syms;
+            return m_syms;
         }
 
         private void CreateFollowRelationTable()
