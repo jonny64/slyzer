@@ -129,7 +129,7 @@ namespace lab
             rtbOutput.AppendText(p);
         }
 
-        private void синтаксическийАнализToolStripMenuItem_Click(object sender, EventArgs e)
+        private void synToolStripMenuItem_Click(object sender, EventArgs e)
         {
             StartLL1SyntaxCheck();
         }
@@ -151,11 +151,6 @@ namespace lab
             }
         }
 
-        private void восходящийРазборToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            StartLRSyntaxCheck();
-        }
-
         private void StartLRSyntaxCheck()
         {
             listBoxMsg.Items.Clear();
@@ -173,12 +168,12 @@ namespace lab
             }
         }
 
-        private void открытьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFile();
         }
 
-        private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFile();
         }
