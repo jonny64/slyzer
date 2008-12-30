@@ -74,14 +74,14 @@
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
             this.открытьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
-            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.открытьToolStripMenuItem_Click);
+            this.открытьToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
             this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
-            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
+            this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
@@ -164,6 +164,7 @@
             this.synToolStripMenuItem.Name = "synToolStripMenuItem";
             this.synToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
             this.synToolStripMenuItem.Text = "Нисходящий разбор";
+            this.synToolStripMenuItem.Click += new System.EventHandler(this.synToolStripMenuItem_Click);
             // 
             // frmMain
             // 
