@@ -43,8 +43,8 @@
             this.saveFileDialogGrammar = new System.Windows.Forms.SaveFileDialog();
             this.toolTipMain = new System.Windows.Forms.ToolTip(this.components);
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
-            this.tbOutput = new System.Windows.Forms.TextBox();
             this.tbGrammar = new System.Windows.Forms.TextBox();
+            this.tbOutput = new System.Windows.Forms.TextBox();
             this.menuStripMain.SuspendLayout();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -162,8 +162,18 @@
             // 
             this.splitContainerMain.Panel2.Controls.Add(this.tbOutput);
             this.splitContainerMain.Size = new System.Drawing.Size(709, 403);
-            this.splitContainerMain.SplitterDistance = 139;
+            this.splitContainerMain.SplitterDistance = 295;
             this.splitContainerMain.TabIndex = 3;
+            // 
+            // tbGrammar
+            // 
+            this.tbGrammar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbGrammar.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbGrammar.Location = new System.Drawing.Point(0, 0);
+            this.tbGrammar.Multiline = true;
+            this.tbGrammar.Name = "tbGrammar";
+            this.tbGrammar.Size = new System.Drawing.Size(295, 403);
+            this.tbGrammar.TabIndex = 0;
             // 
             // tbOutput
             // 
@@ -174,19 +184,9 @@
             this.tbOutput.Name = "tbOutput";
             this.tbOutput.ReadOnly = true;
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbOutput.Size = new System.Drawing.Size(566, 403);
+            this.tbOutput.Size = new System.Drawing.Size(410, 403);
             this.tbOutput.TabIndex = 11;
             this.tbOutput.WordWrap = false;
-            // 
-            // tbGrammar
-            // 
-            this.tbGrammar.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbGrammar.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbGrammar.Location = new System.Drawing.Point(0, 0);
-            this.tbGrammar.Multiline = true;
-            this.tbGrammar.Name = "tbGrammar";
-            this.tbGrammar.Size = new System.Drawing.Size(139, 403);
-            this.tbGrammar.TabIndex = 0;
             // 
             // main
             // 

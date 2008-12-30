@@ -24,7 +24,7 @@ namespace lab
         public void StartLexicalAnalysis(object sender, EventArgs e)
         {
             //создаем лексический анализатор, на вход подаем текст из Memo rtbInput
-            Lexan myParser = new Lexan(this.rtbInput.Text);
+            Lexan myParser = new Lexan(this.tbInput.Text);
             PrepareOutput();
             Token token;
             while ((token = myParser.GetToken()).type != AnalysisStage.TokenTypes.TERMINATOR)
@@ -52,7 +52,7 @@ namespace lab
                     {
                         using (StreamWriter sw = new StreamWriter(s, Encoding.UTF8))
                         {
-                            sw.Write(rtbInput.Text);
+                            sw.Write(tbInput.Text);
                         }
                     }
                 }
@@ -75,7 +75,7 @@ namespace lab
                         using (StreamReader sr = new StreamReader(s, Encoding.UTF8))
                         {
                             // Insert code to read the stream here.
-                            rtbInput.Text = sr.ReadToEnd();
+                            tbInput.Text = sr.ReadToEnd();
                         }
                     }
                 }
@@ -139,7 +139,7 @@ namespace lab
             listBoxMsg.Items.Clear();
             listBoxMsg.Items.Add("Поехали...");
             LL1Analyzer myAnalyzer = new LL1Analyzer();
-            if (myAnalyzer.Check(rtbInput.Text))
+            if (myAnalyzer.Check(tbInput.Text))
             {
                 //MessageBox.Show("Все правильно");
                 listBoxMsg.Items.Add("Синтаксис в порядке");
@@ -160,7 +160,7 @@ namespace lab
         {
             listBoxMsg.Items.Clear();
             listBoxMsg.Items.Add("Поехали...");
-            LRAnalyzer myAnalyzer = new LRAnalyzer(rtbInput.Text);
+            LRAnalyzer myAnalyzer = new LRAnalyzer(tbInput.Text);
             if (myAnalyzer.Check())
             {
                 //MessageBox.Show("Все правильно");
