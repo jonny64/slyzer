@@ -151,23 +151,6 @@ namespace lab
             }
         }
 
-        private void StartLRSyntaxCheck()
-        {
-            listBoxMsg.Items.Clear();
-            listBoxMsg.Items.Add("Поехали...");
-            LRAnalyzer myAnalyzer = new LRAnalyzer(tbInput.Text);
-            if (myAnalyzer.Check())
-            {
-                //MessageBox.Show("Все правильно");
-                listBoxMsg.Items.Add("Синтаксис в порядке");
-            }
-            else
-            {
-                //listBoxMsg.MessageBox.Show("Ошибка: "+myAnalyzer.errMsg);
-                listBoxMsg.Items.Add("Ошибка: " + myAnalyzer.m_errMsg);
-            }
-        }
-
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             OpenFile();
