@@ -66,8 +66,8 @@ namespace lab
         [Test]
         public void OperatorGrammarTests()
         {
-            bool[] correctList = { true };//, false, true, false };
-            int inputFilesListSize = 1;
+            bool[] correctList = { true, false, true, true, false, true, true };
+            int inputFilesListSize = 7;
 
             Grammar grammar = Grammar.LoadFromFile("Grammars\\operator.txt");
             Assert.IsTrue(grammar.LL1);
