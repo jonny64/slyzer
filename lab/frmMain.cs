@@ -23,8 +23,7 @@ namespace lab
 
         public void StartLexicalAnalysis(object sender, EventArgs e)
         {
-            //создаем лексический анализатор, на вход подаем текст из Memo rtbInput
-            Lexan myParser = new Lexan(this.tbInput.Text);
+            Lexan myParser = new Lexan(tbInput.Text);
             PrepareOutput();
             Token token;
             while ((token = myParser.GetToken()).type != AnalysisStage.TokenTypes.TERMINATOR)

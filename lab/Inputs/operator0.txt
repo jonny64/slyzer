@@ -1,0 +1,3 @@
+﻿begin
+  var1.field := 5*4
+end

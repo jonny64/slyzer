@@ -165,7 +165,7 @@ namespace lab
         //конструктор с инициализацией входным выражением
         public Lexan(string expression)
         {
-            exp = expression;
+            exp = expression.Replace("\r","");
             Array.Sort(m_keywords);
         }
 
