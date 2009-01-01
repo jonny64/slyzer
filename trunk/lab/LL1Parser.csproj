@@ -92,9 +92,11 @@
     <Content Include="Grammars\record.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Grammars\type.txt" />
     <Content Include="Grammars\V50simplified.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Grammars\var.txt" />
     <Content Include="Inputs\expr0.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

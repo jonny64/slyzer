@@ -186,7 +186,6 @@
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbOutput.Size = new System.Drawing.Size(410, 403);
             this.tbOutput.TabIndex = 11;
-            this.tbOutput.WordWrap = false;
             // 
             // main
             // 
