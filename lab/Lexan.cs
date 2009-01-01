@@ -42,7 +42,8 @@ namespace lab
                             if ((sym == 'e')||(sym=='E')) 
                                 m_state=4 ; 
                             else 
-                                m_state = 7;          //конец
+                                if (!char.IsDigit(sym))
+                                    m_state = 7;
                         break;
 
                     case 2: 
@@ -212,8 +213,8 @@ namespace lab
                         if (program[m_expansionIndex + 1] == '=')
                         {
                             tokenLength = 2;
-                            tokenType = TokenType.EQUALITY_OP;
                         }
+                        tokenType = TokenType.EQUALITY_OP;
                         break;
 
                     case '<': 
@@ -298,12 +299,13 @@ namespace lab
                 do
                     ++m_expansionIndex;
                 while (m_expansionIndex != program.Length &&
-                    (Char.IsLetterOrDigit(program[m_expansionIndex]) || program[m_expansionIndex] == '_'));
+                    (Char.IsLetterOrDigit(program[m_expansionIndex]) || program[m_expansionIndex] == '_'))
+                    ;
                 
                 
                 string name = program.Substring(m_baseIndex, m_expansionIndex - m_baseIndex);
 
-                //распознанный идентификатор может быть ключевое словом
+                // identifiercan be a keyword
                 if ( Keyword(name))
                     token = new Token(m_currLine, GetKeywordType(name), -1);
                 else
@@ -325,7 +327,8 @@ namespace lab
         
         private bool SkipMyltiLineComms()
         {
-            if (m_expansionIndex > program.Length - 1) return false;
+            if (m_expansionIndex > program.Length - 1) 
+                return false;
             if (program[m_expansionIndex] == '{')
             {
                 while (m_expansionIndex < program.Length &&
@@ -342,11 +345,15 @@ namespace lab
         
         private bool SkipComms()
         {
-            if (m_expansionIndex > program.Length - 1) return false; 
-            if ((program[m_expansionIndex] == '/') && (m_expansionIndex < program.Length - 1) && (program[m_expansionIndex++] == '/'))
+            if (m_expansionIndex > program.Length - 1) 
+                return false; 
+            if ((program[m_expansionIndex] == '/') && 
+                (m_expansionIndex < program.Length - 1) && 
+                (program[m_expansionIndex + 1] == '/'))
             {
                 while (m_expansionIndex < program.Length &&
-                       (program[m_expansionIndex] != '\n')) ++m_expansionIndex;
+                       (program[m_expansionIndex] != '\n')) 
+                       m_expansionIndex++;
                 m_baseIndex = ++m_expansionIndex;
                 return true;
             }
@@ -356,15 +363,17 @@ namespace lab
         private bool SkipDelimiters()
         {
             bool foundDelimeter = false;
-            //пробел
+            // white space
             while ((m_expansionIndex < program.Length) &&
                     (program[m_expansionIndex]==' '))
             { ++m_expansionIndex; ++m_baseIndex; foundDelimeter = true; };
-            //перевод строки
+            // newline
             while (m_expansionIndex < program.Length &&
                             ((program[m_expansionIndex] == '\n') ))
             {
-                ++m_expansionIndex; ++m_baseIndex; foundDelimeter = true;
+                ++m_expansionIndex; 
+                ++m_baseIndex; 
+                foundDelimeter = true;
                 ++m_currLine;   
             };
             return foundDelimeter;
