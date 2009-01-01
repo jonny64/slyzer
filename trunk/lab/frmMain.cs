@@ -24,20 +24,15 @@ namespace lab
         public void StartLexicalAnalysis(object sender, EventArgs e)
         {
             Lexan myParser = new Lexan(tbInput.Text);
-            PrepareOutput();
+            rtbOutput.Clear();
             Token token;
-            while ((token = myParser.GetToken()).type != AnalysisStage.TokenTypes.TERMINATOR)
+            while ((token = myParser.GetToken()).type != AnalysisStage.TokenType.TERMINATOR)
             {
                 OutText("(" + token.type.ToString() + ", " + token.attribute + " )\n");
             }
             string[] errors = myParser.errorMessages.ToArray();
             for (int errorIndex = 0; errorIndex < errors.Length; errorIndex++)
                 OutText(errors[errorIndex] + '\n');
-            
-            //ShowNumConstTable(myParser);
-            //ShowIdentTable(myParser);
-            //ShowKeyWords();
-
         }
 
         private void SaveFile()
@@ -82,44 +77,6 @@ namespace lab
                 {
                     MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
                 }
-            }
-        }
-
-        private void ShowKeyWords()
-        {
-            OutText("Таблица ключевых слов\n");
-            string[] keyWords = lab.AnalysisStage.GetKeyWords();
-            for (int kwIndex = 0; kwIndex < keyWords.Length; kwIndex++)
-            {
-                OutText(kwIndex.ToString() + '\t' + keyWords[kwIndex] + '\n');
-            }
-        }
-
-        private void PrepareOutput()
-        {
-            rtbOutput.Clear();
-        }
-
-        private void ShowIdentTable(Lexan Parser)
-        {
-            OutText("Таблица идентификаторов\n");
-            
-            Ident[] identTable=lab.AnalysisStage.GetIdentTable();
-            for (int identIndex = 0; identIndex < lab.AnalysisStage.GetIdentTableSize(); identIndex++)
-            {
-                OutText(identIndex.ToString()+'\t' + identTable[identIndex].name + '\n');
-            }
-        }
-
-        private void ShowNumConstTable(Lexan Parser)
-        {
-            OutText("Таблица числовых констант\n");
-
-            NumConst[] numConstTable = lab.AnalysisStage.GetNumConstTable();
-            for (int numConstIndex = 0; numConstIndex < lab.AnalysisStage.GetNumConstTableSize(); numConstIndex++)
-            {
-                OutText(numConstIndex.ToString() + '\t' + 
-                                    numConstTable[numConstIndex].name + '\n');
             }
         }
 

@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="lab.AnalysisStage" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>AnalysisStage.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAGAAAAAAAQgAAACAAAgAAAQ=</HashCode>
+    </TypeIdentifier>
+    <NestedTypes>
+      <Enum Name="lab.AnalysisStage.TokenType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>AnalysisStage.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+  </Class>
+  <Class Name="lab.NumericConstantTable">
+    <Position X="0.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>AnalysisStage.cs</FileName>
+      <HashCode>AAIAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAACgAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+</ClassDiagram>
