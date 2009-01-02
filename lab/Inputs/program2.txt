@@ -1,0 +1,12 @@
+program test(test.pro);
+
+type 
+trange = integer;
+ttest = boolean;
+ttest3 = real;
+
+begin
+  x := 5;
+  y:=7
+  
+end

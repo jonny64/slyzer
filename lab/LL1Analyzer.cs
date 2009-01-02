@@ -7,14 +7,11 @@ namespace lab
     class LL1Analyzer
     {
         public string ErrorMessage = "<не установлен текст для ошибки>";
-        
-        const char TERMINATOR='t';
-        //строка таблицы разбора
-        //лексический анализатор - "подносчик патронов"
-        Lexan lexan;
 
-        public string m_program;
-        //ТАБЛИЦА РАЗБОРА
+        Token m_currToken;
+        const char TERMINATOR='t';
+        Lexan lexan;
+        string m_program;
         ParsTable m_parsTable;
 
         public LL1Analyzer(ParsTable parsTable)
@@ -30,7 +27,8 @@ namespace lab
         //читает символ;
         private Symbol readSym()
         {
-            return new Symbol( lexan.GetToken().type.ToString().ToLower() );
+            m_currToken = lexan.GetToken();
+            return new Symbol(m_currToken.type.ToString().ToLower());
         }
 
         public bool Check(string input)
@@ -86,7 +84,7 @@ namespace lab
                 return false;
             }
 
-            ErrorMessage = "Лишнее " + sym;
+            ErrorMessage = "Лишнее " + sym + " в строке " + m_currToken.lineno;
             return false;
         }
 
@@ -107,7 +105,7 @@ namespace lab
             }
 
             string errMsg = "имеем " + sym +
-                " ожидается " + suggestedSyms;
+                " ожидается " + suggestedSyms + " в строке " + m_currToken.lineno;
 
             return errMsg;
         }

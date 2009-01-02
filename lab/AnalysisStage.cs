@@ -53,8 +53,7 @@ namespace lab
     // token
     struct Token
     {
-        int lineno;
-
+        public int lineno;
         public AnalysisStage.TokenType type;
         public int attribute;
         public Token(int _pos, AnalysisStage.TokenType _type, int _attribute)
