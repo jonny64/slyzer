@@ -147,6 +147,12 @@
     <Content Include="Inputs\program0.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Inputs\program1.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Inputs\program2.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Inputs\record0.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

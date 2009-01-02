@@ -92,8 +92,8 @@ namespace lab
         [Test]
         public void ProgramGrammarTests()
         {
-            bool[] correctList = { true };
-            int inputFilesListSize = 1;
+            bool[] correctList = { true, true, true };
+            int inputFilesListSize = 3;
 
             Grammar grammar = Grammar.LoadFromFile("Grammars\\program.txt");
             Assert.IsTrue(grammar.LL1);
