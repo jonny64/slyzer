@@ -144,6 +144,9 @@
     <Content Include="Inputs\operator6.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Inputs\program0.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Inputs\record0.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

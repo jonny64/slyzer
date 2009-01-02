@@ -89,6 +89,32 @@ namespace lab
             }
         }
 
+        [Test]
+        public void ProgramGrammarTests()
+        {
+            bool[] correctList = { true };
+            int inputFilesListSize = 1;
+
+            Grammar grammar = Grammar.LoadFromFile("Grammars\\program.txt");
+            Assert.IsTrue(grammar.LL1);
+            LL1Analyzer analyzer = new LL1Analyzer(new ParsTable(grammar));
+
+            for (int i = 0; i < inputFilesListSize; i++)
+            {
+                String input = LoadFromFile("Inputs\\" + "program" + i + ".txt");
+                input = input.Replace("\r", "");
+                Assert.AreEqual(
+                    correctList[i],
+                    analyzer.Check(input),
+                    String.Format("Номер теста {0}; Сообщение: {1}; Тест:\n {2}",
+                    i,
+                    analyzer.ErrorMessage,
+                    input
+                    )
+                );
+            }
+        }
+
         private string LoadFromFile(string filename)
         {
             return (new StreamReader(filename).ReadToEnd());

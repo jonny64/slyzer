@@ -530,13 +530,9 @@ namespace LL1AnalyzerTool
             while (sr.Peek() != -1)
             {
                 string line = sr.ReadLine();
-                if (line[0] == ';')
+                if ((line.Length==0) || (line[0] == ';') || (line == "\n"))
                 {
                     continue;
-                }
-                if (line == "\n")
-                {
-                    break;
                 }
                 productions.Add(line);
             }
