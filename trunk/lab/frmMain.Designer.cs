@@ -35,13 +35,13 @@
             this.выходToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.анализToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.lexToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.synToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rtbOutput = new System.Windows.Forms.RichTextBox();
             this.scEditArea = new System.Windows.Forms.SplitContainer();
+            this.tbInput = new System.Windows.Forms.TextBox();
             this.listBoxMsg = new System.Windows.Forms.ListBox();
             this.openFileDialogInput = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialogInput = new System.Windows.Forms.SaveFileDialog();
-            this.tbInput = new System.Windows.Forms.TextBox();
-            this.synToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mstripMainMenu.SuspendLayout();
             this.scEditArea.Panel1.SuspendLayout();
             this.scEditArea.Panel2.SuspendLayout();
@@ -72,21 +72,21 @@
             // открытьToolStripMenuItem
             // 
             this.открытьToolStripMenuItem.Name = "открытьToolStripMenuItem";
-            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.открытьToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.открытьToolStripMenuItem.Text = "Открыть";
             this.открытьToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // сохранитьToolStripMenuItem
             // 
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.Exit);
             // 
@@ -106,13 +106,20 @@
             this.lexToolStripMenuItem.Text = "Лексический анализ";
             this.lexToolStripMenuItem.Click += new System.EventHandler(this.StartLexicalAnalysis);
             // 
+            // synToolStripMenuItem
+            // 
+            this.synToolStripMenuItem.Name = "synToolStripMenuItem";
+            this.synToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
+            this.synToolStripMenuItem.Text = "Нисходящий разбор";
+            this.synToolStripMenuItem.Click += new System.EventHandler(this.synToolStripMenuItem_Click);
+            // 
             // rtbOutput
             // 
             this.rtbOutput.Dock = System.Windows.Forms.DockStyle.Fill;
             this.rtbOutput.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rtbOutput.Location = new System.Drawing.Point(0, 0);
             this.rtbOutput.Name = "rtbOutput";
-            this.rtbOutput.Size = new System.Drawing.Size(263, 385);
+            this.rtbOutput.Size = new System.Drawing.Size(26, 385);
             this.rtbOutput.TabIndex = 0;
             this.rtbOutput.Text = "";
             // 
@@ -130,8 +137,19 @@
             // 
             this.scEditArea.Panel2.Controls.Add(this.rtbOutput);
             this.scEditArea.Size = new System.Drawing.Size(513, 385);
-            this.scEditArea.SplitterDistance = 246;
+            this.scEditArea.SplitterDistance = 483;
             this.scEditArea.TabIndex = 0;
+            // 
+            // tbInput
+            // 
+            this.tbInput.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbInput.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.tbInput.Location = new System.Drawing.Point(0, 0);
+            this.tbInput.Multiline = true;
+            this.tbInput.Name = "tbInput";
+            this.tbInput.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.tbInput.Size = new System.Drawing.Size(483, 385);
+            this.tbInput.TabIndex = 0;
             // 
             // listBoxMsg
             // 
@@ -149,23 +167,6 @@
             // 
             this.openFileDialogInput.FileName = "openFileDialog1";
             // 
-            // tbInput
-            // 
-            this.tbInput.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tbInput.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.tbInput.Location = new System.Drawing.Point(0, 0);
-            this.tbInput.Multiline = true;
-            this.tbInput.Name = "tbInput";
-            this.tbInput.Size = new System.Drawing.Size(246, 385);
-            this.tbInput.TabIndex = 0;
-            // 
-            // synToolStripMenuItem
-            // 
-            this.synToolStripMenuItem.Name = "synToolStripMenuItem";
-            this.synToolStripMenuItem.Size = new System.Drawing.Size(188, 22);
-            this.synToolStripMenuItem.Text = "Нисходящий разбор";
-            this.synToolStripMenuItem.Click += new System.EventHandler(this.synToolStripMenuItem_Click);
-            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -175,7 +176,7 @@
             this.Controls.Add(this.scEditArea);
             this.Controls.Add(this.mstripMainMenu);
             this.Name = "frmMain";
-            this.Text = "main";
+            this.Text = "Синтаксический анализатор (нисходящий табличный разбор)";
             this.mstripMainMenu.ResumeLayout(false);
             this.mstripMainMenu.PerformLayout();
             this.scEditArea.Panel1.ResumeLayout(false);
