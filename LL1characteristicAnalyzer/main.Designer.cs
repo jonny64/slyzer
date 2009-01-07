@@ -45,6 +45,7 @@
             this.splitContainerMain = new System.Windows.Forms.SplitContainer();
             this.tbGrammar = new System.Windows.Forms.TextBox();
             this.tbOutput = new System.Windows.Forms.TextBox();
+            this.clearOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStripMain.SuspendLayout();
             this.splitContainerMain.Panel1.SuspendLayout();
             this.splitContainerMain.Panel2.SuspendLayout();
@@ -68,6 +69,7 @@
             this.файлToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.Open,
             this.saveToolStripMenuItem,
+            this.clearOutputToolStripMenuItem,
             this.выходToolStripMenuItem});
             this.файлToolStripMenuItem.Name = "файлToolStripMenuItem";
             this.файлToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
@@ -76,21 +78,21 @@
             // Open
             // 
             this.Open.Name = "Open";
-            this.Open.Size = new System.Drawing.Size(161, 22);
+            this.Open.Size = new System.Drawing.Size(197, 22);
             this.Open.Text = "Открыть";
             this.Open.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.saveToolStripMenuItem.Text = "Сохранить как";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.SaveToolStripMenuItem_Click);
             // 
             // выходToolStripMenuItem
             // 
             this.выходToolStripMenuItem.Name = "выходToolStripMenuItem";
-            this.выходToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.выходToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.выходToolStripMenuItem.Text = "Выход";
             this.выходToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -172,6 +174,7 @@
             this.tbGrammar.Location = new System.Drawing.Point(0, 0);
             this.tbGrammar.Multiline = true;
             this.tbGrammar.Name = "tbGrammar";
+            this.tbGrammar.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.tbGrammar.Size = new System.Drawing.Size(295, 403);
             this.tbGrammar.TabIndex = 0;
             // 
@@ -186,6 +189,13 @@
             this.tbOutput.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.tbOutput.Size = new System.Drawing.Size(410, 403);
             this.tbOutput.TabIndex = 11;
+            // 
+            // clearOutputToolStripMenuItem
+            // 
+            this.clearOutputToolStripMenuItem.Name = "clearOutputToolStripMenuItem";
+            this.clearOutputToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.clearOutputToolStripMenuItem.Text = "Очистить окно выода";
+            this.clearOutputToolStripMenuItem.Click += new System.EventHandler(this.clearOutputToolStripMenuItem_Click);
             // 
             // main
             // 
@@ -227,6 +237,7 @@
         private System.Windows.Forms.TextBox tbOutput;
         private System.Windows.Forms.ToolStripMenuItem LL1tableForCsharp;
         private System.Windows.Forms.TextBox tbGrammar;
+        private System.Windows.Forms.ToolStripMenuItem clearOutputToolStripMenuItem;
     }
 }
 

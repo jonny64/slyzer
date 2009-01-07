@@ -123,7 +123,13 @@ namespace LL1AnalyzerTool
         {
             string[] productions = GetProductions();
             ParsTable parseTable = new ParsTable(new Grammar(productions));
+            tbOutput.AppendText("\r\n\r\n");
             tbOutput.AppendText(parseTable.ToCsharpSyntaxAnalyzerTable());
+        }
+
+        private void clearOutputToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            tbOutput.Clear();
         }
     }
 }

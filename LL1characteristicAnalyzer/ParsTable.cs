@@ -11,6 +11,15 @@ namespace LL1AnalyzerTool
         public int jump;
         public bool stack;
         public Set terminals;
+        public TableRow(Set _terms, int _jump, bool _accept, bool _stack, bool _error)
+        {
+            terminals = _terms;
+            jump = _jump;
+            accept = _accept;
+            stack = _stack;
+            error = _error;
+            dbgMsg = "";
+        }
         public override string ToString()
         {
             return terminals + dbgMsg;
@@ -31,6 +40,11 @@ namespace LL1AnalyzerTool
         {
             m_grammar = grammar;
             BuildTable();
+        }
+
+        public ParsTable(TableRow[] rows)
+        {
+            m_table = rows;
         }
 
         public TableRow this[int i]

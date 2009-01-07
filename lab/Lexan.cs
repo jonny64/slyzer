@@ -189,8 +189,8 @@ namespace lab
                 int tokenLength = 1;
                 switch (program[m_expansionIndex])
                 {
-                    case '.': 
-                        if (program[m_expansionIndex + 1] == '.')
+                    case '.':
+                        if ((m_expansionIndex + 1 < program.Length) && (program[m_expansionIndex + 1] == '.'))
                         {
                             tokenType = TokenType.TWO_POINTS;
                             tokenLength = 2;
