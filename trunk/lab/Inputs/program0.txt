@@ -1,4 +1,4 @@
 program test(file1.txt, file2.txt);
 begin
   x := 5
-end
+end.

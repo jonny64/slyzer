@@ -1,4 +1,4 @@
-S HEADER BLOCK
+S HEADER BLOCK point
 HEADER program identifier left_parenthesis FILENAME FILENAME_TAIL right_parenthesis semicolon
 FILENAME_TAIL comma FILENAME
 FILENAME_TAIL #
