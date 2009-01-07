@@ -1,15 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Font Name="Tahoma" Size="8.25" />
+  <Comment CommentText="Таблица разбора.&#xD;&#xA;Класс предназначен для построения LL1 таблицы разбора по заданной (переданной как параметр конструктора) грамматике&#xD;&#xA;Доступ осуществляется через перегруженный оператор индексирования, (как к массиву)">
+    <Position X="0.665" Y="0.5" Height="1.74" Width="1.529" />
+  </Comment>
+  <Comment CommentText="Символ&#xD;&#xA;Представление одного символа грамматики, заданного алфавитно-цифровой строкой.&#xD;&#xA;В этом классе инкапсулированы правила отнесения символа к тому или иному классу (терминалов, нетерминалов, начального символа грамматики, epsilon).">
+    <Position X="2.5" Y="0.5" Height="1.789" Width="1.78" />
+  </Comment>
+  <Comment CommentText="Грамматика.&#xD;&#xA;Назначение класса - представление грамматики как множества продукций. Принадлежность к  классу LL1 грамматик определяется свойством LL1 (empty, first, follow определяются еще в конструкторе)">
+    <Position X="4.546" Y="0.537" Height="1.679" Width="1.56" />
+  </Comment>
+  <Comment CommentText="Продукция.&#xD;&#xA;Представление продукции грамматики как связанного списка символов.">
+    <Position X="6.25" Y="1.41" Height="0.836" Width="1.56" />
+  </Comment>
+  <Comment CommentText="Множество.&#xD;&#xA;Класс обеспечивает представление и элементарные операции (добавление, удаление, определение принадлежности, пересечение... ) множества любых объектов.">
+    <Position X="8.113" Y="0.56" Height="1.642" Width="1.56" />
+  </Comment>
   <Class Name="LL1AnalyzerTool.Grammar">
-    <Position X="6.5" Y="0.75" Width="1.5" />
+    <Position X="4.5" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>Grammar.cs</FileName>
-      <HashCode>gAFAIQAmABAEEwAAiAIRAABAZASggACAAAAIBQAQECE=</HashCode>
+      <HashCode>gAFAIQAmBBAEEwAACAIRAABAZASggACAAAAIBQAQEDE=</HashCode>
     </TypeIdentifier>
-    <Compartments>
-      <Compartment Name="Methods" Collapsed="true" />
-    </Compartments>
     <NestedTypes>
       <Enum Name="LL1AnalyzerTool.Grammar.EmptyState" Collapsed="true">
         <TypeIdentifier>
@@ -19,22 +31,25 @@
     </NestedTypes>
   </Class>
   <Class Name="LL1AnalyzerTool.Symbol">
-    <Position X="4.75" Y="0.75" Width="1.5" />
+    <Position X="2.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>Symbol.cs</FileName>
-      <HashCode>AAAAAAAAAAAQBAQEgAAAAAAAAAERAIAACAAAAAEAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAQBAQEgAAAAAAAAAERAIAACAAAAAEAAiA=</HashCode>
     </TypeIdentifier>
+    <Members>
+      <Property Name="TERMINATOR" Hidden="true" />
+    </Members>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="LL1AnalyzerTool.ParsTable">
-    <Position X="0.75" Y="0.75" Width="1.5" />
+    <Position X="0.75" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>ParsTable.cs</FileName>
       <HashCode>IEAgAAAAAAAIAAAEmAAAAABBCAgAQAAAAAAQAAACAAA=</HashCode>
     </TypeIdentifier>
   </Class>
   <Class Name="LL1AnalyzerTool.Set">
-    <Position X="10.25" Y="0.75" Width="1.5" />
+    <Position X="8.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>Set.cs</FileName>
       <HashCode>ABIAAAAAIACAABAE6AegFkYAAAAAAIAAAAAAAEBQJyA=</HashCode>
@@ -49,7 +64,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="LL1AnalyzerTool.Production">
-    <Position X="8.25" Y="0.75" Width="1.5" />
+    <Position X="6.25" Y="2.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>Production.cs</FileName>
       <HashCode>AAAMCIgAAAQAAIQEAADABABAAAAQgAoACABCABAAABA=</HashCode>
@@ -57,10 +72,10 @@
     <Lollipop Position="0.2" />
   </Class>
   <Struct Name="LL1AnalyzerTool.TableRow">
-    <Position X="2.75" Y="0.75" Width="1.5" />
+    <Position X="0.75" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <FileName>ParsTable.cs</FileName>
-      <HashCode>AAACAACAAAAAAAAAAAUAAAAAAAAAAIAAQAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAACAAAAAAAAEAAUAAAAAAAAAAIEAAAAAAAAAAAA=</HashCode>
     </TypeIdentifier>
   </Struct>
 </ClassDiagram>
