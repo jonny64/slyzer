@@ -240,7 +240,8 @@ new TableRow(new Set(new Symbol("begin"), new Symbol("identifier")),  166,  fals
                 if (row.terminals.Contains(sym))
                 {
                     la = row.accept;
-                    if (row.jump == ParsTable.JUMP_FINISH) //return
+                    // if (return == true)...
+                    if (row.jump == ParsTable.JUMP_FINISH)
                     {
                         i = S.Pop();
                     }
@@ -256,7 +257,7 @@ new TableRow(new Set(new Symbol("begin"), new Symbol("identifier")),  166,  fals
                     if (row.error)
                     {
                         ErrorMessage = GetErrMsg(i, sym);
-                        return false;//проверка неуспешна
+                        return false; //проверка неуспешна
                     }
                     else
                     {
@@ -271,6 +272,7 @@ new TableRow(new Set(new Symbol("begin"), new Symbol("identifier")),  166,  fals
             if ((sym == Symbol.TERMINATOR) && (S.Count == 0))
                 return true;
 
+            // проверка неуспешна
             if (S.Count != 0)
             {
                 ErrorMessage = GetErrMsg(i, sym);
@@ -281,14 +283,13 @@ new TableRow(new Set(new Symbol("begin"), new Symbol("identifier")),  166,  fals
             return false;
         }
 
-        //выбрасывает сообщение об ошибке, произошедшей при разборе по строке i
+        // формирует сообщение об ошибке, произошедшей при разборе по строке errRow
         private string GetErrMsg(int errRow, Symbol sym)
         {
-            //throw new Exception("The method or operation is not implemented.");
-            //предполагаемые символы
+            // ожидали символ из множества terminals текущей строки таблицы разбора
             Set suggestedSyms = m_parsTable[errRow].terminals;
-            //движемся вниз (по альтернативным продукциям, если они были)
-            //и добавляем их terminals
+            // движемся вниз (по альтернативным продукциям, если они были)
+            // и добавляем их в ожидаемые
             for (int row = errRow - 1; row > -1; row--)
             {
                 if (!m_parsTable[row].error)
