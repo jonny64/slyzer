@@ -8,7 +8,7 @@ using System.Windows.Forms;
 using System.IO;
 using LL1AnalyzerTool;
 
-namespace lab
+namespace LL1Parser
 {
     public partial class frmMain : Form
     {

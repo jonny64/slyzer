@@ -1,3 +1,0 @@
-record
-field1:boolean;
-end

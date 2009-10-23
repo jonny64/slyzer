@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Text;
 
-namespace lab
+namespace LL1Parser
 {
 
     class IdentifierTable

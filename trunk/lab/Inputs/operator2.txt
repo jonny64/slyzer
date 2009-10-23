@@ -1,8 +1,0 @@
-begin
-  a:=5+3*3*8;
-  if b>0 then
-  begin
-    a:=f;
-    f:=5
-  end
-end
