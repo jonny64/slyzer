@@ -1,0 +1,4 @@
+record
+field1, field5:boolean;
+field3,field4:integer
+end

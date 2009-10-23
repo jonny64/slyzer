@@ -1,0 +1,114 @@
+﻿<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3C64D5A2-184E-4D92-8B8E-1CBEE7935BC8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>LL1ParserTests</RootNamespace>
+    <AssemblyName>LL1ParserTests</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LL1AnalyzerTest.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AuthoringTests.txt" />
+    <EmbeddedResource Include="Resources\Inputs\record9.txt" />
+    <EmbeddedResource Include="Resources\Inputs\record8.txt" />
+    <EmbeddedResource Include="Resources\Inputs\record7.txt" />
+    <EmbeddedResource Include="Resources\Inputs\record6.txt" />
+    <EmbeddedResource Include="Resources\Inputs\record5.txt" />
+    <EmbeddedResource Include="Resources\Inputs\record4.txt" />
+    <EmbeddedResource Include="Resources\Inputs\record3.txt" />
+    <EmbeddedResource Include="Resources\Inputs\record2.txt" />
+    <EmbeddedResource Include="Resources\Inputs\record1.txt" />
+    <EmbeddedResource Include="Resources\Inputs\record0.txt" />
+    <EmbeddedResource Include="Resources\Inputs\program2.txt" />
+    <EmbeddedResource Include="Resources\Inputs\program1.txt" />
+    <EmbeddedResource Include="Resources\Inputs\program0.txt" />
+    <EmbeddedResource Include="Resources\Inputs\operator6.txt" />
+    <EmbeddedResource Include="Resources\Inputs\operator5.txt" />
+    <EmbeddedResource Include="Resources\Inputs\operator4.txt" />
+    <EmbeddedResource Include="Resources\Inputs\operator3.txt" />
+    <EmbeddedResource Include="Resources\Inputs\operator2.txt" />
+    <EmbeddedResource Include="Resources\Inputs\operator1.txt" />
+    <EmbeddedResource Include="Resources\Inputs\operator0.txt" />
+    <EmbeddedResource Include="Resources\Inputs\expr6.txt" />
+    <EmbeddedResource Include="Resources\Inputs\expr5.txt" />
+    <EmbeddedResource Include="Resources\Inputs\expr4.txt" />
+    <EmbeddedResource Include="Resources\Inputs\expr3.txt" />
+    <EmbeddedResource Include="Resources\Inputs\expr2.txt" />
+    <EmbeddedResource Include="Resources\Inputs\expr1.txt" />
+    <EmbeddedResource Include="Resources\Inputs\expr0.txt" />
+    <EmbeddedResource Include="Resources\Grammars\var.txt" />
+    <EmbeddedResource Include="Resources\Grammars\type.txt" />
+    <EmbeddedResource Include="Resources\Grammars\record.txt" />
+    <EmbeddedResource Include="Resources\Grammars\program.txt" />
+    <EmbeddedResource Include="Resources\Grammars\operator.txt" />
+    <EmbeddedResource Include="Resources\Grammars\expression.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\LL1AnalyzerTool\LL1AnalyzerTool.csproj">
+      <Project>{D9B0AC6A-05F7-4BCA-BB29-264FB4E7D95C}</Project>
+      <Name>LL1AnalyzerTool</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LL1Parser\LL1Parser.csproj">
+      <Project>{8ABC320C-F486-4665-9C06-5B465F268DAB}</Project>
+      <Name>LL1Parser</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

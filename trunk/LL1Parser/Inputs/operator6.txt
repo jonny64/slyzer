@@ -1,0 +1,11 @@
+﻿begin
+  if s+e>5 then 
+  begin
+    f:=9;
+    r:=s - t
+  end;
+
+  begin
+    d:=8+9*s*t
+  end
+end
