@@ -7,14 +7,15 @@ namespace LL1AnalyzerTool
         public const string EPSILON_STRING = "#";
         public const string TERMINATOR_STRING = "terminator";
         private readonly string representation;
-        public bool Terminator
-        {
-            get{ return representation == TERMINATOR_STRING;}
-        }
 
         public Symbol(string representation)
         {
             this.representation = representation;
+        }
+
+        public bool Terminator
+        {
+            get { return representation == TERMINATOR_STRING; }
         }
 
         // terminal identification rule
@@ -32,6 +33,11 @@ namespace LL1AnalyzerTool
             get { return representation == EPSILON_STRING; }
         }
 
+        public static Symbol TERMINATOR
+        {
+            get { return new Symbol(TERMINATOR_STRING); }
+        }
+
         #region IComparable Members
 
         public int CompareTo(object obj)
@@ -39,7 +45,7 @@ namespace LL1AnalyzerTool
             if (obj.GetType() != GetType())
                 throw new NotImplementedException();
 
-            Symbol rhs = (Symbol) obj;
+            var rhs = (Symbol) obj;
             if (rhs.representation == representation)
                 return 0;
 
@@ -81,11 +87,6 @@ namespace LL1AnalyzerTool
                 sum += representation[i];
             }
             return sum;
-        }
-
-        public static Symbol TERMINATOR
-        {
-            get { return new Symbol(TERMINATOR_STRING); }
         }
     }
 }

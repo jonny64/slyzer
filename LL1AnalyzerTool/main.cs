@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
@@ -16,14 +15,14 @@ namespace LL1AnalyzerTool
         private void BuildAnalysisTable(object sender, EventArgs e)
         {
             string[] productions = GetProductions();
-            ParsTable parseTable = new ParsTable(new Grammar(productions));
+            var parseTable = new ParsTable(new Grammar(productions));
             tbOutput.AppendText(parseTable.ToString());
         }
 
         private void ViewDirectionSymbols(object sender, EventArgs e)
         {
             string[] productions = GetProductions();
-            Grammar myGrammar = new Grammar(productions);
+            var myGrammar = new Grammar(productions);
 
             tbOutput.Clear();
 
@@ -65,7 +64,7 @@ namespace LL1AnalyzerTool
                     Stream s;
                     if ((s = openFileDialogGrammar.OpenFile()) != null)
                     {
-                        using (StreamReader sr = new StreamReader(s, Encoding.UTF8))
+                        using (var sr = new StreamReader(s, Encoding.UTF8))
                         {
                             // Insert code to read the stream here.
                             tbGrammar.Text = sr.ReadToEnd();
@@ -93,7 +92,7 @@ namespace LL1AnalyzerTool
                     Stream s;
                     if ((s = saveFileDialogGrammar.OpenFile()) != null)
                     {
-                        using (StreamWriter sw = new StreamWriter(s, Encoding.UTF8))
+                        using (var sw = new StreamWriter(s, Encoding.UTF8))
                         {
                             string grammar = tbGrammar.Text;
                             sw.Write(grammar);
@@ -115,14 +114,14 @@ namespace LL1AnalyzerTool
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Анализатор LL(1)-свойств контекстно-свободных грамматик\n" +
-                            "Copyleft (l) 2008 Груздев М.", "О программе",
+                            "Copyleft (l) 2008", "О программе",
                             MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void LL1tableForCsharp_Click(object sender, EventArgs e)
         {
             string[] productions = GetProductions();
-            ParsTable parseTable = new ParsTable(new Grammar(productions));
+            var parseTable = new ParsTable(new Grammar(productions));
             tbOutput.AppendText("\r\n\r\n");
             tbOutput.AppendText(parseTable.ToCsharpSyntaxAnalyzerTable());
         }

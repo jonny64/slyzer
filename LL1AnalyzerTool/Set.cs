@@ -317,7 +317,7 @@ namespace LL1AnalyzerTool
         /// <returns>a Set of subsets of the this Set.</returns>
         public Set Subsets()
         {
-            Set newset = new Set();
+            var newset = new Set();
             for (int i = 1; i <= Count; i++)
                 newset.Add(Subsets(i).ToArray());
             return newset;
@@ -341,8 +341,8 @@ namespace LL1AnalyzerTool
                 //is the superset.
             else if (difference == 0)
             {
-                Set s = new Set(myset);
-                Set t = new Set();
+                var s = new Set(myset);
+                var t = new Set();
                 t.Add(s);
                 return t;
             }
@@ -350,7 +350,7 @@ namespace LL1AnalyzerTool
                 //each element a set.
             else if (count == 1)
             {
-                ArrayList oneset = new ArrayList();
+                var oneset = new ArrayList();
                 foreach (object o in myset)
                     oneset.Add(new Set(o));
                 return new Set(oneset.ToArray());
@@ -360,7 +360,7 @@ namespace LL1AnalyzerTool
                 //each subset is missing one unique element from the superset.
             else
             {
-                ArrayList subset = new ArrayList();
+                var subset = new ArrayList();
                 Set objectset, newset;
                 foreach (object o in myset)
                 {
@@ -377,7 +377,7 @@ namespace LL1AnalyzerTool
                     //Recursive:
                 else
                 {
-                    Set recurse = new Set();
+                    var recurse = new Set();
                     foreach (Set s in subset)
                     {
                         Set newsubset = s.Subsets(count);
@@ -413,8 +413,8 @@ namespace LL1AnalyzerTool
         /// <returns>A new Set with Mapped values.</returns>
         public Set MapToSet(Set s, Map m)
         {
-            Set newset = new Set();
-            object[] array = new Object[s.Count];
+            var newset = new Set();
+            var array = new Object[s.Count];
             int i = 0;
             foreach (object o in s)
                 array[i++] = m(o);
@@ -430,7 +430,7 @@ namespace LL1AnalyzerTool
         /// <returns>the union of Sets S and T (S V T).</returns>
         public static Set operator +(Set lhs, Set rhs)
         {
-            Set newset = new Set();
+            var newset = new Set();
             newset.Add(lhs.ToArray());
             newset.Add(rhs.ToArray());
             return newset;
@@ -444,10 +444,10 @@ namespace LL1AnalyzerTool
         /// <returns>the intersection of Sets S and T (S ^ T).</returns>
         public static Set operator *(Set lhs, Set rhs)
         {
-            Set newset = new Set();
+            var newset = new Set();
             Set smaller = lhs.Count > rhs.Count ? rhs : lhs;
             Set larger = smaller == lhs ? rhs : lhs;
-            object[] array = new object[smaller.Count];
+            var array = new object[smaller.Count];
             int i = 0;
             foreach (object o in smaller)
                 if (larger.Contains(o))
@@ -467,7 +467,7 @@ namespace LL1AnalyzerTool
         /// elements of Set T (S - T).</returns>
         public static Set operator -(Set lhs, Set rhs)
         {
-            Set newset = new Set(lhs.ToArray());
+            var newset = new Set(lhs.ToArray());
             newset.Remove(rhs.ToArray());
             return newset;
         }
@@ -499,7 +499,7 @@ namespace LL1AnalyzerTool
         /// <returns>a Set representing the cross product of two Sets.</returns>
         public Set CrossProduct(Set s)
         {
-            Set newset = new Set();
+            var newset = new Set();
             foreach (object o in myset)
                 foreach (object p in s)
                     newset.Add(new Set(o, p));
