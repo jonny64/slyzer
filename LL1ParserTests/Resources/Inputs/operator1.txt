@@ -1,0 +1,4 @@
+operator1.txt
+begin
+var f:=4*5+2
+end
