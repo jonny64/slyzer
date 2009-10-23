@@ -1,0 +1,3 @@
+field1:boolean;
+field3,field4:integer
+end
