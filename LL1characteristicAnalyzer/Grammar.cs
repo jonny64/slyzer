@@ -5,6 +5,26 @@ using System.IO;
 
 namespace LL1AnalyzerTool
 {
+    /// <summary>
+    /// since input files are linked in as resources in the test assembly
+    /// this is a way to pull them out
+    /// </summary>
+    public static class ResLoader
+    {
+        public static string AsString<T>(string resName)
+        {
+            using (var reader = GetReader<T>(resName) )
+            {
+                return reader.ReadToEnd();
+            }
+        }
+        public static StreamReader GetReader<T>(string resName)
+        {
+            return new StreamReader(Assembly.GetAssembly(typeof(T))
+                                   .GetManifestResourceStream(resName));
+        }
+    }
+
     public class Grammar
     {
         // FIRST and FOLLOW relations matrices
@@ -526,11 +546,16 @@ namespace LL1AnalyzerTool
         {
             StreamReader sr = new StreamReader(filename);
 
+            return LoadFromStream(sr);
+        }
+
+        public static Grammar LoadFromStream(StreamReader sr)
+        {
             List<string> productions = new List<string>();
             while (sr.Peek() != -1)
             {
                 string line = sr.ReadLine();
-                if ((line.Length==0) || (line[0] == ';') || (line == "\n"))
+                if ((line.Length == 0) || (line[0] == ';') || (line == "\n"))
                 {
                     continue;
                 }
@@ -538,7 +563,6 @@ namespace LL1AnalyzerTool
             }
             Grammar result = new Grammar(productions.ToArray());
             return result;
-            ;
         }
 
         public Set GetDirectSymbols(Production production)
