@@ -1,0 +1,16 @@
+program test(test.pro);
+
+type 
+tpoint = record
+  x,y: integer
+end;
+trange = integer;
+
+var x, y:integer;
+  z, t:boolean;
+  
+begin
+  x := 5;
+  y:=7
+  
+end.

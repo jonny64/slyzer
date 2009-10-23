@@ -1,0 +1,12 @@
+S record BODY end
+BODY ROW TAIL
+TAIL semicolon ROW TAIL
+TAIL #
+ROW VARS colon TYPE
+VARS identifier REST
+REST comma identifier REST
+REST #
+TYPE char
+TYPE integer
+TYPE real
+TYPE boolean

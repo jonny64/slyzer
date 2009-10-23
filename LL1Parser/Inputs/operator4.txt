@@ -1,0 +1,9 @@
+begin
+ a:=d and f;
+ if a>r then 
+ if b>t then
+ begin
+  s:=4;
+  n:=n/4
+ end
+end 
