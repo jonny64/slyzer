@@ -1,4 +1,4 @@
-﻿namespace lab
+﻿namespace LL1Parser
 {
     partial class frmMain
     {

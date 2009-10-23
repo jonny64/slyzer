@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace lab
+namespace LL1Parser
 {
     static class Program
     {

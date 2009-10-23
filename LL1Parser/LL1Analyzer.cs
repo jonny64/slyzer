@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using LL1AnalyzerTool;
-namespace lab
+namespace LL1Parser
 {
     class LL1Analyzer
     {

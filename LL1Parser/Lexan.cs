@@ -3,12 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace lab
+namespace LL1Parser
 {
     // error types
     enum Error { UNKNOWN_SYMBOL };
 
-    class Lexan : lab.AnalysisStage
+    class Lexan : LL1Parser.AnalysisStage
     {
         public string program;  //ссылка на строку обрабатываемого выражения
         private int m_baseIndex;      // token start pos in input
