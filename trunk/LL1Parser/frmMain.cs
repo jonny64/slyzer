@@ -1,12 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+using System.IO;
 using System.Text;
 using System.Windows.Forms;
-using System.IO;
-using LL1AnalyzerTool;
 
 namespace LL1Parser
 {
@@ -16,14 +11,15 @@ namespace LL1Parser
         {
             InitializeComponent();
         }
+
         public void Exit(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
 
         public void StartLexicalAnalysis(object sender, EventArgs e)
         {
-            Lexan myParser = new Lexan(tbInput.Text);
+            var myParser = new Lexan(tbInput.Text);
             rtbOutput.Clear();
             Token token;
             while ((token = myParser.GetToken()).type != AnalysisStage.TokenType.TERMINATOR)
@@ -44,7 +40,7 @@ namespace LL1Parser
                     Stream s;
                     if ((s = saveFileDialogInput.OpenFile()) != null)
                     {
-                        using (StreamWriter sw = new StreamWriter(s, Encoding.UTF8))
+                        using (var sw = new StreamWriter(s, Encoding.UTF8))
                         {
                             sw.Write(tbInput.Text);
                         }
@@ -52,7 +48,7 @@ namespace LL1Parser
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Не могу записать файл: " + ex.Message);
+                    MessageBox.Show("Cannot write file: " + ex.Message);
                 }
             }
         }
@@ -66,7 +62,7 @@ namespace LL1Parser
                     Stream s;
                     if ((s = openFileDialogInput.OpenFile()) != null)
                     {
-                        using (StreamReader sr = new StreamReader(s, Encoding.UTF8))
+                        using (var sr = new StreamReader(s, Encoding.UTF8))
                         {
                             // Insert code to read the stream here.
                             tbInput.Text = sr.ReadToEnd();
@@ -94,16 +90,14 @@ namespace LL1Parser
         {
             listBoxMsg.Items.Clear();
             listBoxMsg.Items.Add("Поехали...");
-            LL1Analyzer myAnalyzer = new LL1Analyzer();
+            var myAnalyzer = new LL1Analyzer();
             if (myAnalyzer.Check(tbInput.Text))
             {
-                //MessageBox.Show("Все правильно");
-                listBoxMsg.Items.Add("Синтаксис в порядке");
+                listBoxMsg.Items.Add("Syntax is OK");
             }
             else
             {
-                //listBoxMsg.MessageBox.Show("Ошибка: "+myAnalyzer.errMsg);
-                listBoxMsg.Items.Add("Ошибка: " + myAnalyzer.ErrorMessage);
+                listBoxMsg.Items.Add("Error: " + myAnalyzer.ErrorMessage);
             }
         }
 
@@ -116,7 +110,5 @@ namespace LL1Parser
         {
             SaveFile();
         }
-
-
     }
 }

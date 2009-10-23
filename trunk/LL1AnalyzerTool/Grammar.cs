@@ -363,7 +363,7 @@ namespace LL1AnalyzerTool
             int grammarSymsCount = GetGrammarSymbols().Count;
             m_first = new bool[grammarSymsCount,grammarSymsCount];
 
-            //вычисление отношения начинается_прямо_с
+            // computation relations start_exactly_from
             foreach (Production prod in Productions)
             {
                 for (int i = 0; i < prod.Tail.Count; i++)
@@ -375,17 +375,17 @@ namespace LL1AnalyzerTool
                     }
                 }
             }
-            //вычисление рефлексивноого замыкания отношения начинается_прямо_с
+            // 	reflexive closure of start_exactly_from computation
             Set grammarSyms = GetGrammarSymbols();
             foreach (Symbol sym in grammarSyms)
             {
                 SetFirst(sym, sym, true);
             }
-            //вычисление транзитивного замыкания отношения начинается_прямо_с
+            // transitive closure of start_exactly_from computation
             m_first = Transitive(m_first);
         }
 
-        //вычисляет транзитивное замыкание матрицы с помощью алгоритма Уоршелла
+        // transitive closure computation using Warshall algorythm
         private bool[,] Transitive(bool[,] m)
         {
             bool[,] w = m;
@@ -425,12 +425,12 @@ namespace LL1AnalyzerTool
 
         private void CreateFollowRelationTable()
         {
-            //строим отношение прямо_перед
+            // right_before closure relation
             bool[,] straightBefore = GetStraightBeforeRelation();
-            //строим отношение прямо_на_конце
+            // right_at_the_end closure relation
             bool[,] straightAtTheEnd = GetStraightAtTheEndRelation();
 
-            //вычислим отношение на_конце как рефлексивно-транзитивное замыкание прямо_на_конце
+            // at_the_end is reflexive-transitive closure of right_at_the_end relation
             bool[,] atTheEnd = straightAtTheEnd;
             Set grammarSyms = GetGrammarSymbols();
             foreach (Symbol sym in grammarSyms)
@@ -438,8 +438,7 @@ namespace LL1AnalyzerTool
                 atTheEnd[GetSymIndex(sym), GetSymIndex(sym)] = true;
             }
             atTheEnd = Transitive(atTheEnd);
-            //вычислим отношение перед как произведение отношений
-            //на_конце * прямо_перед * начинается_с
+            // 'before' relation is
             m_follow = Multiply(atTheEnd, straightBefore);
             m_follow = Multiply(m_follow, m_first);
         }
@@ -449,7 +448,7 @@ namespace LL1AnalyzerTool
             int size = GetGrammarSymbols().Count;
             bool[,] straightAtTheEnd = new bool[size,size];
             // A GetStraightAtTheEnd B if exists production
-            // B > alpha A beta, where beta is eps gen
+            // B > alpha A beta, where beta is epsilon generating
             foreach (Production production in Productions)
             {
                 for (int aIndex = 0; aIndex < production.Tail.Count; aIndex++)

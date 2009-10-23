@@ -1,43 +1,26 @@
-﻿using LL1AnalyzerTool;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Collections;
-using System;
-using System.IO;
+﻿using System;
 using System.Collections.Generic;
-using System.Reflection;
-using System.Resources;
-using LL1AnalyzerTests.Properties;
+using System.IO;
+using LL1AnalyzerTool;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace LL1AnalyzerTests
-{   
+{
     /// <summary>
     ///This is a test class for SetTest and is intended
     ///to contain all SetTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestClass]
     public class DirectionSymsCalcTest
     {
-
-
-        private TestContext testContextInstance;
-
         /// <summary>
         ///Gets or sets the test context which provides
         ///information about and functionality for the current test run.
         ///</summary>
-        public TestContext TestContext
-        {
-            get
-            {
-                return testContextInstance;
-            }
-            set
-            {
-                testContextInstance = value;
-            }
-        }
+        public TestContext TestContext { get; set; }
 
         #region Additional test attributes
+
         // 
         //You can use the following additional attributes as you write your tests:
         //
@@ -65,8 +48,8 @@ namespace LL1AnalyzerTests
         //{
         //}
         //
-        #endregion
 
+        #endregion
 
         #region Setup/Teardown
 
@@ -76,34 +59,33 @@ namespace LL1AnalyzerTests
         public static void Init(TestContext testContext)
         {
             string[] productions = {
-                                               "S A B C",
-                                               "A D E",
-                                               "B F G",
-                                               "C #",
-                                               "D a",
-                                               "D #",
-                                               "E a a",
-                                               "E #",
-                                               "F H K",
-                                               "G b b",
-                                               "H c c",
-                                               "K d d"
-                                           };
+                                       "S A B C",
+                                       "A D E",
+                                       "B F G",
+                                       "C #",
+                                       "D a",
+                                       "D #",
+                                       "E a a",
+                                       "E #",
+                                       "F H K",
+                                       "G b b",
+                                       "H c c",
+                                       "K d d"
+                                   };
             grammar = new Grammar(productions);
         }
 
         #endregion
 
-
         private Set[] LoadDirectionSymsFromFile(string filename)
         {
-            StreamReader sr = new StreamReader(filename);
+            var sr = new StreamReader(filename);
             return LoadDirectionSymsFromStream(sr);
         }
 
         private static Set[] LoadDirectionSymsFromStream(StreamReader sr)
         {
-            List<Set> sets = new List<Set>();
+            var sets = new List<Set>();
             while (sr.Peek() != -1)
             {
                 string line = sr.ReadLine();
@@ -117,7 +99,7 @@ namespace LL1AnalyzerTests
                 }
 
                 string[] syms = line.Split(' ');
-                Set set = new Set();
+                var set = new Set();
                 foreach (string sym in syms)
                 {
                     set.Add(new Symbol(sym));
@@ -134,7 +116,8 @@ namespace LL1AnalyzerTests
             for (int grFile = 0; grFile < DIR_SYMS_TEST_COUNT; grFile++)
             {
                 string grammarResourceName = String.Format("LL1AnalyzerTests.Resources.Grammars.test{0}.txt", grFile + 1);
-                string dirSymsResourceName = String.Format("LL1AnalyzerTests.Resources.DirectionSets.set{0}.txt", grFile + 1);
+                string dirSymsResourceName = String.Format("LL1AnalyzerTests.Resources.DirectionSets.set{0}.txt",
+                                                           grFile + 1);
                 Grammar simpleGrammar = Grammar.LoadFromStream(
                     ResLoader.GetReader<DirectionSymsCalcTest>(grammarResourceName)
                     );
@@ -146,7 +129,7 @@ namespace LL1AnalyzerTests
                 {
                     Set actual =
                         simpleGrammar.GetDirectionSymbols(simpleGrammar[i]);
-                    Set difference = dirSyms[i] / actual;
+                    Set difference = dirSyms[i]/actual;
                     Assert.AreEqual(0, difference.Count,
                                     String.Format("Grammar {3}; Production {0}; actual set {1}; expected {2};",
                                                   simpleGrammar.GetProductionAt(i), actual, dirSymsResourceName,
@@ -165,29 +148,29 @@ namespace LL1AnalyzerTests
                 ResLoader.GetReader<DirectionSymsCalcTest>(dirSymsResourceName)
                 );
             Symbol[] syms = {
-                                        new Symbol("S"),
-                                        new Symbol("A"),
-                                        new Symbol("B"),
-                                        new Symbol("C"),
-                                        new Symbol("D"),
-                                        new Symbol("E"),
-                                        new Symbol("F"),
-                                        new Symbol("G"),
-                                        new Symbol("H"),
-                                        new Symbol("K")
-                                    };
+                                new Symbol("S"),
+                                new Symbol("A"),
+                                new Symbol("B"),
+                                new Symbol("C"),
+                                new Symbol("D"),
+                                new Symbol("E"),
+                                new Symbol("F"),
+                                new Symbol("G"),
+                                new Symbol("H"),
+                                new Symbol("K")
+                            };
             Grammar.EmptyState[] empty = {
-                                                     Grammar.EmptyState.NON_EMPTY,
-                                                     Grammar.EmptyState.EMPTY,
-                                                     Grammar.EmptyState.NON_EMPTY,
-                                                     Grammar.EmptyState.EMPTY,
-                                                     Grammar.EmptyState.EMPTY,
-                                                     Grammar.EmptyState.EMPTY,
-                                                     Grammar.EmptyState.NON_EMPTY,
-                                                     Grammar.EmptyState.NON_EMPTY,
-                                                     Grammar.EmptyState.NON_EMPTY,
-                                                     Grammar.EmptyState.NON_EMPTY,
-                                                 };
+                                             Grammar.EmptyState.NON_EMPTY,
+                                             Grammar.EmptyState.EMPTY,
+                                             Grammar.EmptyState.NON_EMPTY,
+                                             Grammar.EmptyState.EMPTY,
+                                             Grammar.EmptyState.EMPTY,
+                                             Grammar.EmptyState.EMPTY,
+                                             Grammar.EmptyState.NON_EMPTY,
+                                             Grammar.EmptyState.NON_EMPTY,
+                                             Grammar.EmptyState.NON_EMPTY,
+                                             Grammar.EmptyState.NON_EMPTY,
+                                         };
             for (int i = 0; i < syms.Length; i++)
             {
                 Grammar.EmptyState actual = grammar.GetEmptyHashtable()[syms[i]];
@@ -199,35 +182,35 @@ namespace LL1AnalyzerTests
         public void FirstSet()
         {
             Symbol[] syms = {
-                                        new Symbol("S"),
-                                        new Symbol("A"),
-                                        new Symbol("B"),
-                                        new Symbol("C"),
-                                        new Symbol("D"),
-                                        new Symbol("E"),
-                                        new Symbol("F"),
-                                        new Symbol("G"),
-                                        new Symbol("H"),
-                                        new Symbol("K")
-                                    };
+                                new Symbol("S"),
+                                new Symbol("A"),
+                                new Symbol("B"),
+                                new Symbol("C"),
+                                new Symbol("D"),
+                                new Symbol("E"),
+                                new Symbol("F"),
+                                new Symbol("G"),
+                                new Symbol("H"),
+                                new Symbol("K")
+                            };
             Set[] firsts = {
-                                       new Set(new Symbol("a"), new Symbol("c")),
-                                       new Set(new Symbol("a")),
-                                       new Set(new Symbol("c")),
-                                       new Set(),
-                                       new Set(new Symbol("a")),
-                                       new Set(new Symbol("a")),
-                                       new Set(new Symbol("c")),
-                                       new Set(new Symbol("b")),
-                                       new Set(new Symbol("c")),
-                                       new Set(new Symbol("d"))
-                                   };
+                               new Set(new Symbol("a"), new Symbol("c")),
+                               new Set(new Symbol("a")),
+                               new Set(new Symbol("c")),
+                               new Set(),
+                               new Set(new Symbol("a")),
+                               new Set(new Symbol("a")),
+                               new Set(new Symbol("c")),
+                               new Set(new Symbol("b")),
+                               new Set(new Symbol("c")),
+                               new Set(new Symbol("d"))
+                           };
             for (int i = 0; i < syms.Length; i++)
             {
                 Set actual = grammar.First(syms[i]);
-                Set difference = firsts[i] / actual;
+                Set difference = firsts[i]/actual;
                 Assert.AreEqual(
-                    0, 
+                    0,
                     difference.Count,
                     String.Format("Symbol: {0}, actual set: {1}, expected: {2}", syms[i], actual, firsts[i])
                     );
@@ -238,37 +221,35 @@ namespace LL1AnalyzerTests
         public void FollowSet()
         {
             Symbol[] syms = {
-                                        new Symbol("A"),
-                                        new Symbol("C"),
-                                        new Symbol("D"),
-                                        new Symbol("E"),
-                                        new Symbol("F"),
-                                        new Symbol("G"),
-                                        new Symbol("H"),
-                                        new Symbol("K")
-                                    };
+                                new Symbol("A"),
+                                new Symbol("C"),
+                                new Symbol("D"),
+                                new Symbol("E"),
+                                new Symbol("F"),
+                                new Symbol("G"),
+                                new Symbol("H"),
+                                new Symbol("K")
+                            };
             Set[] follows = {
-                                        new Set(new Symbol("c")),
-                                        new Set(Symbol.TERMINATOR),
-                                        new Set(new Symbol("a"), new Symbol("c")),
-                                        new Set(new Symbol("c")),
-                                        new Set(new Symbol("b")),
-                                        new Set(Symbol.TERMINATOR),
-                                        new Set(new Symbol("d")),
-                                        new Set(new Symbol("b"))
-                                    };
+                                new Set(new Symbol("c")),
+                                new Set(Symbol.TERMINATOR),
+                                new Set(new Symbol("a"), new Symbol("c")),
+                                new Set(new Symbol("c")),
+                                new Set(new Symbol("b")),
+                                new Set(Symbol.TERMINATOR),
+                                new Set(new Symbol("d")),
+                                new Set(new Symbol("b"))
+                            };
             for (int i = 0; i < syms.Length; i++)
             {
                 Set actual = grammar.Follow(syms[i]);
-                Set difference = follows[i] / actual;
+                Set difference = follows[i]/actual;
                 Assert.AreEqual(
-                    0, 
+                    0,
                     difference.Count,
                     String.Format("Symbol: {0}, actual set: {1}, expected: {2}", syms[i], actual, follows[i])
                     );
             }
         }
-
-
     }
 }
